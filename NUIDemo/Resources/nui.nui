@@ -1,0 +1,20 @@
+import "styles.nui"
+
+state hidden = {
+  label.hidden = YES
+}
+
+self = {
+  view <= {
+    backgroundColor = "00FF00"
+    subviews = [
+      UILabel:{
+        :id = label
+        :property = label2
+        :style = my_label
+        frame = [10, 10, 100, 100]
+        text = "AAA"
+      }
+    ]
+  }
+}

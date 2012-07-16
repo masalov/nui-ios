@@ -1,0 +1,8 @@
+const my_font = UIFont:{
+  size = 50
+}
+
+style my_label = UILabel:{
+  font = my_font
+  textColor = "00FF00"
+}

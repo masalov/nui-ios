@@ -1,0 +1,374 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BD2BC89C15B3C11B0074E9DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD2BC89B15B3C11B0074E9DF /* UIKit.framework */; };
+		BD8BD54215B025C7000B9B37 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD8BD54115B025C7000B9B37 /* Foundation.framework */; };
+		BD8BD56F15B026D2000B9B37 /* NUILoader+ObjectsLoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD54F15B026D2000B9B37 /* NUILoader+ObjectsLoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD57015B026D2000B9B37 /* NUILoader+ObjectsLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD55015B026D2000B9B37 /* NUILoader+ObjectsLoading.m */; };
+		BD8BD57115B026D2000B9B37 /* NUILoader+StructuresLoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD55115B026D2000B9B37 /* NUILoader+StructuresLoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD57215B026D2000B9B37 /* NUILoader+StructuresLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD55215B026D2000B9B37 /* NUILoader+StructuresLoading.m */; };
+		BD8BD57315B026D2000B9B37 /* UIButton+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD55315B026D2000B9B37 /* UIButton+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD57415B026D2000B9B37 /* UIButton+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD55415B026D2000B9B37 /* UIButton+NUILoading.m */; };
+		BD8BD57515B026D2000B9B37 /* UIControl+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD55515B026D2000B9B37 /* UIControl+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD57615B026D2000B9B37 /* UIControl+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD55615B026D2000B9B37 /* UIControl+NUILoading.m */; };
+		BD8BD57715B026D2000B9B37 /* UIFont+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD55715B026D2000B9B37 /* UIFont+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD57815B026D2000B9B37 /* UIFont+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD55815B026D2000B9B37 /* UIFont+NUILoading.m */; };
+		BD8BD57915B026D2000B9B37 /* UIImage+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD55915B026D2000B9B37 /* UIImage+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD57A15B026D2000B9B37 /* UIImage+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD55A15B026D2000B9B37 /* UIImage+NUILoading.m */; };
+		BD8BD57B15B026D2000B9B37 /* UILabel+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD55B15B026D2000B9B37 /* UILabel+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD57C15B026D2000B9B37 /* UILabel+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD55C15B026D2000B9B37 /* UILabel+NUILoading.m */; };
+		BD8BD57D15B026D2000B9B37 /* UIStringDrawing+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD55D15B026D2000B9B37 /* UIStringDrawing+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD57E15B026D2000B9B37 /* UIStringDrawing+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD55E15B026D2000B9B37 /* UIStringDrawing+NUILoading.m */; };
+		BD8BD57F15B026D2000B9B37 /* UITextField+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD55F15B026D2000B9B37 /* UITextField+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD58015B026D2000B9B37 /* UITextField+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD56015B026D2000B9B37 /* UITextField+NUILoading.m */; };
+		BD8BD58115B026D2000B9B37 /* UITextInputTraits+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD56115B026D2000B9B37 /* UITextInputTraits+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD58215B026D2000B9B37 /* UITextInputTraits+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD56215B026D2000B9B37 /* UITextInputTraits+NUILoading.m */; };
+		BD8BD58315B026D2000B9B37 /* UIView+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD56315B026D2000B9B37 /* UIView+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD58415B026D2000B9B37 /* UIView+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD56415B026D2000B9B37 /* UIView+NUILoading.m */; };
+		BD8BD58515B026D2000B9B37 /* NUIAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD56515B026D2000B9B37 /* NUIAnalyzer.h */; settings = {ATTRIBUTES = (); }; };
+		BD8BD58615B026D2000B9B37 /* NUIAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD56615B026D2000B9B37 /* NUIAnalyzer.m */; };
+		BD8BD58715B026D2000B9B37 /* NUIBinaryOperator.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD56715B026D2000B9B37 /* NUIBinaryOperator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD58815B026D2000B9B37 /* NUIBinaryOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD56815B026D2000B9B37 /* NUIBinaryOperator.m */; };
+		BD8BD58915B026D2000B9B37 /* NUIIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD56915B026D2000B9B37 /* NUIIdentifier.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD58A15B026D2000B9B37 /* NUIIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD56A15B026D2000B9B37 /* NUIIdentifier.m */; };
+		BD8BD58B15B026D2000B9B37 /* NUILoader.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD56B15B026D2000B9B37 /* NUILoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD58C15B026D2000B9B37 /* NUILoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD56C15B026D2000B9B37 /* NUILoader.m */; };
+		BD8BD58D15B026D2000B9B37 /* NUIObject.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD56D15B026D2000B9B37 /* NUIObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD58E15B026D2000B9B37 /* NUIObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD56E15B026D2000B9B37 /* NUIObject.m */; };
+		BD8BD59415B026D9000B9B37 /* nui_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD59115B026D9000B9B37 /* nui_utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD59515B026D9000B9B37 /* nui_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD59215B026D9000B9B37 /* nui_utils.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BD2BC89B15B3C11B0074E9DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		BD8BD53E15B025C7000B9B37 /* libNUILoader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNUILoader.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD8BD54115B025C7000B9B37 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BD8BD54F15B026D2000B9B37 /* NUILoader+ObjectsLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NUILoader+ObjectsLoading.h"; sourceTree = "<group>"; };
+		BD8BD55015B026D2000B9B37 /* NUILoader+ObjectsLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NUILoader+ObjectsLoading.m"; sourceTree = "<group>"; };
+		BD8BD55115B026D2000B9B37 /* NUILoader+StructuresLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NUILoader+StructuresLoading.h"; sourceTree = "<group>"; };
+		BD8BD55215B026D2000B9B37 /* NUILoader+StructuresLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NUILoader+StructuresLoading.m"; sourceTree = "<group>"; };
+		BD8BD55315B026D2000B9B37 /* UIButton+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+NUILoading.h"; sourceTree = "<group>"; };
+		BD8BD55415B026D2000B9B37 /* UIButton+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+NUILoading.m"; sourceTree = "<group>"; };
+		BD8BD55515B026D2000B9B37 /* UIControl+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+NUILoading.h"; sourceTree = "<group>"; };
+		BD8BD55615B026D2000B9B37 /* UIControl+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+NUILoading.m"; sourceTree = "<group>"; };
+		BD8BD55715B026D2000B9B37 /* UIFont+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+NUILoading.h"; sourceTree = "<group>"; };
+		BD8BD55815B026D2000B9B37 /* UIFont+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+NUILoading.m"; sourceTree = "<group>"; };
+		BD8BD55915B026D2000B9B37 /* UIImage+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NUILoading.h"; sourceTree = "<group>"; };
+		BD8BD55A15B026D2000B9B37 /* UIImage+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NUILoading.m"; sourceTree = "<group>"; };
+		BD8BD55B15B026D2000B9B37 /* UILabel+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+NUILoading.h"; sourceTree = "<group>"; };
+		BD8BD55C15B026D2000B9B37 /* UILabel+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+NUILoading.m"; sourceTree = "<group>"; };
+		BD8BD55D15B026D2000B9B37 /* UIStringDrawing+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStringDrawing+NUILoading.h"; sourceTree = "<group>"; };
+		BD8BD55E15B026D2000B9B37 /* UIStringDrawing+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStringDrawing+NUILoading.m"; sourceTree = "<group>"; };
+		BD8BD55F15B026D2000B9B37 /* UITextField+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+NUILoading.h"; sourceTree = "<group>"; };
+		BD8BD56015B026D2000B9B37 /* UITextField+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+NUILoading.m"; sourceTree = "<group>"; };
+		BD8BD56115B026D2000B9B37 /* UITextInputTraits+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextInputTraits+NUILoading.h"; sourceTree = "<group>"; };
+		BD8BD56215B026D2000B9B37 /* UITextInputTraits+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextInputTraits+NUILoading.m"; sourceTree = "<group>"; };
+		BD8BD56315B026D2000B9B37 /* UIView+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+NUILoading.h"; sourceTree = "<group>"; };
+		BD8BD56415B026D2000B9B37 /* UIView+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+NUILoading.m"; sourceTree = "<group>"; };
+		BD8BD56515B026D2000B9B37 /* NUIAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIAnalyzer.h; sourceTree = "<group>"; };
+		BD8BD56615B026D2000B9B37 /* NUIAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIAnalyzer.m; sourceTree = "<group>"; };
+		BD8BD56715B026D2000B9B37 /* NUIBinaryOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIBinaryOperator.h; sourceTree = "<group>"; };
+		BD8BD56815B026D2000B9B37 /* NUIBinaryOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIBinaryOperator.m; sourceTree = "<group>"; };
+		BD8BD56915B026D2000B9B37 /* NUIIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIIdentifier.h; sourceTree = "<group>"; };
+		BD8BD56A15B026D2000B9B37 /* NUIIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIIdentifier.m; sourceTree = "<group>"; };
+		BD8BD56B15B026D2000B9B37 /* NUILoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUILoader.h; sourceTree = "<group>"; };
+		BD8BD56C15B026D2000B9B37 /* NUILoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUILoader.m; sourceTree = "<group>"; };
+		BD8BD56D15B026D2000B9B37 /* NUIObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIObject.h; sourceTree = "<group>"; };
+		BD8BD56E15B026D2000B9B37 /* NUIObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIObject.m; sourceTree = "<group>"; };
+		BD8BD59115B026D9000B9B37 /* nui_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nui_utils.h; sourceTree = "<group>"; };
+		BD8BD59215B026D9000B9B37 /* nui_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nui_utils.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BD8BD53B15B025C7000B9B37 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD2BC89C15B3C11B0074E9DF /* UIKit.framework in Frameworks */,
+				BD8BD54215B025C7000B9B37 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BD8BD53315B025C7000B9B37 = {
+			isa = PBXGroup;
+			children = (
+				BD8BD58F15B026D9000B9B37 /* utils */,
+				BD8BD54315B025C7000B9B37 /* NUILoader */,
+				BD8BD54015B025C7000B9B37 /* Frameworks */,
+				BD8BD53F15B025C7000B9B37 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BD8BD53F15B025C7000B9B37 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BD8BD53E15B025C7000B9B37 /* libNUILoader.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BD8BD54015B025C7000B9B37 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BD2BC89B15B3C11B0074E9DF /* UIKit.framework */,
+				BD8BD54115B025C7000B9B37 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BD8BD54315B025C7000B9B37 /* NUILoader */ = {
+			isa = PBXGroup;
+			children = (
+				BD8BD54E15B026D2000B9B37 /* Categories */,
+				BD8BD56515B026D2000B9B37 /* NUIAnalyzer.h */,
+				BD8BD56615B026D2000B9B37 /* NUIAnalyzer.m */,
+				BD8BD56715B026D2000B9B37 /* NUIBinaryOperator.h */,
+				BD8BD56815B026D2000B9B37 /* NUIBinaryOperator.m */,
+				BD8BD56915B026D2000B9B37 /* NUIIdentifier.h */,
+				BD8BD56A15B026D2000B9B37 /* NUIIdentifier.m */,
+				BD8BD56B15B026D2000B9B37 /* NUILoader.h */,
+				BD8BD56C15B026D2000B9B37 /* NUILoader.m */,
+				BD8BD56D15B026D2000B9B37 /* NUIObject.h */,
+				BD8BD56E15B026D2000B9B37 /* NUIObject.m */,
+			);
+			path = NUILoader;
+			sourceTree = "<group>";
+		};
+		BD8BD54E15B026D2000B9B37 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				BD8BD54F15B026D2000B9B37 /* NUILoader+ObjectsLoading.h */,
+				BD8BD55015B026D2000B9B37 /* NUILoader+ObjectsLoading.m */,
+				BD8BD55115B026D2000B9B37 /* NUILoader+StructuresLoading.h */,
+				BD8BD55215B026D2000B9B37 /* NUILoader+StructuresLoading.m */,
+				BD8BD55315B026D2000B9B37 /* UIButton+NUILoading.h */,
+				BD8BD55415B026D2000B9B37 /* UIButton+NUILoading.m */,
+				BD8BD55515B026D2000B9B37 /* UIControl+NUILoading.h */,
+				BD8BD55615B026D2000B9B37 /* UIControl+NUILoading.m */,
+				BD8BD55715B026D2000B9B37 /* UIFont+NUILoading.h */,
+				BD8BD55815B026D2000B9B37 /* UIFont+NUILoading.m */,
+				BD8BD55915B026D2000B9B37 /* UIImage+NUILoading.h */,
+				BD8BD55A15B026D2000B9B37 /* UIImage+NUILoading.m */,
+				BD8BD55B15B026D2000B9B37 /* UILabel+NUILoading.h */,
+				BD8BD55C15B026D2000B9B37 /* UILabel+NUILoading.m */,
+				BD8BD55D15B026D2000B9B37 /* UIStringDrawing+NUILoading.h */,
+				BD8BD55E15B026D2000B9B37 /* UIStringDrawing+NUILoading.m */,
+				BD8BD55F15B026D2000B9B37 /* UITextField+NUILoading.h */,
+				BD8BD56015B026D2000B9B37 /* UITextField+NUILoading.m */,
+				BD8BD56115B026D2000B9B37 /* UITextInputTraits+NUILoading.h */,
+				BD8BD56215B026D2000B9B37 /* UITextInputTraits+NUILoading.m */,
+				BD8BD56315B026D2000B9B37 /* UIView+NUILoading.h */,
+				BD8BD56415B026D2000B9B37 /* UIView+NUILoading.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		BD8BD58F15B026D9000B9B37 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				BD8BD59115B026D9000B9B37 /* nui_utils.h */,
+				BD8BD59215B026D9000B9B37 /* nui_utils.m */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		BD8BD53C15B025C7000B9B37 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD8BD56F15B026D2000B9B37 /* NUILoader+ObjectsLoading.h in Headers */,
+				BD8BD57115B026D2000B9B37 /* NUILoader+StructuresLoading.h in Headers */,
+				BD8BD57315B026D2000B9B37 /* UIButton+NUILoading.h in Headers */,
+				BD8BD57515B026D2000B9B37 /* UIControl+NUILoading.h in Headers */,
+				BD8BD57715B026D2000B9B37 /* UIFont+NUILoading.h in Headers */,
+				BD8BD57915B026D2000B9B37 /* UIImage+NUILoading.h in Headers */,
+				BD8BD57B15B026D2000B9B37 /* UILabel+NUILoading.h in Headers */,
+				BD8BD57D15B026D2000B9B37 /* UIStringDrawing+NUILoading.h in Headers */,
+				BD8BD57F15B026D2000B9B37 /* UITextField+NUILoading.h in Headers */,
+				BD8BD58115B026D2000B9B37 /* UITextInputTraits+NUILoading.h in Headers */,
+				BD8BD58315B026D2000B9B37 /* UIView+NUILoading.h in Headers */,
+				BD8BD58715B026D2000B9B37 /* NUIBinaryOperator.h in Headers */,
+				BD8BD58915B026D2000B9B37 /* NUIIdentifier.h in Headers */,
+				BD8BD58B15B026D2000B9B37 /* NUILoader.h in Headers */,
+				BD8BD58D15B026D2000B9B37 /* NUIObject.h in Headers */,
+				BD8BD59415B026D9000B9B37 /* nui_utils.h in Headers */,
+				BD8BD58515B026D2000B9B37 /* NUIAnalyzer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		BD8BD53D15B025C7000B9B37 /* NUILoader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD8BD54B15B025C7000B9B37 /* Build configuration list for PBXNativeTarget "NUILoader" */;
+			buildPhases = (
+				BD8BD53A15B025C7000B9B37 /* Sources */,
+				BD8BD53B15B025C7000B9B37 /* Frameworks */,
+				BD8BD53C15B025C7000B9B37 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NUILoader;
+			productName = NUILoader;
+			productReference = BD8BD53E15B025C7000B9B37 /* libNUILoader.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BD8BD53515B025C7000B9B37 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = BD8BD53815B025C7000B9B37 /* Build configuration list for PBXProject "NUILoader" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = BD8BD53315B025C7000B9B37;
+			productRefGroup = BD8BD53F15B025C7000B9B37 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BD8BD53D15B025C7000B9B37 /* NUILoader */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BD8BD53A15B025C7000B9B37 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD8BD57015B026D2000B9B37 /* NUILoader+ObjectsLoading.m in Sources */,
+				BD8BD57215B026D2000B9B37 /* NUILoader+StructuresLoading.m in Sources */,
+				BD8BD57415B026D2000B9B37 /* UIButton+NUILoading.m in Sources */,
+				BD8BD57615B026D2000B9B37 /* UIControl+NUILoading.m in Sources */,
+				BD8BD57815B026D2000B9B37 /* UIFont+NUILoading.m in Sources */,
+				BD8BD57A15B026D2000B9B37 /* UIImage+NUILoading.m in Sources */,
+				BD8BD57C15B026D2000B9B37 /* UILabel+NUILoading.m in Sources */,
+				BD8BD57E15B026D2000B9B37 /* UIStringDrawing+NUILoading.m in Sources */,
+				BD8BD58015B026D2000B9B37 /* UITextField+NUILoading.m in Sources */,
+				BD8BD58215B026D2000B9B37 /* UITextInputTraits+NUILoading.m in Sources */,
+				BD8BD58415B026D2000B9B37 /* UIView+NUILoading.m in Sources */,
+				BD8BD58615B026D2000B9B37 /* NUIAnalyzer.m in Sources */,
+				BD8BD58815B026D2000B9B37 /* NUIBinaryOperator.m in Sources */,
+				BD8BD58A15B026D2000B9B37 /* NUIIdentifier.m in Sources */,
+				BD8BD58C15B026D2000B9B37 /* NUILoader.m in Sources */,
+				BD8BD58E15B026D2000B9B37 /* NUIObject.m in Sources */,
+				BD8BD59515B026D9000B9B37 /* nui_utils.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BD8BD54915B025C7000B9B37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		BD8BD54A15B025C7000B9B37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BD8BD54C15B025C7000B9B37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/NUILoader.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		BD8BD54D15B025C7000B9B37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/NUILoader.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BD8BD53815B025C7000B9B37 /* Build configuration list for PBXProject "NUILoader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD8BD54915B025C7000B9B37 /* Debug */,
+				BD8BD54A15B025C7000B9B37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BD8BD54B15B025C7000B9B37 /* Build configuration list for PBXNativeTarget "NUILoader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD8BD54C15B025C7000B9B37 /* Debug */,
+				BD8BD54D15B025C7000B9B37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BD8BD53515B025C7000B9B37 /* Project object */;
+}

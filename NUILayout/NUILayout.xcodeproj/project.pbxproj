@@ -1,0 +1,334 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BD2BC89E15B3C12A0074E9DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD2BC89D15B3C12A0074E9DF /* UIKit.framework */; };
+		BD8BD5A515B027A0000B9B37 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD8BD5A415B027A0000B9B37 /* Foundation.framework */; };
+		BD8BD5CB15B02860000B9B37 /* NUIFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD5B115B02860000B9B37 /* NUIFlowLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD5CC15B02860000B9B37 /* NUIFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD5B215B02860000B9B37 /* NUIFlowLayout.m */; };
+		BD8BD5CD15B02860000B9B37 /* NUIGridLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD5B315B02860000B9B37 /* NUIGridLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD5CE15B02860000B9B37 /* NUIGridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD5B415B02860000B9B37 /* NUIGridLayout.m */; };
+		BD8BD5CF15B02860000B9B37 /* NUIGridLayoutItem.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD5B515B02860000B9B37 /* NUIGridLayoutItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD5D015B02860000B9B37 /* NUIGridLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD5B615B02860000B9B37 /* NUIGridLayoutItem.m */; };
+		BD8BD5D115B02860000B9B37 /* NUIGridLength.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD5B715B02860000B9B37 /* NUIGridLength.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD5D215B02860000B9B37 /* NUIGridLength.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD5B815B02860000B9B37 /* NUIGridLength.m */; };
+		BD8BD5D315B02860000B9B37 /* NUIHorizontalLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD5B915B02860000B9B37 /* NUIHorizontalLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD5D415B02860000B9B37 /* NUIHorizontalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD5BA15B02860000B9B37 /* NUIHorizontalLayout.m */; };
+		BD8BD5D515B02860000B9B37 /* NUILayout.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD5BB15B02860000B9B37 /* NUILayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD5D615B02860000B9B37 /* NUILayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD5BC15B02860000B9B37 /* NUILayout.m */; };
+		BD8BD5D715B02860000B9B37 /* NUILayoutAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD5BD15B02860000B9B37 /* NUILayoutAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD5D815B02860000B9B37 /* NUILayoutAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD5BE15B02860000B9B37 /* NUILayoutAnimation.m */; };
+		BD8BD5D915B02860000B9B37 /* NUILayoutItem.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD5BF15B02860000B9B37 /* NUILayoutItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD5DA15B02860000B9B37 /* NUILayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD5C015B02860000B9B37 /* NUILayoutItem.m */; };
+		BD8BD5DB15B02860000B9B37 /* NUILayoutView.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD5C115B02860000B9B37 /* NUILayoutView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD5DC15B02860000B9B37 /* NUILayoutView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD5C215B02860000B9B37 /* NUILayoutView.m */; };
+		BD8BD5DD15B02860000B9B37 /* NUIScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD5C315B02860000B9B37 /* NUIScrollView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD5DE15B02860000B9B37 /* NUIScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD5C415B02860000B9B37 /* NUIScrollView.m */; };
+		BD8BD5DF15B02860000B9B37 /* NUISimpleLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD5C515B02860000B9B37 /* NUISimpleLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD5E015B02860000B9B37 /* NUISimpleLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD5C615B02860000B9B37 /* NUISimpleLayout.m */; };
+		BD8BD5E115B02860000B9B37 /* NUIVerticalLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD5C715B02860000B9B37 /* NUIVerticalLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD5E215B02860000B9B37 /* NUIVerticalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD5C815B02860000B9B37 /* NUIVerticalLayout.m */; };
+		BD8BD5E315B02860000B9B37 /* UIView+NUILayout.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD5C915B02860000B9B37 /* UIView+NUILayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD8BD5E415B02860000B9B37 /* UIView+NUILayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD5CA15B02860000B9B37 /* UIView+NUILayout.m */; };
+		BDF9110C15B3F56700B91DFC /* NUILabel.h in Headers */ = {isa = PBXBuildFile; fileRef = BDF9110A15B3F56700B91DFC /* NUILabel.h */; };
+		BDF9110D15B3F56700B91DFC /* NUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF9110B15B3F56700B91DFC /* NUILabel.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BD2BC89D15B3C12A0074E9DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		BD8BD5A115B027A0000B9B37 /* libNUILayout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNUILayout.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD8BD5A415B027A0000B9B37 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BD8BD5B115B02860000B9B37 /* NUIFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIFlowLayout.h; sourceTree = "<group>"; };
+		BD8BD5B215B02860000B9B37 /* NUIFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIFlowLayout.m; sourceTree = "<group>"; };
+		BD8BD5B315B02860000B9B37 /* NUIGridLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIGridLayout.h; sourceTree = "<group>"; };
+		BD8BD5B415B02860000B9B37 /* NUIGridLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIGridLayout.m; sourceTree = "<group>"; };
+		BD8BD5B515B02860000B9B37 /* NUIGridLayoutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIGridLayoutItem.h; sourceTree = "<group>"; };
+		BD8BD5B615B02860000B9B37 /* NUIGridLayoutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIGridLayoutItem.m; sourceTree = "<group>"; };
+		BD8BD5B715B02860000B9B37 /* NUIGridLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIGridLength.h; sourceTree = "<group>"; };
+		BD8BD5B815B02860000B9B37 /* NUIGridLength.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIGridLength.m; sourceTree = "<group>"; };
+		BD8BD5B915B02860000B9B37 /* NUIHorizontalLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIHorizontalLayout.h; sourceTree = "<group>"; };
+		BD8BD5BA15B02860000B9B37 /* NUIHorizontalLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIHorizontalLayout.m; sourceTree = "<group>"; };
+		BD8BD5BB15B02860000B9B37 /* NUILayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUILayout.h; sourceTree = "<group>"; };
+		BD8BD5BC15B02860000B9B37 /* NUILayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUILayout.m; sourceTree = "<group>"; };
+		BD8BD5BD15B02860000B9B37 /* NUILayoutAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUILayoutAnimation.h; sourceTree = "<group>"; };
+		BD8BD5BE15B02860000B9B37 /* NUILayoutAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUILayoutAnimation.m; sourceTree = "<group>"; };
+		BD8BD5BF15B02860000B9B37 /* NUILayoutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUILayoutItem.h; sourceTree = "<group>"; };
+		BD8BD5C015B02860000B9B37 /* NUILayoutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUILayoutItem.m; sourceTree = "<group>"; };
+		BD8BD5C115B02860000B9B37 /* NUILayoutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUILayoutView.h; sourceTree = "<group>"; };
+		BD8BD5C215B02860000B9B37 /* NUILayoutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUILayoutView.m; sourceTree = "<group>"; };
+		BD8BD5C315B02860000B9B37 /* NUIScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIScrollView.h; sourceTree = "<group>"; };
+		BD8BD5C415B02860000B9B37 /* NUIScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIScrollView.m; sourceTree = "<group>"; };
+		BD8BD5C515B02860000B9B37 /* NUISimpleLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUISimpleLayout.h; sourceTree = "<group>"; };
+		BD8BD5C615B02860000B9B37 /* NUISimpleLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUISimpleLayout.m; sourceTree = "<group>"; };
+		BD8BD5C715B02860000B9B37 /* NUIVerticalLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIVerticalLayout.h; sourceTree = "<group>"; };
+		BD8BD5C815B02860000B9B37 /* NUIVerticalLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIVerticalLayout.m; sourceTree = "<group>"; };
+		BD8BD5C915B02860000B9B37 /* UIView+NUILayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+NUILayout.h"; sourceTree = "<group>"; };
+		BD8BD5CA15B02860000B9B37 /* UIView+NUILayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+NUILayout.m"; sourceTree = "<group>"; };
+		BDF9110A15B3F56700B91DFC /* NUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUILabel.h; sourceTree = "<group>"; };
+		BDF9110B15B3F56700B91DFC /* NUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUILabel.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BD8BD59E15B027A0000B9B37 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD2BC89E15B3C12A0074E9DF /* UIKit.framework in Frameworks */,
+				BD8BD5A515B027A0000B9B37 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BD8BD59615B027A0000B9B37 = {
+			isa = PBXGroup;
+			children = (
+				BD8BD5A615B027A0000B9B37 /* NUILayout */,
+				BD8BD5A315B027A0000B9B37 /* Frameworks */,
+				BD8BD5A215B027A0000B9B37 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BD8BD5A215B027A0000B9B37 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BD8BD5A115B027A0000B9B37 /* libNUILayout.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BD8BD5A315B027A0000B9B37 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BD2BC89D15B3C12A0074E9DF /* UIKit.framework */,
+				BD8BD5A415B027A0000B9B37 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BD8BD5A615B027A0000B9B37 /* NUILayout */ = {
+			isa = PBXGroup;
+			children = (
+				BDF9110A15B3F56700B91DFC /* NUILabel.h */,
+				BDF9110B15B3F56700B91DFC /* NUILabel.m */,
+				BD8BD5B115B02860000B9B37 /* NUIFlowLayout.h */,
+				BD8BD5B215B02860000B9B37 /* NUIFlowLayout.m */,
+				BD8BD5B315B02860000B9B37 /* NUIGridLayout.h */,
+				BD8BD5B415B02860000B9B37 /* NUIGridLayout.m */,
+				BD8BD5B515B02860000B9B37 /* NUIGridLayoutItem.h */,
+				BD8BD5B615B02860000B9B37 /* NUIGridLayoutItem.m */,
+				BD8BD5B715B02860000B9B37 /* NUIGridLength.h */,
+				BD8BD5B815B02860000B9B37 /* NUIGridLength.m */,
+				BD8BD5B915B02860000B9B37 /* NUIHorizontalLayout.h */,
+				BD8BD5BA15B02860000B9B37 /* NUIHorizontalLayout.m */,
+				BD8BD5BB15B02860000B9B37 /* NUILayout.h */,
+				BD8BD5BC15B02860000B9B37 /* NUILayout.m */,
+				BD8BD5BD15B02860000B9B37 /* NUILayoutAnimation.h */,
+				BD8BD5BE15B02860000B9B37 /* NUILayoutAnimation.m */,
+				BD8BD5BF15B02860000B9B37 /* NUILayoutItem.h */,
+				BD8BD5C015B02860000B9B37 /* NUILayoutItem.m */,
+				BD8BD5C115B02860000B9B37 /* NUILayoutView.h */,
+				BD8BD5C215B02860000B9B37 /* NUILayoutView.m */,
+				BD8BD5C315B02860000B9B37 /* NUIScrollView.h */,
+				BD8BD5C415B02860000B9B37 /* NUIScrollView.m */,
+				BD8BD5C515B02860000B9B37 /* NUISimpleLayout.h */,
+				BD8BD5C615B02860000B9B37 /* NUISimpleLayout.m */,
+				BD8BD5C715B02860000B9B37 /* NUIVerticalLayout.h */,
+				BD8BD5C815B02860000B9B37 /* NUIVerticalLayout.m */,
+				BD8BD5C915B02860000B9B37 /* UIView+NUILayout.h */,
+				BD8BD5CA15B02860000B9B37 /* UIView+NUILayout.m */,
+			);
+			path = NUILayout;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		BD8BD59F15B027A0000B9B37 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD8BD5CB15B02860000B9B37 /* NUIFlowLayout.h in Headers */,
+				BD8BD5CD15B02860000B9B37 /* NUIGridLayout.h in Headers */,
+				BD8BD5CF15B02860000B9B37 /* NUIGridLayoutItem.h in Headers */,
+				BD8BD5D115B02860000B9B37 /* NUIGridLength.h in Headers */,
+				BD8BD5D315B02860000B9B37 /* NUIHorizontalLayout.h in Headers */,
+				BD8BD5D515B02860000B9B37 /* NUILayout.h in Headers */,
+				BD8BD5D715B02860000B9B37 /* NUILayoutAnimation.h in Headers */,
+				BD8BD5D915B02860000B9B37 /* NUILayoutItem.h in Headers */,
+				BD8BD5DB15B02860000B9B37 /* NUILayoutView.h in Headers */,
+				BD8BD5DD15B02860000B9B37 /* NUIScrollView.h in Headers */,
+				BD8BD5DF15B02860000B9B37 /* NUISimpleLayout.h in Headers */,
+				BD8BD5E115B02860000B9B37 /* NUIVerticalLayout.h in Headers */,
+				BD8BD5E315B02860000B9B37 /* UIView+NUILayout.h in Headers */,
+				BDF9110C15B3F56700B91DFC /* NUILabel.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		BD8BD5A015B027A0000B9B37 /* NUILayout */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD8BD5AE15B027A0000B9B37 /* Build configuration list for PBXNativeTarget "NUILayout" */;
+			buildPhases = (
+				BD8BD59D15B027A0000B9B37 /* Sources */,
+				BD8BD59E15B027A0000B9B37 /* Frameworks */,
+				BD8BD59F15B027A0000B9B37 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NUILayout;
+			productName = NUILayout;
+			productReference = BD8BD5A115B027A0000B9B37 /* libNUILayout.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BD8BD59815B027A0000B9B37 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = BD8BD59B15B027A0000B9B37 /* Build configuration list for PBXProject "NUILayout" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = BD8BD59615B027A0000B9B37;
+			productRefGroup = BD8BD5A215B027A0000B9B37 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BD8BD5A015B027A0000B9B37 /* NUILayout */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BD8BD59D15B027A0000B9B37 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD8BD5CC15B02860000B9B37 /* NUIFlowLayout.m in Sources */,
+				BD8BD5CE15B02860000B9B37 /* NUIGridLayout.m in Sources */,
+				BD8BD5D015B02860000B9B37 /* NUIGridLayoutItem.m in Sources */,
+				BD8BD5D215B02860000B9B37 /* NUIGridLength.m in Sources */,
+				BD8BD5D415B02860000B9B37 /* NUIHorizontalLayout.m in Sources */,
+				BD8BD5D615B02860000B9B37 /* NUILayout.m in Sources */,
+				BD8BD5D815B02860000B9B37 /* NUILayoutAnimation.m in Sources */,
+				BD8BD5DA15B02860000B9B37 /* NUILayoutItem.m in Sources */,
+				BD8BD5DC15B02860000B9B37 /* NUILayoutView.m in Sources */,
+				BD8BD5DE15B02860000B9B37 /* NUIScrollView.m in Sources */,
+				BD8BD5E015B02860000B9B37 /* NUISimpleLayout.m in Sources */,
+				BD8BD5E215B02860000B9B37 /* NUIVerticalLayout.m in Sources */,
+				BD8BD5E415B02860000B9B37 /* UIView+NUILayout.m in Sources */,
+				BDF9110D15B3F56700B91DFC /* NUILabel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BD8BD5AC15B027A0000B9B37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		BD8BD5AD15B027A0000B9B37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BD8BD5AF15B027A0000B9B37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/NUILayout.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		BD8BD5B015B027A0000B9B37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/NUILayout.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BD8BD59B15B027A0000B9B37 /* Build configuration list for PBXProject "NUILayout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD8BD5AC15B027A0000B9B37 /* Debug */,
+				BD8BD5AD15B027A0000B9B37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BD8BD5AE15B027A0000B9B37 /* Build configuration list for PBXNativeTarget "NUILayout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD8BD5AF15B027A0000B9B37 /* Debug */,
+				BD8BD5B015B027A0000B9B37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BD8BD59815B027A0000B9B37 /* Project object */;
+}

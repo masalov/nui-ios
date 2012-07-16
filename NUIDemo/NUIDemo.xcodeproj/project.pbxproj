@@ -1,0 +1,324 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BDFBE90815B3E21F00A7822C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDFBE90715B3E21F00A7822C /* UIKit.framework */; };
+		BDFBE90A15B3E21F00A7822C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDFBE90915B3E21F00A7822C /* Foundation.framework */; };
+		BDFBE90C15B3E21F00A7822C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDFBE90B15B3E21F00A7822C /* CoreGraphics.framework */; };
+		BDFBE91215B3E21F00A7822C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BDFBE91015B3E21F00A7822C /* InfoPlist.strings */; };
+		BDFBE91415B3E21F00A7822C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFBE91315B3E21F00A7822C /* main.m */; };
+		BDFBE91815B3E21F00A7822C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFBE91715B3E21F00A7822C /* AppDelegate.m */; };
+		BDFBE91B15B3E21F00A7822C /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFBE91A15B3E21F00A7822C /* MasterViewController.m */; };
+		BDFBE92D15B3E27700A7822C /* libNUILayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BDFBE92A15B3E27700A7822C /* libNUILayout.a */; };
+		BDFBE92E15B3E27700A7822C /* libNUILayoutLoading.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BDFBE92B15B3E27700A7822C /* libNUILayoutLoading.a */; };
+		BDFBE92F15B3E27700A7822C /* libNUILoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BDFBE92C15B3E27700A7822C /* libNUILoader.a */; };
+		BDFBE93615B3E34300A7822C /* NUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFBE93515B3E34300A7822C /* NUIViewController.m */; };
+		BDFBE93F15B3E3A500A7822C /* nui.nui in Resources */ = {isa = PBXBuildFile; fileRef = BDFBE93D15B3E3A500A7822C /* nui.nui */; };
+		BDFBE94015B3E3A500A7822C /* styles.nui in Resources */ = {isa = PBXBuildFile; fileRef = BDFBE93E15B3E3A500A7822C /* styles.nui */; };
+		BDFBE94215B3E48A00A7822C /* ViewControllers.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDFBE94115B3E48A00A7822C /* ViewControllers.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BDFBE90315B3E21F00A7822C /* NUIDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NUIDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDFBE90715B3E21F00A7822C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		BDFBE90915B3E21F00A7822C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BDFBE90B15B3E21F00A7822C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		BDFBE90F15B3E21F00A7822C /* NUIDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NUIDemo-Info.plist"; sourceTree = "<group>"; };
+		BDFBE91115B3E21F00A7822C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BDFBE91315B3E21F00A7822C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BDFBE91515B3E21F00A7822C /* NUIDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NUIDemo-Prefix.pch"; sourceTree = "<group>"; };
+		BDFBE91615B3E21F00A7822C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		BDFBE91715B3E21F00A7822C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		BDFBE91915B3E21F00A7822C /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
+		BDFBE91A15B3E21F00A7822C /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		BDFBE92A15B3E27700A7822C /* libNUILayout.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNUILayout.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDFBE92B15B3E27700A7822C /* libNUILayoutLoading.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNUILayoutLoading.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDFBE92C15B3E27700A7822C /* libNUILoader.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNUILoader.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDFBE93415B3E34300A7822C /* NUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIViewController.h; sourceTree = "<group>"; };
+		BDFBE93515B3E34300A7822C /* NUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIViewController.m; sourceTree = "<group>"; };
+		BDFBE93D15B3E3A500A7822C /* nui.nui */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nui.nui; sourceTree = "<group>"; };
+		BDFBE93E15B3E3A500A7822C /* styles.nui */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = styles.nui; sourceTree = "<group>"; };
+		BDFBE94115B3E48A00A7822C /* ViewControllers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ViewControllers.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BDFBE90015B3E21F00A7822C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDFBE92D15B3E27700A7822C /* libNUILayout.a in Frameworks */,
+				BDFBE92E15B3E27700A7822C /* libNUILayoutLoading.a in Frameworks */,
+				BDFBE92F15B3E27700A7822C /* libNUILoader.a in Frameworks */,
+				BDFBE90815B3E21F00A7822C /* UIKit.framework in Frameworks */,
+				BDFBE90A15B3E21F00A7822C /* Foundation.framework in Frameworks */,
+				BDFBE90C15B3E21F00A7822C /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BDFBE8F815B3E21F00A7822C = {
+			isa = PBXGroup;
+			children = (
+				BDFBE93C15B3E3A500A7822C /* Resources */,
+				BDFBE90D15B3E21F00A7822C /* NUIDemo */,
+				BDFBE90615B3E21F00A7822C /* Frameworks */,
+				BDFBE90415B3E21F00A7822C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BDFBE90415B3E21F00A7822C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BDFBE90315B3E21F00A7822C /* NUIDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BDFBE90615B3E21F00A7822C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BDFBE92A15B3E27700A7822C /* libNUILayout.a */,
+				BDFBE92B15B3E27700A7822C /* libNUILayoutLoading.a */,
+				BDFBE92C15B3E27700A7822C /* libNUILoader.a */,
+				BDFBE90715B3E21F00A7822C /* UIKit.framework */,
+				BDFBE90915B3E21F00A7822C /* Foundation.framework */,
+				BDFBE90B15B3E21F00A7822C /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BDFBE90D15B3E21F00A7822C /* NUIDemo */ = {
+			isa = PBXGroup;
+			children = (
+				BDFBE93415B3E34300A7822C /* NUIViewController.h */,
+				BDFBE93515B3E34300A7822C /* NUIViewController.m */,
+				BDFBE91615B3E21F00A7822C /* AppDelegate.h */,
+				BDFBE91715B3E21F00A7822C /* AppDelegate.m */,
+				BDFBE91915B3E21F00A7822C /* MasterViewController.h */,
+				BDFBE91A15B3E21F00A7822C /* MasterViewController.m */,
+				BDFBE90E15B3E21F00A7822C /* Supporting Files */,
+			);
+			path = NUIDemo;
+			sourceTree = "<group>";
+		};
+		BDFBE90E15B3E21F00A7822C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BDFBE90F15B3E21F00A7822C /* NUIDemo-Info.plist */,
+				BDFBE91015B3E21F00A7822C /* InfoPlist.strings */,
+				BDFBE91315B3E21F00A7822C /* main.m */,
+				BDFBE91515B3E21F00A7822C /* NUIDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BDFBE93C15B3E3A500A7822C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BDFBE93D15B3E3A500A7822C /* nui.nui */,
+				BDFBE93E15B3E3A500A7822C /* styles.nui */,
+				BDFBE94115B3E48A00A7822C /* ViewControllers.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BDFBE90215B3E21F00A7822C /* NUIDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BDFBE92715B3E21F00A7822C /* Build configuration list for PBXNativeTarget "NUIDemo" */;
+			buildPhases = (
+				BDFBE8FF15B3E21F00A7822C /* Sources */,
+				BDFBE90015B3E21F00A7822C /* Frameworks */,
+				BDFBE90115B3E21F00A7822C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NUIDemo;
+			productName = NUIDemo;
+			productReference = BDFBE90315B3E21F00A7822C /* NUIDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BDFBE8FA15B3E21F00A7822C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = BDFBE8FD15B3E21F00A7822C /* Build configuration list for PBXProject "NUIDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = BDFBE8F815B3E21F00A7822C;
+			productRefGroup = BDFBE90415B3E21F00A7822C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BDFBE90215B3E21F00A7822C /* NUIDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BDFBE90115B3E21F00A7822C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDFBE91215B3E21F00A7822C /* InfoPlist.strings in Resources */,
+				BDFBE93F15B3E3A500A7822C /* nui.nui in Resources */,
+				BDFBE94015B3E3A500A7822C /* styles.nui in Resources */,
+				BDFBE94215B3E48A00A7822C /* ViewControllers.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BDFBE8FF15B3E21F00A7822C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDFBE91415B3E21F00A7822C /* main.m in Sources */,
+				BDFBE91815B3E21F00A7822C /* AppDelegate.m in Sources */,
+				BDFBE91B15B3E21F00A7822C /* MasterViewController.m in Sources */,
+				BDFBE93615B3E34300A7822C /* NUIViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BDFBE91015B3E21F00A7822C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BDFBE91115B3E21F00A7822C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BDFBE92515B3E21F00A7822C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		BDFBE92615B3E21F00A7822C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BDFBE92815B3E21F00A7822C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NUIDemo/NUIDemo-Prefix.pch";
+				INFOPLIST_FILE = "NUIDemo/NUIDemo-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/NUI-gzrpzihdbuqvfjeavwshfxtwiqrk/Build/Products/Debug-iphoneos\"",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		BDFBE92915B3E21F00A7822C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NUIDemo/NUIDemo-Prefix.pch";
+				INFOPLIST_FILE = "NUIDemo/NUIDemo-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/NUI-gzrpzihdbuqvfjeavwshfxtwiqrk/Build/Products/Debug-iphoneos\"",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BDFBE8FD15B3E21F00A7822C /* Build configuration list for PBXProject "NUIDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BDFBE92515B3E21F00A7822C /* Debug */,
+				BDFBE92615B3E21F00A7822C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BDFBE92715B3E21F00A7822C /* Build configuration list for PBXNativeTarget "NUIDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BDFBE92815B3E21F00A7822C /* Debug */,
+				BDFBE92915B3E21F00A7822C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BDFBE8FA15B3E21F00A7822C /* Project object */;
+}
