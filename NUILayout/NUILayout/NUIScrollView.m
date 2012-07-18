@@ -108,6 +108,8 @@
         if (newValue != [NSNull null] && [newValue boolValue]) {
             [self setNeedsLayout];
         }
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 

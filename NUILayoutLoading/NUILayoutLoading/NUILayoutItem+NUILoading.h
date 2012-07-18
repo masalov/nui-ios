@@ -2,8 +2,8 @@
 
 @interface NUILayoutItem (NUILoading)
 
-- (BOOL)setNUIVerticalAlignment:(NSString *)value;
-- (BOOL)setNUIHorizontalAlignment:(NSString *)value;
-- (BOOL)setNUIVisibilty:(NSString *)value;
++ (NSDictionary *)nuiConstantsForVerticalAlignment;
++ (NSDictionary *)nuiConstantsForHorizontalAlignment;
++ (NSDictionary *)nuiConstantsForVisibility;
 
 @end

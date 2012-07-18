@@ -17,42 +17,22 @@
 
 @dynamic backgroundColor;
 
-- (BOOL)setNUIAutoresizingMask:(NSString *)value
++ (NSDictionary *)nuiConstantsForAutoresizingMask
 {
-    if (![value isKindOfClass:[NUIIdentifier class]]) {
-        NSAssert(NO, @"Invalid format.");
-        return NO;
-    }
-    NSArray *components = [value componentsSeparatedByString:@"|"];
-    UIViewAutoresizing autoresizing = 0;
-    for (NSString *component in components) {
-        if ([component compare:@"FlexibleLeftMargin"
-                       options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-            autoresizing |= UIViewAutoresizingFlexibleLeftMargin;
-        } else if ([component compare:@"FlexibleWidth"
-                              options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-            autoresizing |= UIViewAutoresizingFlexibleWidth;
-        } else if ([component compare:@"FlexibleRightMargin"
-                              options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-            autoresizing |= UIViewAutoresizingFlexibleRightMargin;
-        } else if ([component compare:@"FlexibleTopMargin"
-                              options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-            autoresizing |= UIViewAutoresizingFlexibleTopMargin;
-        } else if ([component compare:@"FlexibleHeight"
-                              options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-            autoresizing |= UIViewAutoresizingFlexibleHeight;
-        } else if ([component compare:@"FlexibleBottomMargin"
-                              options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-            autoresizing |= UIViewAutoresizingFlexibleBottomMargin;
-        } else {
-            NSAssert(NO, @"Unknown autoresizing: %@", component);
-            return NO;
-        }
-    }
-    self.autoresizingMask = autoresizing;
-    return YES;
+    static NSDictionary *autoresizingMaskConstants = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        autoresizingMaskConstants = [[NSDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithInt:UIViewAutoresizingFlexibleLeftMargin], @"FlexibleLeftMargin",
+            [NSNumber numberWithInt:UIViewAutoresizingFlexibleWidth], @"FlexibleWidth",
+            [NSNumber numberWithInt:UIViewAutoresizingFlexibleRightMargin], @"FlexibleRightMargin",
+            [NSNumber numberWithInt:UIViewAutoresizingFlexibleTopMargin], @"FlexibleTopMargin",
+            [NSNumber numberWithInt:UIViewAutoresizingFlexibleHeight], @"FlexibleHeight",
+            [NSNumber numberWithInt:UIViewAutoresizingFlexibleBottomMargin], @"FlexibleBottomMargin",
+            nil];
+    });
+    return autoresizingMaskConstants;
 }
-
 
 - (BOOL)loadNUISubviewsFromRValue:(NSArray *)array loader:(NUILoader *)loader
 {

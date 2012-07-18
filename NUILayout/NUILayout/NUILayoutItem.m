@@ -28,7 +28,7 @@
 @synthesize fixedHeight = fixedHeight_;
 @synthesize isFixedHeightSet = isFixedHeightSet_;
 
-@synthesize visibilty = visibilty_;
+@synthesize visibility = visibility_;
 
 - (id)init
 {
@@ -150,10 +150,10 @@
     view_.needsToUpdateSize = YES;
 }
 
-- (void)setVisibilty:(NUIVisibility)visibilty
+- (void)setVisibility:(NUIVisibility)visibility
 {
-    visibilty_ = visibilty;
-    view_.hidden = visibilty_ != NUIVisibility_Visible;
+    visibility_ = visibility;
+    view_.hidden = visibility_ != NUIVisibility_Visible;
     view_.needsToUpdateSize = YES;
 }
 
@@ -190,7 +190,7 @@
 
 - (CGSize)sizeWithMarginThatFits:(CGSize)size
 {
-    if (visibilty_ == NUIVisibility_Collapsed) {
+    if (visibility_ == NUIVisibility_Collapsed) {
         return CGSizeZero;
     }
     UIEdgeInsets margin = self.margin;
@@ -216,7 +216,7 @@
 - (void)placeInRect:(CGRect)rect preferredSize:(CGSize)size
 {
     rect = UIEdgeInsetsInsetRect(rect, margin_);
-    if (visibilty_ == NUIVisibility_Collapsed) {
+    if (visibility_ == NUIVisibility_Collapsed) {
         view_.frame = rect;
         return;
     }

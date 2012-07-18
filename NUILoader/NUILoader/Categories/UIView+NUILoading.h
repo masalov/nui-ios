@@ -15,7 +15,7 @@
 
 @property (nonatomic, copy) UIColor *backgroundColor;
 
-- (BOOL)setNUIAutoresizingMask:(NSString *)value;
++ (NSDictionary *)nuiConstantsForAutoresizingMask;
 
 - (BOOL)loadNUISubviewsFromRValue:(NSArray *)array loader:(NUILoader *)loader;
 

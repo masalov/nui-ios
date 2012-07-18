@@ -478,6 +478,8 @@
         isColumnsCountValid_ = NO;
     } else if ([keyPath isEqualToString:@"rowRange"]) {
         isRowsCountValid_ = NO;
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 

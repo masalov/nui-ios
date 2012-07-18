@@ -123,6 +123,8 @@
             self.needsToUpdateSize = YES;
             [self setNeedsLayout];
         }
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 

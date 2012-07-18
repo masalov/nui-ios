@@ -12,20 +12,15 @@
 #import "NUIBinaryOperator.h"
 #import "NUIObject.h"
 
-static NSString *Digits = @"0123456789";
-static NSString *FirstIdentifierSymbols = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_";
-static NSString *IdentifierSymbols = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_0123456789.";
-static NSString *SimpleIdentifierSymbols = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_0123456789";
 static NSString *Punctuation = @";,";
-static NSString *SystemIdentifierSymbols = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+typedef struct {
+    NSString *value;
+    NUIBinaryOperatorType type;
+} NUIBinaryOperatorValue;
 
 @interface NUIAnalyzer ()
 {
-    NSCharacterSet *digits_;
-    NSCharacterSet *firstIdentifierSymbols_;
-    NSCharacterSet *identifierSymbols_;
-    NSCharacterSet *simpleIdentifierSymbols_;
-    NSCharacterSet *systemIdentifierSymbols_;
     NSCharacterSet *punctuation_;
 
     NSString *string_;
@@ -50,11 +45,6 @@ static NSString *SystemIdentifierSymbols = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi
 {
     self = [super init];
     if (self) {
-        digits_ = [[NSCharacterSet characterSetWithCharactersInString:Digits] retain];
-        firstIdentifierSymbols_ = [[NSCharacterSet characterSetWithCharactersInString:FirstIdentifierSymbols] retain];
-        identifierSymbols_ = [[NSCharacterSet characterSetWithCharactersInString:IdentifierSymbols] retain];
-        simpleIdentifierSymbols_ = [[NSCharacterSet characterSetWithCharactersInString:SimpleIdentifierSymbols] retain];
-        systemIdentifierSymbols_ = [[NSCharacterSet characterSetWithCharactersInString:SystemIdentifierSymbols] retain];
         punctuation_ = [[NSCharacterSet characterSetWithCharactersInString:Punctuation] retain];
 
         string_ = [string copy];
@@ -68,11 +58,6 @@ static NSString *SystemIdentifierSymbols = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi
 
 - (void)dealloc
 {
-    [digits_ release];
-    [firstIdentifierSymbols_ release];
-    [identifierSymbols_ release];
-    [simpleIdentifierSymbols_ release];
-    [systemIdentifierSymbols_ release];
     [punctuation_ release];
 
     [string_ release];
@@ -125,18 +110,21 @@ static NSString *SystemIdentifierSymbols = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi
             return NO;
         }
         if ([identifier.value isEqualToString:@"const"]) {
-            NUIBinaryOperator *op = [self loadBinaryOperator:@"=" lvalueLoader:@selector(loadSimpleIdentifier:)
-                rvalueLoader:@selector(loadRValue:) position:&position_];
+            NUIBinaryOperator *op = [self loadBinaryOperator:@"="
+                lvalueLoader:@selector(loadSimpleIdentifier:) rvalueLoader:@selector(loadRValue:)
+                position:&position_];
             [constants_ setObject:op.rvalue forKey:op.lvalue];
             continue;
         } else if ([identifier.value isEqualToString:@"style"]) {
-            NUIBinaryOperator *op = [self loadBinaryOperator:@"=" lvalueLoader:@selector(loadSimpleIdentifier:)
-                rvalueLoader:@selector(loadObject:) position:&position_];
+            NUIBinaryOperator *op = [self loadBinaryOperator:@"="
+                lvalueLoader:@selector(loadSimpleIdentifier:) rvalueLoader:@selector(loadObject:)
+                position:&position_];
             [styles_ setObject:op.rvalue forKey:op.lvalue];
             continue;
         } else if ([identifier.value isEqualToString:@"state"]) {
-            NUIBinaryOperator *op = [self loadBinaryOperator:@"=" lvalueLoader:@selector(loadSimpleIdentifier:)
-                rvalueLoader:@selector(loadObject:) position:&position_];
+            NUIBinaryOperator *op = [self loadBinaryOperator:@"="
+                lvalueLoader:@selector(loadSimpleIdentifier:) rvalueLoader:@selector(loadObject:)
+                position:&position_];
             [states_ setObject:op.rvalue forKey:op.lvalue];
             continue;
         } else if (mainFile) {
@@ -151,7 +139,8 @@ static NSString *SystemIdentifierSymbols = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi
                 continue;
             } else if ([identifier.value isEqualToString:@"self"]) {
                 NSString *op = @"=";
-                if ([string_ compare:op options:0 range:(NSRange){position_, op.length}] != NSOrderedSame) {
+                if ([string_ compare:op options:0 range:(NSRange){position_, op.length}]
+                    != NSOrderedSame) {
                     return NO;
                 }
                 position_ += op.length;
@@ -193,51 +182,60 @@ static NSString *SystemIdentifierSymbols = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi
 
 - (NSString *)loadSimpleIdentifier:(int *)position
 {
-    int pos = *position;
-    if (![firstIdentifierSymbols_ characterIsMember:[string_ characterAtIndex:pos]]) {
-        //NSAssert(NO, @"Error: <%@>", [string_ substringFromIndex:pos]);
+    static NSRegularExpression *simpleIdentifierRegEx = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        simpleIdentifierRegEx = [[NSRegularExpression alloc] initWithPattern:@"[A-Za-z_][A-Za-z0-9_]*"
+            options:0 error:nil];
+    });
+
+    NSRange range = [simpleIdentifierRegEx rangeOfFirstMatchInString:string_
+        options:NSMatchingAnchored range:(NSRange){*position, string_.length - *position}];
+    if (!range.length) {
         return nil;
     }
-    ++pos;
-    while (pos < string_.length && [simpleIdentifierSymbols_ characterIsMember:[string_ characterAtIndex:pos]]) {
-        ++pos;
-    }
-    NSString *res = [string_ substringWithRange:(NSRange){*position, pos  - *position}];
-    *position = pos;
-    return res;
+    NSString *identifier = [string_ substringWithRange:(NSRange){*position, range.length}];
+    *position += range.length;
+    return identifier;
 }
 
 - (NUIIdentifier *)loadIdentifier:(int *)position
 {
-    int pos = *position;
-    if (![firstIdentifierSymbols_ characterIsMember:[string_ characterAtIndex:pos]]) {
-        //NSAssert(NO, @"Error: <%@>", [string_ substringFromIndex:pos]);
+    static NSRegularExpression *identifierRegEx = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        identifierRegEx = [[NSRegularExpression alloc] initWithPattern:@"([A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)?)+"
+            options:0 error:nil];
+    });
+
+    NSRange range = [identifierRegEx rangeOfFirstMatchInString:string_ options:NSMatchingAnchored
+        range:(NSRange){*position, string_.length - *position}];
+    if (!range.length) {
         return nil;
     }
-    ++pos;
-    while (pos < string_.length && [identifierSymbols_ characterIsMember:[string_ characterAtIndex:pos]]) {
-        ++pos;
-    }
     NUIIdentifier *identifier = [[[NUIIdentifier alloc] init] autorelease];
-    //identifier.range = (NSRange){startPos, position_ - startPos};
-    identifier.value = [string_ substringWithRange:(NSRange){*position, pos  - *position}];
-    *position = pos;
+    identifier.value = [string_ substringWithRange:(NSRange){*position, range.length}];
+    *position += range.length;
     return identifier;
 }
 
 - (NSString *)loadSystemIdentifier:(int *)position
 {
-    int pos = *position;
-    if ([string_ characterAtIndex:pos] != ':') {
+    static NSRegularExpression *systemIdentifierRegEx = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        systemIdentifierRegEx = [[NSRegularExpression alloc] initWithPattern:@":[A-Za-z_][A-Za-z0-9_]*"
+            options:0 error:nil];
+    });
+
+    NSRange range = [systemIdentifierRegEx rangeOfFirstMatchInString:string_
+        options:NSMatchingAnchored range:(NSRange){*position, string_.length - *position}];
+    if (!range.length) {
         return nil;
     }
-    ++pos;
-    while (pos < string_.length && [systemIdentifierSymbols_ characterIsMember:[string_ characterAtIndex:pos]]) {
-        ++pos;
-    }
-    NSString *res = [string_ substringWithRange:(NSRange){*position, pos  - *position}];
-    *position = pos;
-    return res;
+    NSString *identifier = [string_ substringWithRange:(NSRange){*position, range.length}];
+    *position += range.length;
+    return identifier;
 }
 
 - (NSString *)loadString:(int *)position
@@ -255,8 +253,8 @@ static NSString *SystemIdentifierSymbols = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi
             return nil;
         }
 
-        if (NSOrderedSame != [string_ compare:op2 options:0 range:(NSRange){r.location - op2.length + r.length,
-                r.length}]) {
+        if (NSOrderedSame != [string_ compare:op2 options:0 range:(NSRange){r.location - op2.length
+            + r.length, r.length}]) {
             pos = r.location + r.length;
             NSString *str = [string_ substringWithRange:(NSRange){*position + op.length,
                     pos - *position - 2 * op.length}];
@@ -460,6 +458,55 @@ static NSString *SystemIdentifierSymbols = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi
     return binaryOperator;
 }
 
+- (NUIBinaryOperator *)loadNumericOperator:(int *)position
+{
+    static NUIBinaryOperatorValue numericOperators[] = {
+        @"|", NUIBinaryOperatorType_BitwiseOr
+    };
+
+    int pos  = *position;
+    int count = sizeof(numericOperators) / sizeof(numericOperators[0]);
+    for (int i = 0; i < count; ++i) {
+        if ([string_ compare:numericOperators[i].value options:0 range:(NSRange){pos,
+            numericOperators[i].value.length}] == NSOrderedSame) {
+            pos += numericOperators[i].value.length;
+            if (![self skipSpaces:&pos]) {
+                return nil;
+            }
+            id rvalue = [self loadExpression:&pos];
+            if (!rvalue) {
+                return nil;
+            }
+            NUIBinaryOperator *op = [[[NUIBinaryOperator alloc] init] autorelease];
+            op.type = numericOperators[i].type;
+            op.rvalue = rvalue;
+            *position = pos;
+            return op;
+        }
+    }
+    return nil;
+}
+
+- (id)loadExpression:(int *)position
+{
+    int pos = *position;
+    id res = [self loadNumber:&pos];
+    if (!res) {
+        res = [self loadIdentifier:&pos];
+    }
+    if (res) {
+        if ([self skipSpaces:&pos]) {
+            NUIBinaryOperator *op = [self loadNumericOperator:&pos];
+            if (op) {
+                op.lvalue = res;
+                res = op;
+            }
+        }
+        *position = pos;
+    }
+    return res;
+} 
+
 - (id)loadRValue:(int *)position
 {
     int pos = *position;
@@ -471,10 +518,7 @@ static NSString *SystemIdentifierSymbols = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi
         res = [self loadArray:&pos];
     }
     if (!res) {
-        res = [self loadNumber:&pos];
-    }
-    if (!res) {
-        res = [self loadIdentifier:&pos];
+        res = [self loadExpression:&pos];
     }
     if (res) {
         *position = pos;
@@ -484,29 +528,22 @@ static NSString *SystemIdentifierSymbols = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi
 
 - (NSNumber *)loadNumber:(int *)position
 {
-    int pos = *position;
-    if (![digits_ characterIsMember:[string_ characterAtIndex:pos]]) {
+    static NSRegularExpression *numberRegEx = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        numberRegEx = [[NSRegularExpression alloc] initWithPattern:@"[0-9]+(.[0-9]+)?" options:0
+            error:nil];
+    });
+
+    NSRange range = [numberRegEx rangeOfFirstMatchInString:string_ options:NSMatchingAnchored
+        range:(NSRange){*position, string_.length - *position}];
+    if (!range.length) {
         return nil;
     }
-    ++pos;
-    while (pos < string_.length
-            && [digits_ characterIsMember:[string_ characterAtIndex:pos]]) {
-        ++pos;
-    }
-    if (pos < string_.length) {
-        NSString *op = @".";
-        if ([string_ compare:op options:0 range:(NSRange){pos, op.length}] == NSOrderedSame) {
-            pos += op.length;
-            while (pos < string_.length
-                    && [digits_ characterIsMember:[string_ characterAtIndex:pos]]) {
-                ++pos;
-            }
-        }
-    }
-    NSNumber *num = [NSNumber numberWithDouble:[[string_ substringWithRange:(NSRange){*position, pos - *position}]
-            doubleValue]];
-    *position = pos;
-    return num;
+    NSString *str = [string_ substringWithRange:(NSRange){*position, range.length}];
+    NSNumber *number = [NSNumber numberWithDouble:[str doubleValue]];
+    *position += range.length;
+    return number;
 }
 
 @end

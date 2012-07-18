@@ -1,20 +1,46 @@
 import "styles.nui"
 
 state hidden = {
-  label.hidden = YES
+  labelItem.visibility = Collapsed
+  button.selected = YES
+}
+
+state shown = {
+  labelItem.visibility = Visible
+  button.selected = NO
 }
 
 self = {
-  view <= {
-    backgroundColor = "00FF00"
-    subviews = [
-      UILabel:{
-        :id = label
-        :property = label2
-        :style = my_label
-        frame = [10, 10, 100, 100]
-        text = "AAA"
-      }
-    ]
+  view = NUILayoutView:{
+    layoutAnimation = {
+      duration = 0.3
+    }
+    layout = NUIVerticalLayout:{
+      layoutItems = [
+        {
+          :id = labelItem
+          fixedHeight = 200
+          horizontalAlignment = Stretch
+          view = UILabel:{
+            :property = label2
+            :style = my_label
+            text = "AAA"
+          }
+        }
+        {
+          fixedHeight = 50
+          horizontalAlignment = Stretch
+          view = UIButton:{
+            :id = button
+            backgroundColor = "0000AA"
+            title = "Hide"
+            selectedTitle = "Show"
+            action = {
+              selector = "buttonTapped:"
+            }
+          }
+        }
+      ]
+    }
   }
 }

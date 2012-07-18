@@ -57,7 +57,7 @@ typedef enum {
 @property (nonatomic, assign) BOOL isFixedHeightSet;
 
 // Use it instead of view hidden property
-@property (nonatomic, assign) NUIVisibility visibilty;
+@property (nonatomic, assign) NUIVisibility visibility;
 
 // Constraing by min and max sizes
 - (CGFloat)constraintWidth:(CGFloat)width;

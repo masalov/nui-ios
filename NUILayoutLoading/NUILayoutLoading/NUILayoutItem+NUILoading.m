@@ -2,53 +2,48 @@
 
 @implementation NUILayoutItem (NUILoading)
 
-- (BOOL)setNUIVerticalAlignment:(NSString *)value
++ (NSDictionary *)nuiConstantsForVerticalAlignment
 {
-    if ([value isEqualToString:@"Center"]) {
-        self.verticalAlignment = NUIVerticalAlignment_Center;
-    } else if ([value isEqualToString:@"Top"]) {
-        self.verticalAlignment = NUIVerticalAlignment_Top;
-    } else if ([value isEqualToString:@"Bottom"]) {
-        self.verticalAlignment = NUIVerticalAlignment_Bottom;
-    } else if ([value isEqualToString:@"Stretch"]) {
-        self.verticalAlignment = NUIVerticalAlignment_Stretch;
-    } else {
-        NSAssert(NO, @"Unknown vertical alignment");
-        return NO;
-    }
-    return YES;
+    static NSDictionary *verticalAlignmentConstants = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        verticalAlignmentConstants = [[NSDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithInt:NUIVerticalAlignment_Top], @"Top",
+            [NSNumber numberWithInt:NUIVerticalAlignment_Stretch], @"Stretch",
+            [NSNumber numberWithInt:NUIVerticalAlignment_Center], @"Center",
+            [NSNumber numberWithInt:NUIVerticalAlignment_Bottom], @"Bottom",
+            nil];
+    });
+    return verticalAlignmentConstants;
 }
 
-- (BOOL)setNUIHorizontalAlignment:(NSString *)value
++ (NSDictionary *)nuiConstantsForHorizontalAlignment
 {
-    if ([value isEqualToString:@"Center"]) {
-        self.horizontalAlignment = NUIHorizontalAlignment_Center;
-    } else if ([value isEqualToString:@"Left"]) {
-        self.horizontalAlignment = NUIHorizontalAlignment_Left;
-    } else if ([value isEqualToString:@"Right"]) {
-        self.horizontalAlignment = NUIHorizontalAlignment_Right;
-    } else if ([value isEqualToString:@"Stretch"]) {
-        self.horizontalAlignment = NUIHorizontalAlignment_Stretch;
-    } else {
-        NSAssert(NO, @"Unknown horizontal alignment");
-        return NO;
-    }
-    return YES;
+    static NSDictionary *horizontalAlignmentConstants = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        horizontalAlignmentConstants = [[NSDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithInt:NUIHorizontalAlignment_Left], @"Left",
+            [NSNumber numberWithInt:NUIHorizontalAlignment_Stretch], @"Stretch",
+            [NSNumber numberWithInt:NUIHorizontalAlignment_Center], @"Center",
+            [NSNumber numberWithInt:NUIHorizontalAlignment_Right], @"Right",
+            nil];
+    });
+    return horizontalAlignmentConstants;
 }
 
-- (BOOL)setNUIVisibilty:(NSString *)value
++ (NSDictionary *)nuiConstantsForVisibility
 {
-    if ([value isEqualToString:@"Visible"]) {
-        self.visibilty = NUIVisibility_Visible;
-    } else if ([value isEqualToString:@"Hidden"]) {
-        self.visibilty = NUIVisibility_Hidden;
-    } else if ([value isEqualToString:@"Collapsed"]) {
-        self.visibilty = NUIVisibility_Collapsed;
-    } else {
-        NSAssert(NO, @"Unknown visibility");
-        return NO;
-    }
-    return YES;
+    static NSDictionary *visibilityConstants = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        visibilityConstants = [[NSDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithInt:NUIVisibility_Hidden], @"Hidden",
+            [NSNumber numberWithInt:NUIVisibility_Collapsed], @"Collapsed",
+            [NSNumber numberWithInt:NUIVisibility_Visible], @"Visible",
+            nil];
+    });
+    return visibilityConstants;
 }
 
 @end

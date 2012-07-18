@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
+    NUIBinaryOperatorType_Invalid = 0,
     NUIBinaryOperatorType_Assignment,
-    NUIBinaryOperatorType_Modification
+    NUIBinaryOperatorType_Modification,
+    NUIBinaryOperatorType_BitwiseOr,
 } NUIBinaryOperatorType;
 
 @interface NUIBinaryOperator : NSObject

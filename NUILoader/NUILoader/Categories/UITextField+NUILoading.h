@@ -10,9 +10,9 @@
 
 @interface UITextField (NUILoading)
 
-- (BOOL)setNUIAutocapitalizationType:(NSString *)value;
-- (BOOL)setNUIAutocorrectionType:(NSString *)value;
-- (BOOL)setNUIKeyboardType:(NSString *)value;
++ (NSDictionary *)nuiConstantsForAutocapitalizationType;
++ (NSDictionary *)nuiConstantsForAutocorrectionType;
++ (NSDictionary *)nuiConstantsForKeyboardType;
 
 - (void)setLocalizedText:(NSString *)text;
 - (void)setLocalizedPlaceholder:(NSString *)placeholder;

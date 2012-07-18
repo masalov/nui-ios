@@ -44,6 +44,9 @@
 
 - (void)addSubview:(UIView *)view layoutItem:(NUILayoutItem *)layoutItem
 {
+    if ([self layoutItemForSubview:view]) {
+        [self removeSubview:view];
+    }
     [subviews_ addObject:view];
     [self.view addSubview:view];
     [self setLayoutItem:layoutItem forSubview:view];

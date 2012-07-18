@@ -7,7 +7,6 @@
 //
 
 #import "UILabel+NUILoading.h"
-#import "UIStringDrawing+NUILoading.h"
 
 @implementation UILabel (NUILoading)
 
@@ -16,30 +15,50 @@
     self.text = NSLocalizedString(text, nil);
 }
 
-- (BOOL)setNUITextAlignment:(NSString *)value
++ (NSDictionary *)nuiConstantsForTextAlignment
 {
-    if ([value isKindOfClass:[NSString class]]) {
-        return NO;
-    }
-    UITextAlignment textAlignment;
-    if (!textAlignmentFromNUIValue(&textAlignment, value)) {
-        return NO;
-    }
-    self.textAlignment = textAlignment;
-    return YES;
+    static NSDictionary *textAlignmentConstants = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        textAlignmentConstants = [[NSDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithInt:UITextAlignmentLeft], @"Left",
+            [NSNumber numberWithInt:UITextAlignmentCenter], @"Center",
+            [NSNumber numberWithInt:UITextAlignmentRight], @"Right",
+            nil];
+    });
+    return textAlignmentConstants;
 }
 
-- (BOOL)setNUILineBreakMode:(NSString *)value
++ (NSDictionary *)nuiConstantsForLineBreakMode
 {
-    if ([value isKindOfClass:[NSString class]]) {
-        return NO;
-    }
-    UILineBreakMode lineBreakMode;
-    if (!lineBreakModeFromNUIValue(&lineBreakMode, value)) {
-        return NO;
-    }
-    self.lineBreakMode = lineBreakMode;
-    return YES;
+    static NSDictionary *lineBreakModeConstants = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        lineBreakModeConstants = [[NSDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithInt:UILineBreakModeWordWrap], @"WordWrap",
+            [NSNumber numberWithInt:UILineBreakModeCharacterWrap], @"CharacterWrap",
+            [NSNumber numberWithInt:UILineBreakModeClip], @"Clip",
+            [NSNumber numberWithInt:UILineBreakModeHeadTruncation], @"HeadTruncation",
+            [NSNumber numberWithInt:UILineBreakModeTailTruncation], @"TailTruncation",
+            [NSNumber numberWithInt:UILineBreakModeMiddleTruncation], @"MiddleTruncation",
+            nil];
+    });
+
+    return lineBreakModeConstants;
+}
+
++ (NSDictionary *)nuiConstantsForBaselineAdjustment
+{
+    static NSDictionary *baselineAdjustmentConstants = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        baselineAdjustmentConstants = [[NSDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithInt:UIBaselineAdjustmentNone], @"None",
+            [NSNumber numberWithInt:UIBaselineAdjustmentAlignBaselines], @"AlignBaselines",
+            [NSNumber numberWithInt:UIBaselineAdjustmentAlignCenters], @"AlignCenters",
+            nil];
+    });
+    return baselineAdjustmentConstants;
 }
 
 @end

@@ -7,47 +7,62 @@
 //
 
 #import "UITextField+NUILoading.h"
-#import "UITextInputTraits+NUILoading.h"
 
 @implementation UITextField (NUILoading)
 
-- (BOOL)setNUIAutocapitalizationType:(NSString *)value
++ (NSDictionary *)nuiConstantsForAutocapitalizationType
 {
-    if ([value isKindOfClass:[NSString class]]) {
-        return NO;
-    }
-    UITextAutocapitalizationType autocapitalizationType = 0;
-    if (!autocapitalizationTypeFromNUIValue(&autocapitalizationType, value)) {
-        return NO;
-    }
-    self.autocapitalizationType = autocapitalizationType;
-    return YES;
+    static NSDictionary *autocapitalizationTypeConstants = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        autocapitalizationTypeConstants = [[NSDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithInt:UITextAutocapitalizationTypeNone], @"None",
+            [NSNumber numberWithInt:UITextAutocapitalizationTypeSentences], @"Sentences",
+            [NSNumber numberWithInt:UITextAutocapitalizationTypeWords], @"Words",
+            [NSNumber numberWithInt:UITextAutocapitalizationTypeAllCharacters], @"AllCharacters",
+            nil];
+    });
+    return autocapitalizationTypeConstants;
 }
 
-- (BOOL)setNUIAutocorrectionType:(NSString *)value
++ (NSDictionary *)nuiConstantsForAutocorrectionType
 {
-    if ([value isKindOfClass:[NSString class]]) {
-        return NO;
-    }
-    UITextAutocorrectionType autocorrectionType = 0;
-    if (!autocorrectionTypeFromNUIValue(&autocorrectionType, value)) {
-        return NO;
-    }
-    self.autocorrectionType = autocorrectionType;
-    return YES;
+    static NSDictionary *autocorrectionTypeConstants = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        autocorrectionTypeConstants = [[NSDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithInt:UITextAutocorrectionTypeNo], @"No",
+            [NSNumber numberWithInt:UITextAutocorrectionTypeYes], @"Yes",
+            [NSNumber numberWithInt:UITextAutocorrectionTypeDefault], @"Default",
+            nil];
+    });
+    return autocorrectionTypeConstants;
 }
 
-- (BOOL)setNUIKeyboardType:(NSString *)value
++ (NSDictionary *)nuiConstantsForKeyboardType
 {
-    if ([value isKindOfClass:[NSString class]]) {
-        return NO;
-    }
-    UIKeyboardType keyboardType = 0;
-    if (!keyboardTypeFromNUIValue(&keyboardType, value)) {
-        return NO;
-    }
-    self.keyboardType = keyboardType;
-    return YES;
+    static NSDictionary *keyboardTypeConstants = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        keyboardTypeConstants = [[NSDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithInt:UIKeyboardTypeDefault], @"Default",
+            [NSNumber numberWithInt:UIKeyboardTypeASCIICapable], @"ASCIICapable",
+            [NSNumber numberWithInt:UIKeyboardTypeNumbersAndPunctuation], @"NumbersAndPunctuation",
+            [NSNumber numberWithInt:UIKeyboardTypeURL], @"URL",
+            [NSNumber numberWithInt:UIKeyboardTypeNumberPad], @"NumberPad",
+            [NSNumber numberWithInt:UIKeyboardTypePhonePad], @"PhonePad",
+            [NSNumber numberWithInt:UIKeyboardTypeNamePhonePad], @"NamePhonePad",
+            [NSNumber numberWithInt:UIKeyboardTypeEmailAddress], @"EmailAddress",
+#if __IPHONE_4_1 <= __IPHONE_OS_VERSION_MAX_ALLOWED
+            [NSNumber numberWithInt:UIKeyboardTypeDecimalPad], @"DecimalPad",
+#endif
+#if __IPHONE_5_0 <= __IPHONE_OS_VERSION_MAX_ALLOWED
+            [NSNumber numberWithInt:UIKeyboardTypeTwitter], @"Twitter",
+#endif
+            nil];
+    });
+    return keyboardTypeConstants;
 }
 
 - (void)setLocalizedText:(NSString *)text

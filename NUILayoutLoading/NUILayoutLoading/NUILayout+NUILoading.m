@@ -5,7 +5,7 @@
 
 @implementation NUILayout (NUILoading)
 
-- (BOOL)loadNUISubviewsFromRValue:(NSArray *)array loader:(NUILoader *)loader
+- (BOOL)loadNUILayoutItemsFromRValue:(NSArray *)array loader:(NUILoader *)loader
 {
     if (![array isKindOfClass:[NSArray class]]) {
         NSAssert(NO, @"Layout items should be array.");

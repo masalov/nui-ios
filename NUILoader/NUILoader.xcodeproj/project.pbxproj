@@ -23,12 +23,8 @@
 		BD8BD57A15B026D2000B9B37 /* UIImage+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD55A15B026D2000B9B37 /* UIImage+NUILoading.m */; };
 		BD8BD57B15B026D2000B9B37 /* UILabel+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD55B15B026D2000B9B37 /* UILabel+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD8BD57C15B026D2000B9B37 /* UILabel+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD55C15B026D2000B9B37 /* UILabel+NUILoading.m */; };
-		BD8BD57D15B026D2000B9B37 /* UIStringDrawing+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD55D15B026D2000B9B37 /* UIStringDrawing+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BD8BD57E15B026D2000B9B37 /* UIStringDrawing+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD55E15B026D2000B9B37 /* UIStringDrawing+NUILoading.m */; };
 		BD8BD57F15B026D2000B9B37 /* UITextField+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD55F15B026D2000B9B37 /* UITextField+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD8BD58015B026D2000B9B37 /* UITextField+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD56015B026D2000B9B37 /* UITextField+NUILoading.m */; };
-		BD8BD58115B026D2000B9B37 /* UITextInputTraits+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD56115B026D2000B9B37 /* UITextInputTraits+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BD8BD58215B026D2000B9B37 /* UITextInputTraits+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD56215B026D2000B9B37 /* UITextInputTraits+NUILoading.m */; };
 		BD8BD58315B026D2000B9B37 /* UIView+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD56315B026D2000B9B37 /* UIView+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD8BD58415B026D2000B9B37 /* UIView+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8BD56415B026D2000B9B37 /* UIView+NUILoading.m */; };
 		BD8BD58515B026D2000B9B37 /* NUIAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8BD56515B026D2000B9B37 /* NUIAnalyzer.h */; settings = {ATTRIBUTES = (); }; };
@@ -63,12 +59,8 @@
 		BD8BD55A15B026D2000B9B37 /* UIImage+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NUILoading.m"; sourceTree = "<group>"; };
 		BD8BD55B15B026D2000B9B37 /* UILabel+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+NUILoading.h"; sourceTree = "<group>"; };
 		BD8BD55C15B026D2000B9B37 /* UILabel+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+NUILoading.m"; sourceTree = "<group>"; };
-		BD8BD55D15B026D2000B9B37 /* UIStringDrawing+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStringDrawing+NUILoading.h"; sourceTree = "<group>"; };
-		BD8BD55E15B026D2000B9B37 /* UIStringDrawing+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStringDrawing+NUILoading.m"; sourceTree = "<group>"; };
 		BD8BD55F15B026D2000B9B37 /* UITextField+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+NUILoading.h"; sourceTree = "<group>"; };
 		BD8BD56015B026D2000B9B37 /* UITextField+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+NUILoading.m"; sourceTree = "<group>"; };
-		BD8BD56115B026D2000B9B37 /* UITextInputTraits+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextInputTraits+NUILoading.h"; sourceTree = "<group>"; };
-		BD8BD56215B026D2000B9B37 /* UITextInputTraits+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextInputTraits+NUILoading.m"; sourceTree = "<group>"; };
 		BD8BD56315B026D2000B9B37 /* UIView+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+NUILoading.h"; sourceTree = "<group>"; };
 		BD8BD56415B026D2000B9B37 /* UIView+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+NUILoading.m"; sourceTree = "<group>"; };
 		BD8BD56515B026D2000B9B37 /* NUIAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIAnalyzer.h; sourceTree = "<group>"; };
@@ -160,12 +152,8 @@
 				BD8BD55A15B026D2000B9B37 /* UIImage+NUILoading.m */,
 				BD8BD55B15B026D2000B9B37 /* UILabel+NUILoading.h */,
 				BD8BD55C15B026D2000B9B37 /* UILabel+NUILoading.m */,
-				BD8BD55D15B026D2000B9B37 /* UIStringDrawing+NUILoading.h */,
-				BD8BD55E15B026D2000B9B37 /* UIStringDrawing+NUILoading.m */,
 				BD8BD55F15B026D2000B9B37 /* UITextField+NUILoading.h */,
 				BD8BD56015B026D2000B9B37 /* UITextField+NUILoading.m */,
-				BD8BD56115B026D2000B9B37 /* UITextInputTraits+NUILoading.h */,
-				BD8BD56215B026D2000B9B37 /* UITextInputTraits+NUILoading.m */,
 				BD8BD56315B026D2000B9B37 /* UIView+NUILoading.h */,
 				BD8BD56415B026D2000B9B37 /* UIView+NUILoading.m */,
 			);
@@ -195,9 +183,7 @@
 				BD8BD57715B026D2000B9B37 /* UIFont+NUILoading.h in Headers */,
 				BD8BD57915B026D2000B9B37 /* UIImage+NUILoading.h in Headers */,
 				BD8BD57B15B026D2000B9B37 /* UILabel+NUILoading.h in Headers */,
-				BD8BD57D15B026D2000B9B37 /* UIStringDrawing+NUILoading.h in Headers */,
 				BD8BD57F15B026D2000B9B37 /* UITextField+NUILoading.h in Headers */,
-				BD8BD58115B026D2000B9B37 /* UITextInputTraits+NUILoading.h in Headers */,
 				BD8BD58315B026D2000B9B37 /* UIView+NUILoading.h in Headers */,
 				BD8BD58715B026D2000B9B37 /* NUIBinaryOperator.h in Headers */,
 				BD8BD58915B026D2000B9B37 /* NUIIdentifier.h in Headers */,
@@ -265,9 +251,7 @@
 				BD8BD57815B026D2000B9B37 /* UIFont+NUILoading.m in Sources */,
 				BD8BD57A15B026D2000B9B37 /* UIImage+NUILoading.m in Sources */,
 				BD8BD57C15B026D2000B9B37 /* UILabel+NUILoading.m in Sources */,
-				BD8BD57E15B026D2000B9B37 /* UIStringDrawing+NUILoading.m in Sources */,
 				BD8BD58015B026D2000B9B37 /* UITextField+NUILoading.m in Sources */,
-				BD8BD58215B026D2000B9B37 /* UITextInputTraits+NUILoading.m in Sources */,
 				BD8BD58415B026D2000B9B37 /* UIView+NUILoading.m in Sources */,
 				BD8BD58615B026D2000B9B37 /* NUIAnalyzer.m in Sources */,
 				BD8BD58815B026D2000B9B37 /* NUIBinaryOperator.m in Sources */,

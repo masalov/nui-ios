@@ -27,12 +27,15 @@
     self.loader = [[[NUILoader alloc] initWithRootObject:self] autorelease];
     [loader_ loadFromFile:@"nui.nui"];
     label2_.backgroundColor = [UIColor redColor];
-    [self performSelector:@selector(hide) withObject:nil afterDelay:3];
 }
 
-- (void)hide
+- (void)buttonTapped:(UIButton *)b
 {
-    [loader_ loadState:@"hidden"];
+    if (b.selected) {
+        [loader_ loadState:@"shown"];
+    } else {
+        [loader_ loadState:@"hidden"];
+    }
 }
 
 - (void)viewDidUnload

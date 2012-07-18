@@ -11,7 +11,7 @@
 
 - (void)setLocalizedText:(NSString *)text;
 
-- (BOOL)setNUITextAlignment:(NSString *)value;
-- (BOOL)setNUILineBreakMode:(NSString *)value;
++ (NSDictionary *)nuiConstantsForTextAlignment;
++ (NSDictionary *)nuiConstantsForLineBreakMode;
 
 @end

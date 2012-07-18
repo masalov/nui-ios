@@ -47,6 +47,12 @@ static SEL propertyParser(Class class, NSString *propertyName)
     return nil;
 }
 
+static SEL propertyConstantsGetter(NSString *property)
+{
+    return NSSelectorFromString([NSString stringWithFormat:@"nuiConstantsFor%@%@", [[property substringToIndex:1]
+        capitalizedString], [property substringFromIndex:1]]);
+}
+
 @interface NUILoader ()
 {
     id rootObject_;
@@ -68,7 +74,10 @@ static SEL propertyParser(Class class, NSString *propertyName)
     self = [super init];
     if (self) {
         rootObject_ = rootObject;
-        globalObjects_ = [[NSMutableDictionary alloc] init];
+        globalObjects_ = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithBool:YES], @"YES",
+            [NSNumber numberWithBool:NO], @"NO",
+            nil];
         rootProperties_ = [[NSMutableSet alloc] init];
         constants_ = [[NSMutableDictionary alloc] init];
         styles_ = [[NSMutableDictionary alloc] init];
@@ -103,19 +112,28 @@ static SEL propertyParser(Class class, NSString *propertyName)
 - (BOOL)loadState:(NSString *)state
 {
     NUIObject *nuiObject = [states_ objectForKey:state];
+    if (!nuiObject) {
+        NSAssert(NO, @"Unkonw state \"%@\"", state);
+        return NO;
+    }
     for (NUIBinaryOperator *op in nuiObject.properties) {
         NUIIdentifier *identifier = op.lvalue;
         if (op.type == NUIBinaryOperatorType_Assignment) {
             NSRange range = [identifier.value rangeOfString:@"." options:NSBackwardsSearch];
             if (!range.length) {
+                NSAssert(NO, @"Can set only object properties, not an object");
                 return NO;
             }
             id object = [self globalObjectForKey:[identifier.value substringToIndex:range.location]];
             if (!object) {
+                NSAssert(NO, @"Object \"%@\" not found", [identifier.value
+                    substringToIndex:range.location]);
                 return NO;
             }
-            if (![self assignObject:object property:[identifier.value substringFromIndex:range.location + range.length]
-                value:op.rvalue]) {
+            if (![self assignObject:object property:[identifier.value
+                substringFromIndex:range.location + range.length] value:op.rvalue]) {
+                NSAssert(NO, @"Failed to load property \"%@\"", [identifier.value
+                    substringFromIndex:range.location + range.length]);
                 return NO;
             }
         } else {
@@ -144,7 +162,8 @@ static SEL propertyParser(Class class, NSString *propertyName)
     }
     if (subclass) {
         if (!isSuperClass(subclass, cls)) {
-            NSAssert(NO, @"Wrong class.");
+            NSAssert(NO, @"Expecting subclass of %@, not %@", NSStringFromClass(cls),
+                NSStringFromClass(subclass));
             return NO;
         }
     } else {
@@ -193,6 +212,40 @@ static SEL propertyParser(Class class, NSString *propertyName)
         object = [object valueForKeyPath:[key substringFromIndex:range.location + range.length]];
     }
     return object;
+}
+
+- (NSNumber *)calculateNumericExpression:(id)expression constants:(NSDictionary *)constants
+{
+    if ([expression isKindOfClass:[NSNumber class]]) {
+        return expression;
+    }
+    if ([expression isKindOfClass:[NUIIdentifier class]]) {
+        id res = [constants objectForKey:((NUIIdentifier *)expression).value];
+        if (!res) {
+            res = [self globalObjectForKey:((NUIIdentifier *)expression).value];
+        }
+        return res;
+    }
+    if ([expression isKindOfClass:[NUIBinaryOperator class]]) {
+        NSNumber *lvalue = [self calculateNumericExpression:((NUIBinaryOperator *)expression).lvalue
+            constants:constants];
+        if (!lvalue) {
+            return nil;
+        }
+        NSNumber *rvalue = [self calculateNumericExpression:((NUIBinaryOperator *)expression).rvalue
+            constants:constants];
+        if (!rvalue) {
+            return nil;
+        }
+        switch (((NUIBinaryOperator *)expression).type) {
+            case NUIBinaryOperatorType_BitwiseOr:
+                return [NSNumber numberWithInt:([lvalue intValue] | [rvalue intValue])];
+            default:
+                return nil;
+        }
+        return expression;
+    }
+    return nil;
 }
 
 #pragma mark - private methods
@@ -302,6 +355,7 @@ static SEL propertyParser(Class class, NSString *propertyName)
     sel = nuiSetterFromProperty(property);
     if ([object respondsToSelector:sel]) {
         [object performSelector:sel withObject:rvalue];
+        return YES;
     } else {
         // Assigning to global object property
         if ([rvalue isKindOfClass:[NUIIdentifier class]]) {
@@ -314,28 +368,6 @@ static SEL propertyParser(Class class, NSString *propertyName)
         }
         sel = setterFromProperty(property);
         if ([object respondsToSelector:sel]) {
-            NSMethodSignature *sign = [[object class] instanceMethodSignatureForSelector:sel];
-            const char *type = [sign getArgumentTypeAtIndex:2];
-            if ([rvalue isKindOfClass:[NSNumber class]]) {
-                return [self assignObject:object selector:sel type:type number:(id)rvalue];
-            }
-            if ([rvalue isKindOfClass:[NUIIdentifier class]]) {
-                return [self assignObject:object selector:sel type:type boolValue:(id)rvalue];
-            }
-            int len = strlen(type);
-            if (len > 1 && type[0] == '{') {
-                for (int i = 0; i < len; ++i) {
-                    if (type[i] == '=') {
-                        NSString *tmp = [[[NSString alloc] initWithBytes:type + 1 length:i - 1
-                            encoding:NSASCIIStringEncoding] autorelease];
-                        SEL parser = structPropertyParser(tmp);
-                        if ([self respondsToSelector:parser]) {
-                            objc_msgSend(self, parser, object, sel, rvalue);
-                            return YES;
-                        }
-                    }
-                }
-            }
             SEL parser = propertyParser([object class], property);
             if (parser && [self respondsToSelector:parser]) {
                 objc_msgSend(self, parser, object, property, rvalue);
@@ -359,7 +391,7 @@ static SEL propertyParser(Class class, NSString *propertyName)
                 if (!defaultClassName) {
                     return NO;
                 }
-                Class defaultCl = NSClassFromString(className);
+                Class defaultCl = NSClassFromString(defaultClassName);
                 if (cl && !isSuperClass(cl, defaultCl)) {
                     return NO;
                 }
@@ -368,22 +400,60 @@ static SEL propertyParser(Class class, NSString *propertyName)
                 objc_msgSend(object, sel, value);
                 return YES;
             }
+            NSMethodSignature *sign = [[object class] instanceMethodSignatureForSelector:sel];
+            const char *type = [sign getArgumentTypeAtIndex:2];
+            int len = strlen(type);
+            if (len > 1 && type[0] == '{') {
+                for (int i = 0; i < len; ++i) {
+                    if (type[i] == '=') {
+                        NSString *tmp = [[[NSString alloc] initWithBytes:type + 1 length:i - 1
+                            encoding:NSASCIIStringEncoding] autorelease];
+                        SEL parser = structPropertyParser(tmp);
+                        if ([self respondsToSelector:parser]) {
+                            objc_msgSend(self, parser, object, sel, rvalue);
+                            return YES;
+                        }
+                    }
+                }
+            }
+            return [self assignObject:object property:property type:type numericExpression:rvalue];
         }
     }
     NSAssert(NO, @"Object doesn't have %@ property", property);
     return NO;
 }
 
-- (BOOL)assignObject:(id)object selector:(SEL)sel type:(const char *)type number:(NSNumber *)value
+- (BOOL)assignObject:(id)object property:(NSString *)property type:(const char *)type
+    numericExpression:(id)expression
 {
-    if (strcmp(@encode(float), type) == 0) {
+    NSDictionary *constants = nil;
+    SEL constantsGetter = propertyConstantsGetter(property);
+    if ([[object class] respondsToSelector:constantsGetter]) {
+        constants = [[object class] performSelector:constantsGetter];
+    }
+    NSNumber *value = [self calculateNumericExpression:expression
+        constants:constants];
+    if (!value) {
+        return NO;
+    }
+    SEL sel = setterFromProperty(property);
+    if (strcmp(@encode(BOOL), type) == 0) {
+        BOOL v = [value boolValue];
+        ((void (*)(id, SEL, BOOL))objc_msgSend)(object, sel, v);
+    } else if (strcmp(@encode(float), type) == 0) {
         float v = [value floatValue];
         ((void (*)(id, SEL, float))objc_msgSend)(object, sel, v);
-    } else if (strcmp(@encode(double), type) == 0) {
-        double v = [value doubleValue];
-        objc_msgSend(object, sel, v);
     } else if (strcmp(@encode(int), type) == 0) {
         int v = [value intValue];
+        objc_msgSend(object, sel, v);
+    } else if (strcmp(@encode(unsigned int), type) == 0) {
+        unsigned int v = [value unsignedIntValue];
+        ((void (*)(id, SEL, unsigned int))objc_msgSend)(object, sel, v);
+    } else if (strcmp(@encode(long), type) == 0) {
+        long v = [value longValue];
+        ((void (*)(id, SEL, long))objc_msgSend)(object, sel, v);
+    } else if (strcmp(@encode(double), type) == 0) {
+        double v = [value doubleValue];
         objc_msgSend(object, sel, v);
     } else if (strcmp(@encode(long long), type) == 0) {
         long long v = [value longLongValue];
@@ -392,19 +462,6 @@ static SEL propertyParser(Class class, NSString *propertyName)
         return NO;
     }
     return YES;
-}
-
-- (BOOL)assignObject:(id)object selector:(SEL)sel type:(const char *)type boolValue:(NUIIdentifier *)value
-{
-    if (strcmp(@encode(BOOL), type) == 0) {
-        if ([value.value compare:@"YES" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-            ((void (*)(id, SEL, BOOL))objc_msgSend)(object, sel, YES);
-        } else {
-            ((void (*)(id, SEL, BOOL))objc_msgSend)(object, sel, NO);
-        }
-        return YES;
-    }
-    return NO;
 }
 
 @end

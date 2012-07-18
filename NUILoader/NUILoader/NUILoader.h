@@ -17,11 +17,11 @@
 // setNUI<Propery name>:(NSString *)value
 // loadNUI<Propery name>FromRValue:(id)rvalue loader:(NUILoader *)loader
 //
-// To add support for loading a struct from a string for any property add method to NUIParser with
+// To add support for loading a struct from a string for any property add method to NUILoader with
 // signature: load<struct name>PropertyOfObject:setter:value:
 // See NUILoader (StructuresLoading) for examples.
 //
-// To add support for loading an object from a string for any property add method to NUIParser with
+// To add support for loading an object from a string for any property add method to NUILoader with
 // signature: load<class name>PropertyOfObject:property:value:
 // See NUILoader (ObjectsLoading) for examples.
 @interface NUILoader : NSObject
@@ -40,6 +40,8 @@
 - (id)loadObjectOfClass:(Class)cls fromNUIObject:(NUIObject *)nuiObject;
 
 - (id)globalObjectForKey:(id)key;
+
+- (NSNumber *)calculateNumericExpression:(id)expression constants:(NSDictionary *)constants;
 
 @end
 

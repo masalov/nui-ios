@@ -20,8 +20,10 @@
         NSAssert(NO, @"Failed to load image from file: %@", path);
         return nil;
     }
-    CGFloat leftCapWidth = [[nuiObject property:@"leftCapWidth" ofClass:[NSString class]] floatValue];
-    CGFloat topCapHeight = [[nuiObject property:@"topCapHeight" ofClass:[NSString class]] floatValue];
+    CGFloat leftCapWidth = [[nuiObject property:@"leftCapWidth" ofClass:[NSNumber class]]
+        floatValue];
+    CGFloat topCapHeight = [[nuiObject property:@"topCapHeight" ofClass:[NSNumber class]]
+        floatValue];
     if (leftCapWidth != 0 || topCapHeight != 0) {
         image = [image stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
     }
