@@ -1,0 +1,532 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BD15054F15CF954C0096EB13 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD15054E15CF954C0096EB13 /* Foundation.framework */; };
+		BD15055D15CF957E0096EB13 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD15055C15CF957E0096EB13 /* UIKit.framework */; };
+		BD1505A615CF96EE0096EB13 /* NUIFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15056115CF96EE0096EB13 /* NUIFlowLayout.m */; };
+		BD1505A715CF96EE0096EB13 /* NUIGridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15056315CF96EE0096EB13 /* NUIGridLayout.m */; };
+		BD1505A815CF96EE0096EB13 /* NUIGridLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15056515CF96EE0096EB13 /* NUIGridLayoutItem.m */; };
+		BD1505A915CF96EE0096EB13 /* NUIGridLength.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15056715CF96EE0096EB13 /* NUIGridLength.m */; };
+		BD1505AA15CF96EE0096EB13 /* NUIHorizontalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15056915CF96EE0096EB13 /* NUIHorizontalLayout.m */; };
+		BD1505AB15CF96EE0096EB13 /* NUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15056B15CF96EE0096EB13 /* NUILabel.m */; };
+		BD1505AC15CF96EE0096EB13 /* NUILayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15056D15CF96EE0096EB13 /* NUILayout.m */; };
+		BD1505AD15CF96EE0096EB13 /* NUILayoutAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15056F15CF96EE0096EB13 /* NUILayoutAnimation.m */; };
+		BD1505AE15CF96EE0096EB13 /* NUILayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15057115CF96EE0096EB13 /* NUILayoutItem.m */; };
+		BD1505AF15CF96EE0096EB13 /* NUILayoutView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15057315CF96EE0096EB13 /* NUILayoutView.m */; };
+		BD1505B015CF96EE0096EB13 /* NUIScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15057515CF96EE0096EB13 /* NUIScrollView.m */; };
+		BD1505B115CF96EE0096EB13 /* NUISimpleLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15057715CF96EE0096EB13 /* NUISimpleLayout.m */; };
+		BD1505B215CF96EE0096EB13 /* NUIVerticalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15057915CF96EE0096EB13 /* NUIVerticalLayout.m */; };
+		BD1505B315CF96EE0096EB13 /* UIView+NUILayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15057B15CF96EE0096EB13 /* UIView+NUILayout.m */; };
+		BD1505B415CF96EE0096EB13 /* NUIGridLayout+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15057E15CF96EE0096EB13 /* NUIGridLayout+NUILoading.m */; };
+		BD1505B515CF96EE0096EB13 /* NUILayout+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15058015CF96EE0096EB13 /* NUILayout+NUILoading.m */; };
+		BD1505B615CF96EE0096EB13 /* NUILayoutItem+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15058215CF96EE0096EB13 /* NUILayoutItem+NUILoading.m */; };
+		BD1505B715CF96EE0096EB13 /* NUILoader+ObjectsLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15058615CF96EE0096EB13 /* NUILoader+ObjectsLoading.m */; };
+		BD1505B815CF96EE0096EB13 /* NUILoader+StructuresLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15058815CF96EE0096EB13 /* NUILoader+StructuresLoading.m */; };
+		BD1505B915CF96EE0096EB13 /* UIButton+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15058A15CF96EE0096EB13 /* UIButton+NUILoading.m */; };
+		BD1505BA15CF96EE0096EB13 /* UIControl+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15058C15CF96EE0096EB13 /* UIControl+NUILoading.m */; };
+		BD1505BB15CF96EE0096EB13 /* UIFont+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15058E15CF96EE0096EB13 /* UIFont+NUILoading.m */; };
+		BD1505BC15CF96EE0096EB13 /* UIImage+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059015CF96EE0096EB13 /* UIImage+NUILoading.m */; };
+		BD1505BD15CF96EE0096EB13 /* UILabel+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059215CF96EE0096EB13 /* UILabel+NUILoading.m */; };
+		BD1505BE15CF96EE0096EB13 /* UITextField+Localized.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059415CF96EE0096EB13 /* UITextField+Localized.m */; };
+		BD1505BF15CF96EE0096EB13 /* UITextField+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059615CF96EE0096EB13 /* UITextField+NUILoading.m */; };
+		BD1505C015CF96EE0096EB13 /* UIView+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059815CF96EE0096EB13 /* UIView+NUILoading.m */; };
+		BD1505C115CF96EE0096EB13 /* NUIAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059A15CF96EE0096EB13 /* NUIAnalyzer.m */; };
+		BD1505C215CF96EE0096EB13 /* NUIBinaryOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059C15CF96EE0096EB13 /* NUIBinaryOperator.m */; };
+		BD1505C315CF96EE0096EB13 /* NUIIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059E15CF96EE0096EB13 /* NUIIdentifier.m */; };
+		BD1505C415CF96EE0096EB13 /* NUILoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1505A015CF96EE0096EB13 /* NUILoader.m */; };
+		BD1505C515CF96EE0096EB13 /* NUIObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1505A215CF96EE0096EB13 /* NUIObject.m */; };
+		BD1505C615CF96EE0096EB13 /* nui_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1505A515CF96EE0096EB13 /* nui_utils.m */; };
+		BD1505C815CF97D50096EB13 /* NUIFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15056015CF96EE0096EB13 /* NUIFlowLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505C915CF97D50096EB13 /* NUIGridLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15056215CF96EE0096EB13 /* NUIGridLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505CA15CF97D50096EB13 /* NUIGridLayoutItem.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15056415CF96EE0096EB13 /* NUIGridLayoutItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505CB15CF97D50096EB13 /* NUIGridLength.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15056615CF96EE0096EB13 /* NUIGridLength.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505CC15CF97D50096EB13 /* NUIHorizontalLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15056815CF96EE0096EB13 /* NUIHorizontalLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505CD15CF97D50096EB13 /* NUILabel.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15056A15CF96EE0096EB13 /* NUILabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505CE15CF97D50096EB13 /* NUILayout.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15056C15CF96EE0096EB13 /* NUILayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505CF15CF97D50096EB13 /* NUILayoutAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15056E15CF96EE0096EB13 /* NUILayoutAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505D015CF97D50096EB13 /* NUILayoutItem.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15057015CF96EE0096EB13 /* NUILayoutItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505D115CF97D50096EB13 /* NUILayoutView.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15057215CF96EE0096EB13 /* NUILayoutView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505D215CF97D60096EB13 /* NUIScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15057415CF96EE0096EB13 /* NUIScrollView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505D315CF97D60096EB13 /* NUISimpleLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15057615CF96EE0096EB13 /* NUISimpleLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505D415CF97D60096EB13 /* NUIVerticalLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15057815CF96EE0096EB13 /* NUIVerticalLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505D515CF97D60096EB13 /* UIView+NUILayout.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15057A15CF96EE0096EB13 /* UIView+NUILayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505D615CF97D60096EB13 /* NUIGridLayout+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15057D15CF96EE0096EB13 /* NUIGridLayout+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505D715CF97D60096EB13 /* NUILayout+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15057F15CF96EE0096EB13 /* NUILayout+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505D815CF97D60096EB13 /* NUILayoutItem+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15058115CF96EE0096EB13 /* NUILayoutItem+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505D915CF97D60096EB13 /* NUILoader+ObjectsLoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15058515CF96EE0096EB13 /* NUILoader+ObjectsLoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505DA15CF97D60096EB13 /* NUILoader+StructuresLoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15058715CF96EE0096EB13 /* NUILoader+StructuresLoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505DB15CF97D60096EB13 /* UIButton+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15058915CF96EE0096EB13 /* UIButton+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505DC15CF97D60096EB13 /* UIControl+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15058B15CF96EE0096EB13 /* UIControl+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505DD15CF97D60096EB13 /* UIFont+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15058D15CF96EE0096EB13 /* UIFont+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505DE15CF97D60096EB13 /* UIImage+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15058F15CF96EE0096EB13 /* UIImage+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505DF15CF97D60096EB13 /* UILabel+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059115CF96EE0096EB13 /* UILabel+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505E015CF97D60096EB13 /* UITextField+Localized.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059315CF96EE0096EB13 /* UITextField+Localized.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505E115CF97D60096EB13 /* UITextField+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059515CF96EE0096EB13 /* UITextField+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505E215CF97D60096EB13 /* UIView+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059715CF96EE0096EB13 /* UIView+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505E315CF97D60096EB13 /* NUIAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059915CF96EE0096EB13 /* NUIAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505E415CF97D60096EB13 /* NUIBinaryOperator.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059B15CF96EE0096EB13 /* NUIBinaryOperator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505E515CF97D60096EB13 /* NUIIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059D15CF96EE0096EB13 /* NUIIdentifier.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505E615CF97D60096EB13 /* NUILoader.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059F15CF96EE0096EB13 /* NUILoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505E715CF97D60096EB13 /* NUIObject.h in Headers */ = {isa = PBXBuildFile; fileRef = BD1505A115CF96EE0096EB13 /* NUIObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD1505E815CF97D60096EB13 /* nui_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = BD1505A415CF96EE0096EB13 /* nui_utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BD15054B15CF954C0096EB13 /* libNUIKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNUIKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD15054E15CF954C0096EB13 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BD15055C15CF957E0096EB13 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		BD15055E15CF96EE0096EB13 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		BD15056015CF96EE0096EB13 /* NUIFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIFlowLayout.h; sourceTree = "<group>"; };
+		BD15056115CF96EE0096EB13 /* NUIFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIFlowLayout.m; sourceTree = "<group>"; };
+		BD15056215CF96EE0096EB13 /* NUIGridLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIGridLayout.h; sourceTree = "<group>"; };
+		BD15056315CF96EE0096EB13 /* NUIGridLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIGridLayout.m; sourceTree = "<group>"; };
+		BD15056415CF96EE0096EB13 /* NUIGridLayoutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIGridLayoutItem.h; sourceTree = "<group>"; };
+		BD15056515CF96EE0096EB13 /* NUIGridLayoutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIGridLayoutItem.m; sourceTree = "<group>"; };
+		BD15056615CF96EE0096EB13 /* NUIGridLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIGridLength.h; sourceTree = "<group>"; };
+		BD15056715CF96EE0096EB13 /* NUIGridLength.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIGridLength.m; sourceTree = "<group>"; };
+		BD15056815CF96EE0096EB13 /* NUIHorizontalLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIHorizontalLayout.h; sourceTree = "<group>"; };
+		BD15056915CF96EE0096EB13 /* NUIHorizontalLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIHorizontalLayout.m; sourceTree = "<group>"; };
+		BD15056A15CF96EE0096EB13 /* NUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUILabel.h; sourceTree = "<group>"; };
+		BD15056B15CF96EE0096EB13 /* NUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUILabel.m; sourceTree = "<group>"; };
+		BD15056C15CF96EE0096EB13 /* NUILayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUILayout.h; sourceTree = "<group>"; };
+		BD15056D15CF96EE0096EB13 /* NUILayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUILayout.m; sourceTree = "<group>"; };
+		BD15056E15CF96EE0096EB13 /* NUILayoutAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUILayoutAnimation.h; sourceTree = "<group>"; };
+		BD15056F15CF96EE0096EB13 /* NUILayoutAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUILayoutAnimation.m; sourceTree = "<group>"; };
+		BD15057015CF96EE0096EB13 /* NUILayoutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUILayoutItem.h; sourceTree = "<group>"; };
+		BD15057115CF96EE0096EB13 /* NUILayoutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUILayoutItem.m; sourceTree = "<group>"; };
+		BD15057215CF96EE0096EB13 /* NUILayoutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUILayoutView.h; sourceTree = "<group>"; };
+		BD15057315CF96EE0096EB13 /* NUILayoutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUILayoutView.m; sourceTree = "<group>"; };
+		BD15057415CF96EE0096EB13 /* NUIScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIScrollView.h; sourceTree = "<group>"; };
+		BD15057515CF96EE0096EB13 /* NUIScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIScrollView.m; sourceTree = "<group>"; };
+		BD15057615CF96EE0096EB13 /* NUISimpleLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUISimpleLayout.h; sourceTree = "<group>"; };
+		BD15057715CF96EE0096EB13 /* NUISimpleLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUISimpleLayout.m; sourceTree = "<group>"; };
+		BD15057815CF96EE0096EB13 /* NUIVerticalLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIVerticalLayout.h; sourceTree = "<group>"; };
+		BD15057915CF96EE0096EB13 /* NUIVerticalLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIVerticalLayout.m; sourceTree = "<group>"; };
+		BD15057A15CF96EE0096EB13 /* UIView+NUILayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+NUILayout.h"; sourceTree = "<group>"; };
+		BD15057B15CF96EE0096EB13 /* UIView+NUILayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+NUILayout.m"; sourceTree = "<group>"; };
+		BD15057D15CF96EE0096EB13 /* NUIGridLayout+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NUIGridLayout+NUILoading.h"; sourceTree = "<group>"; };
+		BD15057E15CF96EE0096EB13 /* NUIGridLayout+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NUIGridLayout+NUILoading.m"; sourceTree = "<group>"; };
+		BD15057F15CF96EE0096EB13 /* NUILayout+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NUILayout+NUILoading.h"; sourceTree = "<group>"; };
+		BD15058015CF96EE0096EB13 /* NUILayout+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NUILayout+NUILoading.m"; sourceTree = "<group>"; };
+		BD15058115CF96EE0096EB13 /* NUILayoutItem+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NUILayoutItem+NUILoading.h"; sourceTree = "<group>"; };
+		BD15058215CF96EE0096EB13 /* NUILayoutItem+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NUILayoutItem+NUILoading.m"; sourceTree = "<group>"; };
+		BD15058515CF96EE0096EB13 /* NUILoader+ObjectsLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NUILoader+ObjectsLoading.h"; sourceTree = "<group>"; };
+		BD15058615CF96EE0096EB13 /* NUILoader+ObjectsLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NUILoader+ObjectsLoading.m"; sourceTree = "<group>"; };
+		BD15058715CF96EE0096EB13 /* NUILoader+StructuresLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NUILoader+StructuresLoading.h"; sourceTree = "<group>"; };
+		BD15058815CF96EE0096EB13 /* NUILoader+StructuresLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NUILoader+StructuresLoading.m"; sourceTree = "<group>"; };
+		BD15058915CF96EE0096EB13 /* UIButton+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+NUILoading.h"; sourceTree = "<group>"; };
+		BD15058A15CF96EE0096EB13 /* UIButton+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+NUILoading.m"; sourceTree = "<group>"; };
+		BD15058B15CF96EE0096EB13 /* UIControl+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+NUILoading.h"; sourceTree = "<group>"; };
+		BD15058C15CF96EE0096EB13 /* UIControl+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+NUILoading.m"; sourceTree = "<group>"; };
+		BD15058D15CF96EE0096EB13 /* UIFont+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+NUILoading.h"; sourceTree = "<group>"; };
+		BD15058E15CF96EE0096EB13 /* UIFont+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+NUILoading.m"; sourceTree = "<group>"; };
+		BD15058F15CF96EE0096EB13 /* UIImage+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NUILoading.h"; sourceTree = "<group>"; };
+		BD15059015CF96EE0096EB13 /* UIImage+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NUILoading.m"; sourceTree = "<group>"; };
+		BD15059115CF96EE0096EB13 /* UILabel+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+NUILoading.h"; sourceTree = "<group>"; };
+		BD15059215CF96EE0096EB13 /* UILabel+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+NUILoading.m"; sourceTree = "<group>"; };
+		BD15059315CF96EE0096EB13 /* UITextField+Localized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Localized.h"; sourceTree = "<group>"; };
+		BD15059415CF96EE0096EB13 /* UITextField+Localized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Localized.m"; sourceTree = "<group>"; };
+		BD15059515CF96EE0096EB13 /* UITextField+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+NUILoading.h"; sourceTree = "<group>"; };
+		BD15059615CF96EE0096EB13 /* UITextField+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+NUILoading.m"; sourceTree = "<group>"; };
+		BD15059715CF96EE0096EB13 /* UIView+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+NUILoading.h"; sourceTree = "<group>"; };
+		BD15059815CF96EE0096EB13 /* UIView+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+NUILoading.m"; sourceTree = "<group>"; };
+		BD15059915CF96EE0096EB13 /* NUIAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIAnalyzer.h; sourceTree = "<group>"; };
+		BD15059A15CF96EE0096EB13 /* NUIAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIAnalyzer.m; sourceTree = "<group>"; };
+		BD15059B15CF96EE0096EB13 /* NUIBinaryOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIBinaryOperator.h; sourceTree = "<group>"; };
+		BD15059C15CF96EE0096EB13 /* NUIBinaryOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIBinaryOperator.m; sourceTree = "<group>"; };
+		BD15059D15CF96EE0096EB13 /* NUIIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIIdentifier.h; sourceTree = "<group>"; };
+		BD15059E15CF96EE0096EB13 /* NUIIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIIdentifier.m; sourceTree = "<group>"; };
+		BD15059F15CF96EE0096EB13 /* NUILoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUILoader.h; sourceTree = "<group>"; };
+		BD1505A015CF96EE0096EB13 /* NUILoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUILoader.m; sourceTree = "<group>"; };
+		BD1505A115CF96EE0096EB13 /* NUIObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIObject.h; sourceTree = "<group>"; };
+		BD1505A215CF96EE0096EB13 /* NUIObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIObject.m; sourceTree = "<group>"; };
+		BD1505A415CF96EE0096EB13 /* nui_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nui_utils.h; sourceTree = "<group>"; };
+		BD1505A515CF96EE0096EB13 /* nui_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nui_utils.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BD15054815CF954C0096EB13 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD15055D15CF957E0096EB13 /* UIKit.framework in Frameworks */,
+				BD15054F15CF954C0096EB13 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BD15054015CF954C0096EB13 = {
+			isa = PBXGroup;
+			children = (
+				BD15055C15CF957E0096EB13 /* UIKit.framework */,
+				BD15055015CF954C0096EB13 /* NUIKit */,
+				BD15054D15CF954C0096EB13 /* Frameworks */,
+				BD15054C15CF954C0096EB13 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BD15054C15CF954C0096EB13 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BD15054B15CF954C0096EB13 /* libNUIKit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BD15054D15CF954C0096EB13 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BD15054E15CF954C0096EB13 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BD15055015CF954C0096EB13 /* NUIKit */ = {
+			isa = PBXGroup;
+			children = (
+				BD15055E15CF96EE0096EB13 /* LICENSE */,
+				BD15055F15CF96EE0096EB13 /* NUILayout */,
+				BD15057C15CF96EE0096EB13 /* NUILayoutLoading */,
+				BD15058315CF96EE0096EB13 /* NUILoader */,
+				BD1505A315CF96EE0096EB13 /* utils */,
+			);
+			path = NUIKit;
+			sourceTree = "<group>";
+		};
+		BD15055F15CF96EE0096EB13 /* NUILayout */ = {
+			isa = PBXGroup;
+			children = (
+				BD15056015CF96EE0096EB13 /* NUIFlowLayout.h */,
+				BD15056115CF96EE0096EB13 /* NUIFlowLayout.m */,
+				BD15056215CF96EE0096EB13 /* NUIGridLayout.h */,
+				BD15056315CF96EE0096EB13 /* NUIGridLayout.m */,
+				BD15056415CF96EE0096EB13 /* NUIGridLayoutItem.h */,
+				BD15056515CF96EE0096EB13 /* NUIGridLayoutItem.m */,
+				BD15056615CF96EE0096EB13 /* NUIGridLength.h */,
+				BD15056715CF96EE0096EB13 /* NUIGridLength.m */,
+				BD15056815CF96EE0096EB13 /* NUIHorizontalLayout.h */,
+				BD15056915CF96EE0096EB13 /* NUIHorizontalLayout.m */,
+				BD15056A15CF96EE0096EB13 /* NUILabel.h */,
+				BD15056B15CF96EE0096EB13 /* NUILabel.m */,
+				BD15056C15CF96EE0096EB13 /* NUILayout.h */,
+				BD15056D15CF96EE0096EB13 /* NUILayout.m */,
+				BD15056E15CF96EE0096EB13 /* NUILayoutAnimation.h */,
+				BD15056F15CF96EE0096EB13 /* NUILayoutAnimation.m */,
+				BD15057015CF96EE0096EB13 /* NUILayoutItem.h */,
+				BD15057115CF96EE0096EB13 /* NUILayoutItem.m */,
+				BD15057215CF96EE0096EB13 /* NUILayoutView.h */,
+				BD15057315CF96EE0096EB13 /* NUILayoutView.m */,
+				BD15057415CF96EE0096EB13 /* NUIScrollView.h */,
+				BD15057515CF96EE0096EB13 /* NUIScrollView.m */,
+				BD15057615CF96EE0096EB13 /* NUISimpleLayout.h */,
+				BD15057715CF96EE0096EB13 /* NUISimpleLayout.m */,
+				BD15057815CF96EE0096EB13 /* NUIVerticalLayout.h */,
+				BD15057915CF96EE0096EB13 /* NUIVerticalLayout.m */,
+				BD15057A15CF96EE0096EB13 /* UIView+NUILayout.h */,
+				BD15057B15CF96EE0096EB13 /* UIView+NUILayout.m */,
+			);
+			path = NUILayout;
+			sourceTree = "<group>";
+		};
+		BD15057C15CF96EE0096EB13 /* NUILayoutLoading */ = {
+			isa = PBXGroup;
+			children = (
+				BD15057D15CF96EE0096EB13 /* NUIGridLayout+NUILoading.h */,
+				BD15057E15CF96EE0096EB13 /* NUIGridLayout+NUILoading.m */,
+				BD15057F15CF96EE0096EB13 /* NUILayout+NUILoading.h */,
+				BD15058015CF96EE0096EB13 /* NUILayout+NUILoading.m */,
+				BD15058115CF96EE0096EB13 /* NUILayoutItem+NUILoading.h */,
+				BD15058215CF96EE0096EB13 /* NUILayoutItem+NUILoading.m */,
+			);
+			path = NUILayoutLoading;
+			sourceTree = "<group>";
+		};
+		BD15058315CF96EE0096EB13 /* NUILoader */ = {
+			isa = PBXGroup;
+			children = (
+				BD15058415CF96EE0096EB13 /* Categories */,
+				BD15059915CF96EE0096EB13 /* NUIAnalyzer.h */,
+				BD15059A15CF96EE0096EB13 /* NUIAnalyzer.m */,
+				BD15059B15CF96EE0096EB13 /* NUIBinaryOperator.h */,
+				BD15059C15CF96EE0096EB13 /* NUIBinaryOperator.m */,
+				BD15059D15CF96EE0096EB13 /* NUIIdentifier.h */,
+				BD15059E15CF96EE0096EB13 /* NUIIdentifier.m */,
+				BD15059F15CF96EE0096EB13 /* NUILoader.h */,
+				BD1505A015CF96EE0096EB13 /* NUILoader.m */,
+				BD1505A115CF96EE0096EB13 /* NUIObject.h */,
+				BD1505A215CF96EE0096EB13 /* NUIObject.m */,
+			);
+			path = NUILoader;
+			sourceTree = "<group>";
+		};
+		BD15058415CF96EE0096EB13 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				BD15058515CF96EE0096EB13 /* NUILoader+ObjectsLoading.h */,
+				BD15058615CF96EE0096EB13 /* NUILoader+ObjectsLoading.m */,
+				BD15058715CF96EE0096EB13 /* NUILoader+StructuresLoading.h */,
+				BD15058815CF96EE0096EB13 /* NUILoader+StructuresLoading.m */,
+				BD15058915CF96EE0096EB13 /* UIButton+NUILoading.h */,
+				BD15058A15CF96EE0096EB13 /* UIButton+NUILoading.m */,
+				BD15058B15CF96EE0096EB13 /* UIControl+NUILoading.h */,
+				BD15058C15CF96EE0096EB13 /* UIControl+NUILoading.m */,
+				BD15058D15CF96EE0096EB13 /* UIFont+NUILoading.h */,
+				BD15058E15CF96EE0096EB13 /* UIFont+NUILoading.m */,
+				BD15058F15CF96EE0096EB13 /* UIImage+NUILoading.h */,
+				BD15059015CF96EE0096EB13 /* UIImage+NUILoading.m */,
+				BD15059115CF96EE0096EB13 /* UILabel+NUILoading.h */,
+				BD15059215CF96EE0096EB13 /* UILabel+NUILoading.m */,
+				BD15059315CF96EE0096EB13 /* UITextField+Localized.h */,
+				BD15059415CF96EE0096EB13 /* UITextField+Localized.m */,
+				BD15059515CF96EE0096EB13 /* UITextField+NUILoading.h */,
+				BD15059615CF96EE0096EB13 /* UITextField+NUILoading.m */,
+				BD15059715CF96EE0096EB13 /* UIView+NUILoading.h */,
+				BD15059815CF96EE0096EB13 /* UIView+NUILoading.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		BD1505A315CF96EE0096EB13 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				BD1505A415CF96EE0096EB13 /* nui_utils.h */,
+				BD1505A515CF96EE0096EB13 /* nui_utils.m */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		BD1505C715CF977E0096EB13 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD1505C815CF97D50096EB13 /* NUIFlowLayout.h in Headers */,
+				BD1505C915CF97D50096EB13 /* NUIGridLayout.h in Headers */,
+				BD1505CA15CF97D50096EB13 /* NUIGridLayoutItem.h in Headers */,
+				BD1505CB15CF97D50096EB13 /* NUIGridLength.h in Headers */,
+				BD1505CC15CF97D50096EB13 /* NUIHorizontalLayout.h in Headers */,
+				BD1505CD15CF97D50096EB13 /* NUILabel.h in Headers */,
+				BD1505CE15CF97D50096EB13 /* NUILayout.h in Headers */,
+				BD1505CF15CF97D50096EB13 /* NUILayoutAnimation.h in Headers */,
+				BD1505D015CF97D50096EB13 /* NUILayoutItem.h in Headers */,
+				BD1505D115CF97D50096EB13 /* NUILayoutView.h in Headers */,
+				BD1505D215CF97D60096EB13 /* NUIScrollView.h in Headers */,
+				BD1505D315CF97D60096EB13 /* NUISimpleLayout.h in Headers */,
+				BD1505D415CF97D60096EB13 /* NUIVerticalLayout.h in Headers */,
+				BD1505D515CF97D60096EB13 /* UIView+NUILayout.h in Headers */,
+				BD1505D615CF97D60096EB13 /* NUIGridLayout+NUILoading.h in Headers */,
+				BD1505D715CF97D60096EB13 /* NUILayout+NUILoading.h in Headers */,
+				BD1505D815CF97D60096EB13 /* NUILayoutItem+NUILoading.h in Headers */,
+				BD1505D915CF97D60096EB13 /* NUILoader+ObjectsLoading.h in Headers */,
+				BD1505DA15CF97D60096EB13 /* NUILoader+StructuresLoading.h in Headers */,
+				BD1505DB15CF97D60096EB13 /* UIButton+NUILoading.h in Headers */,
+				BD1505DC15CF97D60096EB13 /* UIControl+NUILoading.h in Headers */,
+				BD1505DD15CF97D60096EB13 /* UIFont+NUILoading.h in Headers */,
+				BD1505DE15CF97D60096EB13 /* UIImage+NUILoading.h in Headers */,
+				BD1505DF15CF97D60096EB13 /* UILabel+NUILoading.h in Headers */,
+				BD1505E015CF97D60096EB13 /* UITextField+Localized.h in Headers */,
+				BD1505E115CF97D60096EB13 /* UITextField+NUILoading.h in Headers */,
+				BD1505E215CF97D60096EB13 /* UIView+NUILoading.h in Headers */,
+				BD1505E315CF97D60096EB13 /* NUIAnalyzer.h in Headers */,
+				BD1505E415CF97D60096EB13 /* NUIBinaryOperator.h in Headers */,
+				BD1505E515CF97D60096EB13 /* NUIIdentifier.h in Headers */,
+				BD1505E615CF97D60096EB13 /* NUILoader.h in Headers */,
+				BD1505E715CF97D60096EB13 /* NUIObject.h in Headers */,
+				BD1505E815CF97D60096EB13 /* nui_utils.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		BD15054A15CF954C0096EB13 /* NUIKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD15055915CF954C0096EB13 /* Build configuration list for PBXNativeTarget "NUIKit" */;
+			buildPhases = (
+				BD15054715CF954C0096EB13 /* Sources */,
+				BD15054815CF954C0096EB13 /* Frameworks */,
+				BD1505C715CF977E0096EB13 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NUIKit;
+			productName = NUIKit;
+			productReference = BD15054B15CF954C0096EB13 /* libNUIKit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BD15054215CF954C0096EB13 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Ivan Masalov";
+			};
+			buildConfigurationList = BD15054515CF954C0096EB13 /* Build configuration list for PBXProject "NUIKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = BD15054015CF954C0096EB13;
+			productRefGroup = BD15054C15CF954C0096EB13 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BD15054A15CF954C0096EB13 /* NUIKit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BD15054715CF954C0096EB13 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD1505A615CF96EE0096EB13 /* NUIFlowLayout.m in Sources */,
+				BD1505A715CF96EE0096EB13 /* NUIGridLayout.m in Sources */,
+				BD1505A815CF96EE0096EB13 /* NUIGridLayoutItem.m in Sources */,
+				BD1505A915CF96EE0096EB13 /* NUIGridLength.m in Sources */,
+				BD1505AA15CF96EE0096EB13 /* NUIHorizontalLayout.m in Sources */,
+				BD1505AB15CF96EE0096EB13 /* NUILabel.m in Sources */,
+				BD1505AC15CF96EE0096EB13 /* NUILayout.m in Sources */,
+				BD1505AD15CF96EE0096EB13 /* NUILayoutAnimation.m in Sources */,
+				BD1505AE15CF96EE0096EB13 /* NUILayoutItem.m in Sources */,
+				BD1505AF15CF96EE0096EB13 /* NUILayoutView.m in Sources */,
+				BD1505B015CF96EE0096EB13 /* NUIScrollView.m in Sources */,
+				BD1505B115CF96EE0096EB13 /* NUISimpleLayout.m in Sources */,
+				BD1505B215CF96EE0096EB13 /* NUIVerticalLayout.m in Sources */,
+				BD1505B315CF96EE0096EB13 /* UIView+NUILayout.m in Sources */,
+				BD1505B415CF96EE0096EB13 /* NUIGridLayout+NUILoading.m in Sources */,
+				BD1505B515CF96EE0096EB13 /* NUILayout+NUILoading.m in Sources */,
+				BD1505B615CF96EE0096EB13 /* NUILayoutItem+NUILoading.m in Sources */,
+				BD1505B715CF96EE0096EB13 /* NUILoader+ObjectsLoading.m in Sources */,
+				BD1505B815CF96EE0096EB13 /* NUILoader+StructuresLoading.m in Sources */,
+				BD1505B915CF96EE0096EB13 /* UIButton+NUILoading.m in Sources */,
+				BD1505BA15CF96EE0096EB13 /* UIControl+NUILoading.m in Sources */,
+				BD1505BB15CF96EE0096EB13 /* UIFont+NUILoading.m in Sources */,
+				BD1505BC15CF96EE0096EB13 /* UIImage+NUILoading.m in Sources */,
+				BD1505BD15CF96EE0096EB13 /* UILabel+NUILoading.m in Sources */,
+				BD1505BE15CF96EE0096EB13 /* UITextField+Localized.m in Sources */,
+				BD1505BF15CF96EE0096EB13 /* UITextField+NUILoading.m in Sources */,
+				BD1505C015CF96EE0096EB13 /* UIView+NUILoading.m in Sources */,
+				BD1505C115CF96EE0096EB13 /* NUIAnalyzer.m in Sources */,
+				BD1505C215CF96EE0096EB13 /* NUIBinaryOperator.m in Sources */,
+				BD1505C315CF96EE0096EB13 /* NUIIdentifier.m in Sources */,
+				BD1505C415CF96EE0096EB13 /* NUILoader.m in Sources */,
+				BD1505C515CF96EE0096EB13 /* NUIObject.m in Sources */,
+				BD1505C615CF96EE0096EB13 /* nui_utils.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BD15055715CF954C0096EB13 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		BD15055815CF954C0096EB13 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BD15055A15CF954C0096EB13 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/NUIKit.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		BD15055B15CF954C0096EB13 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/NUIKit.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BD15054515CF954C0096EB13 /* Build configuration list for PBXProject "NUIKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD15055715CF954C0096EB13 /* Debug */,
+				BD15055815CF954C0096EB13 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BD15055915CF954C0096EB13 /* Build configuration list for PBXNativeTarget "NUIKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD15055A15CF954C0096EB13 /* Debug */,
+				BD15055B15CF954C0096EB13 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BD15054215CF954C0096EB13 /* Project object */;
+}

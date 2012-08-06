@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD1505EB15CF98390096EB13 /* libNUIKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD1505EA15CF98390096EB13 /* libNUIKit.a */; };
 		BDFBE90815B3E21F00A7822C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDFBE90715B3E21F00A7822C /* UIKit.framework */; };
 		BDFBE90A15B3E21F00A7822C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDFBE90915B3E21F00A7822C /* Foundation.framework */; };
 		BDFBE90C15B3E21F00A7822C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDFBE90B15B3E21F00A7822C /* CoreGraphics.framework */; };
@@ -14,9 +15,6 @@
 		BDFBE91415B3E21F00A7822C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFBE91315B3E21F00A7822C /* main.m */; };
 		BDFBE91815B3E21F00A7822C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFBE91715B3E21F00A7822C /* AppDelegate.m */; };
 		BDFBE91B15B3E21F00A7822C /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFBE91A15B3E21F00A7822C /* MasterViewController.m */; };
-		BDFBE92D15B3E27700A7822C /* libNUILayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BDFBE92A15B3E27700A7822C /* libNUILayout.a */; };
-		BDFBE92E15B3E27700A7822C /* libNUILayoutLoading.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BDFBE92B15B3E27700A7822C /* libNUILayoutLoading.a */; };
-		BDFBE92F15B3E27700A7822C /* libNUILoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BDFBE92C15B3E27700A7822C /* libNUILoader.a */; };
 		BDFBE93615B3E34300A7822C /* NUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFBE93515B3E34300A7822C /* NUIViewController.m */; };
 		BDFBE93F15B3E3A500A7822C /* nui.nui in Resources */ = {isa = PBXBuildFile; fileRef = BDFBE93D15B3E3A500A7822C /* nui.nui */; };
 		BDFBE94015B3E3A500A7822C /* styles.nui in Resources */ = {isa = PBXBuildFile; fileRef = BDFBE93E15B3E3A500A7822C /* styles.nui */; };
@@ -24,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD1505EA15CF98390096EB13 /* libNUIKit.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libNUIKit.a; path = "../NUIKit/build/Release-iphoneos/libNUIKit.a"; sourceTree = "<group>"; };
 		BDFBE90315B3E21F00A7822C /* NUIDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NUIDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDFBE90715B3E21F00A7822C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BDFBE90915B3E21F00A7822C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -36,9 +35,6 @@
 		BDFBE91715B3E21F00A7822C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		BDFBE91915B3E21F00A7822C /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		BDFBE91A15B3E21F00A7822C /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		BDFBE92A15B3E27700A7822C /* libNUILayout.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNUILayout.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		BDFBE92B15B3E27700A7822C /* libNUILayoutLoading.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNUILayoutLoading.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		BDFBE92C15B3E27700A7822C /* libNUILoader.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNUILoader.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDFBE93415B3E34300A7822C /* NUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIViewController.h; sourceTree = "<group>"; };
 		BDFBE93515B3E34300A7822C /* NUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIViewController.m; sourceTree = "<group>"; };
 		BDFBE93D15B3E3A500A7822C /* nui.nui */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nui.nui; sourceTree = "<group>"; };
@@ -51,9 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDFBE92D15B3E27700A7822C /* libNUILayout.a in Frameworks */,
-				BDFBE92E15B3E27700A7822C /* libNUILayoutLoading.a in Frameworks */,
-				BDFBE92F15B3E27700A7822C /* libNUILoader.a in Frameworks */,
+				BD1505EB15CF98390096EB13 /* libNUIKit.a in Frameworks */,
 				BDFBE90815B3E21F00A7822C /* UIKit.framework in Frameworks */,
 				BDFBE90A15B3E21F00A7822C /* Foundation.framework in Frameworks */,
 				BDFBE90C15B3E21F00A7822C /* CoreGraphics.framework in Frameworks */,
@@ -84,9 +78,7 @@
 		BDFBE90615B3E21F00A7822C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BDFBE92A15B3E27700A7822C /* libNUILayout.a */,
-				BDFBE92B15B3E27700A7822C /* libNUILayoutLoading.a */,
-				BDFBE92C15B3E27700A7822C /* libNUILoader.a */,
+				BD1505EA15CF98390096EB13 /* libNUIKit.a */,
 				BDFBE90715B3E21F00A7822C /* UIKit.framework */,
 				BDFBE90915B3E21F00A7822C /* Foundation.framework */,
 				BDFBE90B15B3E21F00A7822C /* CoreGraphics.framework */,

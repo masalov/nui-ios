@@ -146,7 +146,6 @@
             rowsCount_ = MAX(r.location + r.length, rowsCount_);
         }
         isRowsCountValid_ = YES;
-        NSLog(@"rows %d", rowsCount_);
     }
     return rowsCount_;
 }
@@ -195,11 +194,9 @@
     subviewSizes:subviewSizes
          forSize:size];
     for (int i = 0; i < cColumn; ++i) {
-        NSLog(@"width %f", widths[i]);
         size.width -= widths[i];
     }
     for (int i = 0; i < cRow; ++i) {
-        NSLog(@"height %f", heights[i]);
         size.height -= heights[i];
     }
     CGFloat stretchFactor = 0;

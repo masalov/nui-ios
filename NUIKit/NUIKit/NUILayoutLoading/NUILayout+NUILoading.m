@@ -1,7 +1,7 @@
 #import "NUILayout+NUILoading.h"
-#import "NUILayout/NUILayoutItem.h"
-#import "NUILoader/NUILoader.h"
-#import "NUILoader/NUIObject.h"
+#import "NUILayoutItem.h"
+#import "NUILoader.h"
+#import "NUIObject.h"
 
 @implementation NUILayout (NUILoading)
 

@@ -1,4 +1,4 @@
-#import "NUILayout/NUILayout.h"
+#import "NUILayout.h"
 
 @class NUILoader;
 

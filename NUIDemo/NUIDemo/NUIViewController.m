@@ -7,7 +7,7 @@
 //
 
 #import "NUIViewController.h"
-#import "NUILoader/NUILoader.h"
+#import "NUIKit/NUILoader.h"
 
 @interface NUIViewController ()
 

@@ -1,4 +1,4 @@
-#import "NUILayout/NUILayoutItem.h"
+#import "NUILayoutItem.h"
 
 @interface NUILayoutItem (NUILoading)
 

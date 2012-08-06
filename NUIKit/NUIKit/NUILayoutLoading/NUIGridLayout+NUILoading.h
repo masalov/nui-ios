@@ -1,4 +1,4 @@
-#import "NUILayout/NUIGridLayout.h"
+#import "NUIGridLayout.h"
 
 @interface NUIGridLayout (NUILoading)
 

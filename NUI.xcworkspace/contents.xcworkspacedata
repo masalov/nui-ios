@@ -2,15 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:NUIKit/NUIKit.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:NUIDemo/NUIDemo.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:NUILayoutLoading/NUILayoutLoading.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:NUILayout/NUILayout.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:NUILoader/NUILoader.xcodeproj">
    </FileRef>
 </Workspace>

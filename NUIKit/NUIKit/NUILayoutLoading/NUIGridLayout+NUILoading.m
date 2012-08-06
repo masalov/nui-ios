@@ -1,5 +1,5 @@
 #import "NUIGridLayout+NUILoading.h"
-#import "NUILayout/NUIGridLength.h"
+#import "NUIGridLength.h"
 
 @implementation NUIGridLayout (NUILoading)
 
