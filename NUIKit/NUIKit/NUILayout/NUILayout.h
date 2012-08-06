@@ -10,8 +10,7 @@
 
 @class NUILayoutItem;
 
-// Base class for layouts.
-// Each layout has subviews and corresponding layout items.
+// Base class for layouts. Each layout has subviews and corresponding layout items.
 // Adding/removing subview should cause adding/removing subview to current view.
 @interface NUILayout : NSObject
 
@@ -28,13 +27,14 @@
 
 - (NSArray *)subviews;
 
+// Override if custom layout item is needed.
 - (NUILayoutItem *)createLayoutItem;
 - (NUILayoutItem *)layoutItemForSubview:(UIView *)subview;
 
-// For override
-// does nothing by default
+// For override.
+// Does nothing by default.
 - (void)layoutForSize:(CGSize)size;
-// returns CGSizeZero by default
+// Returns CGSizeZero by default.
 - (CGSize)preferredSizeThatFits:(CGSize)size;
 
 @end
