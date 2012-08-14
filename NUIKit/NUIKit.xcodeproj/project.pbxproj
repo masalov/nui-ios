@@ -84,6 +84,8 @@
 /* Begin PBXFileReference section */
 		2C133B1615D93A4100480DDD /* NUIError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIError.h; sourceTree = "<group>"; };
 		2C133B1715D93A4100480DDD /* NUIError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIError.m; sourceTree = "<group>"; };
+		2CE86F7F15DAB63A00F98E43 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		2CE86F8115DAB64400F98E43 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		31821F228888E8398B1803C0 /* NUIData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIData.h; sourceTree = "<group>"; };
 		31821F30DD9C8880BB448E2D /* NUIData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIData.m; sourceTree = "<group>"; };
 		BD15054B15CF954C0096EB13 /* libNUIKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNUIKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -212,6 +214,7 @@
 		BD15055F15CF96EE0096EB13 /* NUILayout */ = {
 			isa = PBXGroup;
 			children = (
+				2CE86F7F15DAB63A00F98E43 /* README.md */,
 				BD15056015CF96EE0096EB13 /* NUIFlowLayout.h */,
 				BD15056115CF96EE0096EB13 /* NUIFlowLayout.m */,
 				BD15056215CF96EE0096EB13 /* NUIGridLayout.h */,
@@ -260,6 +263,7 @@
 		BD15058315CF96EE0096EB13 /* NUILoader */ = {
 			isa = PBXGroup;
 			children = (
+				2CE86F8115DAB64400F98E43 /* README.md */,
 				31821F228888E8398B1803C0 /* NUIData.h */,
 				31821F30DD9C8880BB448E2D /* NUIData.m */,
 				CD6B0C6EBF5DCA28874EE478 /* NUIStatement+BinaryOperator.h */,
