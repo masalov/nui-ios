@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @class NUILoader;
-@class NUIIdentifier;
+@class NUIStatement;
+@class NUIError;
 
 @interface UIView (NUILoading)
 
@@ -17,6 +18,7 @@
 
 + (NSDictionary *)nuiConstantsForAutoresizingMask;
 
-- (BOOL)loadNUISubviewsFromRValue:(NSArray *)array loader:(NUILoader *)loader;
+- (BOOL)loadNUISubviewsFromRValue:(NUIStatement *)array loader:(NUILoader *)loader
+    error:(NUIError **)error;
 
 @end

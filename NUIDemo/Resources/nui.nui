@@ -11,17 +11,20 @@ state shown = {
 }
 
 self = {
-  view = NUILayoutView:{
+  view = {
+    :class = NUILayoutView
     layoutAnimation = {
       duration = 0.3
     }
-    layout = NUIVerticalLayout:{
+    layout = {
+      :class = NUIVerticalLayout
       layoutItems = [
         {
           :id = labelItem
           fixedHeight = 200
           horizontalAlignment = Stretch
-          view = UILabel:{
+          view = {
+            :class = UILabel
             :property = label2
             :style = my_label
             text = "AAA"
@@ -30,7 +33,8 @@ self = {
         {
           fixedHeight = 50
           horizontalAlignment = Stretch
-          view = UIButton:{
+          view = {
+            :class = UIButton
             :id = button
             backgroundColor = "0000AA"
             title = "Hide"

@@ -8,84 +8,93 @@
 
 #import "UIButton+NUILoading.h"
 #import "UIControl+NUILoading.h"
-#import "NUIObject.h"
-#import "NUIIdentifier.h"
+#import "NUIStatement+Object.h"
 #import "NUILoader.h"
+#import "NUIError.h"
 
 @implementation UIButton (NUILoading)
 
 // Title
 
-- (BOOL)setNUITitle:(NSString *)value
+- (void)setTitle:(NSString *)title
 {
-    if (![value isKindOfClass:[NSString class]]) {
-        return NO;
-    }
-    [self setTitle:value forState:UIControlStateNormal];
-    return YES;
+    [self setTitle:title forState:UIControlStateNormal];
 }
 
-- (BOOL)setNUILocalizedTitle:(NSString *)value
+- (NSString *)title
 {
-    if (![value isKindOfClass:[NSString class]]) {
-        return NO;
-    }
-    [self setTitle:NSLocalizedString(value, nil) forState:UIControlStateNormal];
-    return YES;
+    return [self titleForState:UIControlStateNormal];
 }
 
-- (BOOL)setNUIHighlightedTitle:(NSString *)value
+- (void)setLocalizedTitle:(NSString *)localizedTitle
 {
-    if (![value isKindOfClass:[NSString class]]) {
-        return NO;
-    }
-    [self setTitle:value forState:UIControlStateHighlighted];
-    return YES;
+    [self setTitle:NSLocalizedString(localizedTitle, nil) forState:UIControlStateNormal];
 }
 
-- (BOOL)setNUILocalizedHighlightedTitle:(NSString *)value
+- (NSString *)localizedTitle
 {
-    if (![value isKindOfClass:[NSString class]]) {
-        return NO;
-    }
-    [self setTitle:NSLocalizedString(value, nil) forState:UIControlStateHighlighted];
-    return YES;
+    return nil;
 }
 
-- (BOOL)setNUIDisabledTitle:(NSString *)value
+- (void)setHighlightedTitle:(NSString *)highlightedTitle
 {
-    if (![value isKindOfClass:[NSString class]]) {
-        return NO;
-    }
-    [self setTitle:value forState:UIControlStateDisabled];
-    return YES;
+    [self setTitle:highlightedTitle forState:UIControlStateHighlighted];
 }
 
-- (BOOL)setNUILocalizedDisabledTitle:(NSString *)value
+- (NSString *)highlightedTitle
 {
-    if (![value isKindOfClass:[NSString class]]) {
-        return NO;
-    }
-    [self setTitle:NSLocalizedString(value, nil) forState:UIControlStateDisabled];
-    return YES;
+    return [self titleForState:UIControlStateHighlighted];
 }
 
-- (BOOL)setNUISelectedTitle:(NSString *)value
+- (void)setLocalizedHighlightedTitle:(NSString *)localizedHighlightedTitle
 {
-    if (![value isKindOfClass:[NSString class]]) {
-        return NO;
-    }
-    [self setTitle:value forState:UIControlStateSelected];
-    return YES;
+    [self setTitle:NSLocalizedString(localizedHighlightedTitle, nil)
+        forState:UIControlStateHighlighted];
 }
 
-- (BOOL)setNUILocalizedSelectedTitle:(NSString *)value
+- (NSString *)localizedHighlightedTitle
 {
-    if (![value isKindOfClass:[NSString class]]) {
-        return NO;
-    }
-    [self setTitle:NSLocalizedString(value, nil) forState:UIControlStateSelected];
-    return YES;
+    return nil;
+}
+
+- (void)setDisabledTitle:(NSString *)disabledTitle
+{
+    [self setTitle:disabledTitle forState:UIControlStateDisabled];
+}
+
+- (NSString *)disabledTitle
+{
+    return [self titleForState:UIControlStateDisabled];
+}
+
+- (void)setLocalizedDisabledTitle:(NSString *)localizedDisabledTitle
+{
+    [self setTitle:NSLocalizedString(localizedDisabledTitle, nil) forState:UIControlStateDisabled];
+}
+
+- (NSString *)localizedDisabledTitle
+{
+    return nil;
+}
+
+- (void)setSelectedTitle:(NSString *)selectedTitle
+{
+    [self setTitle:selectedTitle forState:UIControlStateSelected];
+}
+
+- (NSString *)selectedTitle
+{
+    return [self titleForState:UIControlStateSelected];
+}
+
+- (void)setLocalizedSelectedTitle:(NSString *)localizedSelectedTitle
+{
+    [self setTitle:NSLocalizedString(localizedSelectedTitle, nil) forState:UIControlStateSelected];
+}
+
+- (NSString *)localizedSelectedTitle
+{
+    return nil;
 }
 
 // Title color
@@ -256,24 +265,29 @@
     return [self backgroundImageForState:UIControlStateSelected];
 }
 
-- (BOOL)loadNUIActionFromRValue:(NUIObject *)value loader:(NUILoader *)loader
+- (BOOL)loadNUIActionFromRValue:(NUIStatement *)value loader:(NUILoader *)loader
+    error:(NUIError **)error
 {
-    if (![value isKindOfClass:[NUIObject class]]) {
+    if (value.statementType != NUIStatementType_Object) {
+        *error = [NUIError errorWithData:value.data position:value.range.location
+            message:@"Expecting an object."];
         return NO;
     }
 
     UIControlEvents event = UIControlEventTouchUpInside;
     NSString *strEvent = [value property:@"event" ofClass:[NSString class]];
     if (strEvent && ![self controlEvent:&event fromNUIValue:strEvent]) {
+        *error = [NUIError errorWithData:value.data position:value.range.location
+            message:@"Expecting event string property."];
         return NO;
     }
     
     SEL selector = NSSelectorFromString([value property:@"selector" ofClass:[NSString class]]);
 
     id target = loader.rootObject;
-    NUIIdentifier *targetId = [value property:@"target" ofClass:[NUIIdentifier class]];
+    NSString *targetId = [value property:@"target" ofClass:[NSString class]];
     if (targetId) {
-        target = [loader globalObjectForKey:targetId.value];
+        target = [loader globalObjectForKey:targetId];
     }
 
     [self addTarget:target action:selector forControlEvents:event];

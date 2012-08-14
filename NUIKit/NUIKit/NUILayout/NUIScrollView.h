@@ -10,8 +10,8 @@
 
 @class NUILayoutItem;
 
-// Scrollview with automatic contentSize calculation
-// If scroller is disabled than corresponding content size equals to scollview size
+// Scroll view with automatic contentSize calculation
+// If scroller is disabled than corresponding content size equals to scroll view size
 @interface NUIScrollView : UIScrollView
 
 //  Default value is NO

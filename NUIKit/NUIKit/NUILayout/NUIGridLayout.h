@@ -17,8 +17,8 @@ typedef enum {
 } GridLayoutInsertionMethod;
 
 // Layout subviews in grid. Use UIView (GridLayout) properties for settings rows range and column range
-// Use UIView (CommonLayoutProperties) properties for seeting minimum size, padding and alignment of view
-// Minimum size of each row is maximum of minHeigh of row and minSize.height of views in this row.
+// Use UIView (CommonLayoutProperties) properties for setting minimum size, padding and alignment of view
+// Minimum size of each row is maximum of minHeight of row and minSize.height of views in this row.
 // Minimum size of each column is maximum of minWidth of column and minSize.width of views in this column.
 // If view takes two or more columns/rows than they are resized according to stretch factor
 // or uniformly if sum of stretch factors is too small.

@@ -19,7 +19,8 @@ it in GUI tools, etc. This component allows to describe UI in following format:
     self = {
       view <= {
         subviews = [
-          view = UILabel:{
+          view = {
+            :class = UILabel
             frame = [10, 10, 300, 100]
             autoresizingMask = FlexibleWidth
             text = "AAA"

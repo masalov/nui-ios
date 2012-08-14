@@ -8,28 +8,30 @@
 
 #import "NUIAnalyzer.h"
 #import <objc/message.h>
-#import "NUIIdentifier.h"
-#import "NUIBinaryOperator.h"
-#import "NUIObject.h"
+#import "NUIStatement+BinaryOperator.h"
+#import "NUIError.h"
+#import "NUIData.h"
 
 static NSString *Punctuation = @";,";
 
 typedef struct {
     NSString *value;
-    NUIBinaryOperatorType type;
+    NUIStatementType type;
 } NUIBinaryOperatorValue;
 
 @interface NUIAnalyzer ()
 {
     NSCharacterSet *punctuation_;
 
-    NSString *string_;
+    NUIData *data_;
     int position_;
     NSMutableArray *imports_;
     NSMutableDictionary *constants_;
     NSMutableDictionary *styles_;
     NSMutableDictionary *states_;
 }
+
+@property (nonatomic, retain) NUIError *lastError;
 
 @end
 
@@ -40,14 +42,15 @@ typedef struct {
 @synthesize styles = styles_;
 @synthesize states = states_;
 @synthesize rootObject = rootObject_;
+@synthesize lastError = lastError_;
 
-- (id)initWithString:(NSString *)string
+- (id)initWithData:(NUIData *)data
 {
     self = [super init];
     if (self) {
         punctuation_ = [[NSCharacterSet characterSetWithCharactersInString:Punctuation] retain];
 
-        string_ = [string copy];
+        data_ = [data retain];
         imports_ = [[NSMutableArray alloc] init];
         constants_ = [[NSMutableDictionary alloc] init];
         styles_ = [[NSMutableDictionary alloc] init];
@@ -60,24 +63,26 @@ typedef struct {
 {
     [punctuation_ release];
 
-    [string_ release];
+    [data_ release];
     [imports_ release];
     [constants_ release];
     [styles_ release];
     [states_ release];
     [rootObject_ release];
+    [lastError_ release];
 
     [super dealloc];
 }
 
 - (BOOL)loadImports
 {
+    self.lastError = nil;
     while (YES) {
         if (![self skipSpacesAndPunctuation:&position_]) {
             return YES;
         }
         int startPos = position_;
-        NUIIdentifier *identifier = [self loadIdentifier:&startPos];
+        NUIStatement *identifier = [self loadIdentifier:&startPos];
         if (!identifier) {
             return YES;
         }
@@ -86,52 +91,64 @@ typedef struct {
         }
         position_ = startPos;
         if (![self skipSpacesAndPunctuation:&position_]) {
+            self.lastError = [NUIError errorWithData:data_ position:position_
+                message:@"Unexpected end of file."];
             return NO;
         }
-        NSString *str = [self loadString:&position_];
+        NUIStatement *str = [self loadString:&position_];
         if (!str) {
+            if (!lastError_) {
+                self.lastError = [NUIError errorWithData:data_ position:position_
+                    message:@"Expecting \"."];
+            }
             return NO;
         }
-        [imports_ addObject:str];
+        [imports_ addObject:str.value];
     }
 }
 
 - (BOOL)loadContentFromMainFile:(BOOL)mainFile
 {
+    self.lastError = nil;
+
     while (YES) {
         if (![self skipSpacesAndPunctuation:&position_]) {
             return YES;
         }
-        NUIIdentifier *identifier = [self loadIdentifier:&position_];
+        NUIStatement *identifier = [self loadIdentifier:&position_];
         if (!identifier) {
+            self.lastError = [NUIError errorWithData:data_ position:position_
+                message:@"Expecting indentifier."];
             return NO;
         }
         if (![self skipSpacesAndPunctuation:&position_]) {
+            self.lastError = [NUIError errorWithData:data_ position:position_
+                message:@"Unexpected end of file."];
             return NO;
         }
         if ([identifier.value isEqualToString:@"const"]) {
-            NUIBinaryOperator *op = [self loadBinaryOperator:@"="
+            NUIStatement *op = [self loadBinaryOperator:@"="
                 lvalueLoader:@selector(loadSimpleIdentifier:) rvalueLoader:@selector(loadRValue:)
                 position:&position_];
-            [constants_ setObject:op.rvalue forKey:op.lvalue];
+            [constants_ setObject:[op rvalue] forKey:[op lvalue].value];
             continue;
         } else if ([identifier.value isEqualToString:@"style"]) {
-            NUIBinaryOperator *op = [self loadBinaryOperator:@"="
+            NUIStatement *op = [self loadBinaryOperator:@"="
                 lvalueLoader:@selector(loadSimpleIdentifier:) rvalueLoader:@selector(loadObject:)
                 position:&position_];
-            [styles_ setObject:op.rvalue forKey:op.lvalue];
+            [styles_ setObject:[op rvalue] forKey:[op lvalue].value];
             continue;
         } else if ([identifier.value isEqualToString:@"state"]) {
-            NUIBinaryOperator *op = [self loadBinaryOperator:@"="
+            NUIStatement *op = [self loadBinaryOperator:@"="
                 lvalueLoader:@selector(loadSimpleIdentifier:) rvalueLoader:@selector(loadObject:)
                 position:&position_];
-            [states_ setObject:op.rvalue forKey:op.lvalue];
+            [states_ setObject:[op rvalue] forKey:[op lvalue].value];
             continue;
         } else if (mainFile) {
             if ([identifier.value isEqualToString:@"binding"]) {
                 /*Statement *st = nil;
                 NSString *oper = @"{";
-                if ([string_ compare:oper options:0 range:(NSRange){position, oper.length}] == NSOrderedSame) {
+                if ([data_.data compare:oper options:0 range:(NSRange){position, oper.length}] == NSOrderedSame) {
                     st = [self loadDictionary];
                 } else {
                     st = [self loadAssignment];
@@ -139,48 +156,54 @@ typedef struct {
                 continue;
             } else if ([identifier.value isEqualToString:@"self"]) {
                 NSString *op = @"=";
-                if ([string_ compare:op options:0 range:(NSRange){position_, op.length}]
+                if ([data_.data compare:op options:0 range:(NSRange){position_, op.length}]
                     != NSOrderedSame) {
+                    self.lastError = [NUIError errorWithData:data_ position:position_
+                        message:@"Expecting =."];
                     return NO;
                 }
                 position_ += op.length;
                 if (![self skipSpacesAndPunctuation:&position_]) {
+                    self.lastError = [NUIError errorWithData:data_ position:position_
+                        message:@"Unexpected end of file."];
                     return NO;
                 }
                 rootObject_ = [[self loadObject:&position_] retain];
                 return rootObject_ != nil;
             }
         }
+        self.lastError = [NUIError errorWithData:data_ position:position_
+            message:@"Expecting self."];
         return NO;
     }
 }
 
 - (BOOL)skipSpaces:(int *)position
 {
-    while (string_.length > position_) {
-        unichar c = [string_ characterAtIndex:*position];
+    while (data_.data.length > position_) {
+        unichar c = [data_.data characterAtIndex:*position];
         if (![[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:c]) {
             break;
         }
         ++(*position);
     }
-    return *position != string_.length;
+    return *position != data_.data.length;
 }
 
 - (BOOL)skipSpacesAndPunctuation:(int *)position
 {
-    while (string_.length > position_) {
-        unichar c = [string_ characterAtIndex:*position];
+    while (data_.data.length > position_) {
+        unichar c = [data_.data characterAtIndex:*position];
         if (![[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:c]
                 && ![punctuation_ characterIsMember:c]) {
             break;
         }
         ++(*position);
     }
-    return *position != string_.length;
+    return *position != data_.data.length;
 }
 
-- (NSString *)loadSimpleIdentifier:(int *)position
+- (NUIStatement *)loadSimpleIdentifier:(int *)position
 {
     static NSRegularExpression *simpleIdentifierRegEx = nil;
     static dispatch_once_t onceToken;
@@ -189,17 +212,20 @@ typedef struct {
             options:0 error:nil];
     });
 
-    NSRange range = [simpleIdentifierRegEx rangeOfFirstMatchInString:string_
-        options:NSMatchingAnchored range:(NSRange){*position, string_.length - *position}];
+    NSRange range = [simpleIdentifierRegEx rangeOfFirstMatchInString:data_.data
+        options:NSMatchingAnchored range:(NSRange){*position, data_.data.length - *position}];
     if (!range.length) {
         return nil;
     }
-    NSString *identifier = [string_ substringWithRange:(NSRange){*position, range.length}];
+    NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
+        type:NUIStatementType_SimpleIdentifier] autorelease];
+    statement.range = NSMakeRange(*position, range.length);
+    statement.value = [data_.data substringWithRange:statement.range];
     *position += range.length;
-    return identifier;
+    return statement;
 }
 
-- (NUIIdentifier *)loadIdentifier:(int *)position
+- (NUIStatement *)loadIdentifier:(int *)position
 {
     static NSRegularExpression *identifierRegEx = nil;
     static dispatch_once_t onceToken;
@@ -208,18 +234,20 @@ typedef struct {
             options:0 error:nil];
     });
 
-    NSRange range = [identifierRegEx rangeOfFirstMatchInString:string_ options:NSMatchingAnchored
-        range:(NSRange){*position, string_.length - *position}];
+    NSRange range = [identifierRegEx rangeOfFirstMatchInString:data_.data options:NSMatchingAnchored
+        range:(NSRange){*position, data_.data.length - *position}];
     if (!range.length) {
         return nil;
     }
-    NUIIdentifier *identifier = [[[NUIIdentifier alloc] init] autorelease];
-    identifier.value = [string_ substringWithRange:(NSRange){*position, range.length}];
+    NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
+        type:NUIStatementType_Identifier] autorelease];
+    statement.range = NSMakeRange(*position, range.length);
+    statement.value = [data_.data substringWithRange:statement.range];
     *position += range.length;
-    return identifier;
+    return statement;
 }
 
-- (NSString *)loadSystemIdentifier:(int *)position
+- (NUIStatement *)loadSystemIdentifier:(int *)position
 {
     static NSRegularExpression *systemIdentifierRegEx = nil;
     static dispatch_once_t onceToken;
@@ -228,125 +256,155 @@ typedef struct {
             options:0 error:nil];
     });
 
-    NSRange range = [systemIdentifierRegEx rangeOfFirstMatchInString:string_
-        options:NSMatchingAnchored range:(NSRange){*position, string_.length - *position}];
+    NSRange range = [systemIdentifierRegEx rangeOfFirstMatchInString:data_.data
+        options:NSMatchingAnchored range:(NSRange){*position, data_.data.length - *position}];
     if (!range.length) {
         return nil;
     }
-    NSString *identifier = [string_ substringWithRange:(NSRange){*position, range.length}];
+    NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
+        type:NUIStatementType_SystemIdentifier] autorelease];
+    statement.range = NSMakeRange(*position, range.length);
+    statement.value = [data_.data substringWithRange:statement.range];
     *position += range.length;
-    return identifier;
+    return statement;
 }
 
-- (NSString *)loadString:(int *)position
+- (NUIStatement *)loadString:(int *)position
 {
     int pos = *position;
-    if ([string_ characterAtIndex:pos] != '\"') {
+    if ([data_.data characterAtIndex:pos] != '\"') {
         return nil;
     }
     ++pos;
     NSString *op = @"\"";
     NSString *op2 = @"\\\"";
     while (YES) {
-        NSRange r = [string_ rangeOfString:op options:0 range:(NSRange){pos, string_.length - pos}];
+        NSRange r = [data_.data rangeOfString:op options:0 range:(NSRange){pos, data_.data.length -
+            pos}];
         if (r.length == 0) {
+            self.lastError = [NUIError errorWithData:data_ position:*position
+                message:@"Can not find enclosing \"."];
             return nil;
         }
 
-        if (NSOrderedSame != [string_ compare:op2 options:0 range:(NSRange){r.location - op2.length
-            + r.length, r.length}]) {
+        if (NSOrderedSame != [data_.data compare:op2 options:0 range:(NSRange){r.location -
+            op2.length + r.length, r.length}]) {
             pos = r.location + r.length;
-            NSString *str = [string_ substringWithRange:(NSRange){*position + op.length,
-                    pos - *position - 2 * op.length}];
+            NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
+                type:NUIStatementType_String] autorelease];
+            statement.range = NSMakeRange(*position, pos - *position);
+            statement.value = [data_.data substringWithRange:(NSRange){*position + op.length, pos -
+                *position - 2 * op.length}];
             *position = pos;
-            return str;
+            return statement;
         }
         pos = r.location + r.length;
     }
-
-    NSAssert(NO, @"Error");
-    return nil;
 }
 
-- (NUIObject *)loadObject:(int *)position
+- (NUIStatement *)loadSystemProperties:(int *)position
 {
     int pos = *position;
-    NSString *op = @"{";
-    NSString *type = nil;
-    if ([string_ compare:op options:0 range:(NSRange){pos, op.length}] != NSOrderedSame) {
-        type = [self loadSimpleIdentifier:&pos];
-        if (!type) {
+    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+    while (YES) {
+        if (![self skipSpacesAndPunctuation:&pos]) {
+            self.lastError = [NUIError errorWithData:data_ position:pos
+                message:@"Unexpected end of file."];
             return nil;
+        }
+        NUIStatement *identifier = [self loadSystemIdentifier:&pos];
+        if (!identifier) {
+            break;
         }
         if (![self skipSpacesAndPunctuation:&pos]) {
+            self.lastError = [NUIError errorWithData:data_ position:pos
+                message:@"Unexpected end of file."];
             return nil;
         }
-        op = @":";
-        if ([string_ compare:op options:0 range:(NSRange){pos, op.length}] != NSOrderedSame) {
+        NSString *op = @"=";
+        if ([data_.data compare:op options:0 range:(NSRange){pos, op.length}] != NSOrderedSame) {
             return nil;
         }
         pos += op.length;
         if (![self skipSpacesAndPunctuation:&pos]) {
+            self.lastError = [NUIError errorWithData:data_ position:pos
+                message:@"Unexpected end of file."];
             return nil;
         }
-        op = @"{";
-        if ([string_ compare:op options:0 range:(NSRange){pos, op.length}] != NSOrderedSame) {
+        id rvalue = [self loadRValue:&pos];
+        if (!rvalue) {
             return nil;
         }
+        [properties setObject:rvalue forKey:identifier.value];
+        continue;
     }
-    pos += op.length;
-    op = @"}";
-    NUIObject *object = [[[NUIObject alloc] init] autorelease];
-    object.type = type;
-    while (YES) {
-        if (![self skipSpacesAndPunctuation:&pos]) {
-            NSAssert(NO, @"Error");
-            return nil;
-        }
-        if ([string_ compare:op options:0 range:(NSRange){pos, op.length}] == NSOrderedSame) {
-            pos += op.length;
-            *position = pos;
-            return object;
-        }
-        NSString *identifier = [self loadSystemIdentifier:&pos];
-        if (identifier) {
-            if (![self skipSpacesAndPunctuation:&pos]) {
-                NSAssert(NO, @"Error");
-                return nil;
-            }
-            NSString *op2 = @"=";
-            if ([string_ compare:op2 options:0 range:(NSRange){pos, op.length}] != NSOrderedSame) {
-                return nil;
-            }
-            pos += op2.length;
-            if (![self skipSpacesAndPunctuation:&pos]) {
-                NSAssert(NO, @"Error");
-                return nil;
-            }
-            id rvalue = [self loadRValue:&pos];
-            if (!rvalue) {
-                return nil;
-            }
-            [object.systemProperties setObject:rvalue forKey:identifier];
-            continue;
-        }
-        NUIBinaryOperator *assignment = [self loadAssignment:&pos];
-        if (!assignment) {
-            NSAssert(NO, @"Error");
-            return nil;
-        }
-        [object.properties addObject:assignment];
-    }
-
-    NSAssert(NO, @"Error");
-    return nil;
+    NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_ type:
+        NUIStatementType_ObjectSystemProperties] autorelease];
+    statement.range = NSMakeRange(*position, pos - *position);
+    statement.value = properties;
+    *position = pos;
+    return statement;
 }
 
-- (NSArray *)loadArray:(int *)position
+- (NUIStatement *)loadProperties:(int *)position
+{
+    int pos = *position;
+    NSMutableArray *properties = [NSMutableArray array];
+    while (YES) {
+        if (![self skipSpacesAndPunctuation:&pos]) {
+            break;
+        }
+        NUIStatement *assignment = [self loadAssignment:&pos];
+        if (!assignment) {
+            break;
+        }
+        [properties addObject:assignment];
+    }
+    NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
+        type:NUIStatementType_ObjectProperties] autorelease];
+    statement.range = NSMakeRange(*position, pos - *position);
+    statement.value = properties;
+    *position = pos;
+    return statement;
+}
+
+- (NUIStatement *)loadObject:(int *)position
+{
+    int pos = *position;
+    NSString *op = @"{";
+    if ([data_.data compare:op options:0 range:(NSRange){pos, op.length}] != NSOrderedSame) {
+        return nil;
+    }
+    pos += op.length;
+    NUIStatement *systemProperties = [self loadSystemProperties:&pos];
+    if (!systemProperties) {
+        return nil;
+    }
+    NUIStatement *properties = [self loadProperties:&pos];
+    if (!properties) {
+        return nil;
+    }
+    op = @"}";
+    if (![self skipSpacesAndPunctuation:&pos] ||
+        [data_.data compare:op options:0 range:(NSRange){pos, op.length}] != NSOrderedSame) {
+        self.lastError = [NUIError errorWithData:data_ position:pos
+            message:@"Expecting }."];
+        return nil;
+    }
+    pos += op.length;
+    NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
+        type:NUIStatementType_Object] autorelease];
+    statement.range = NSMakeRange(*position, pos - *position);
+    statement.value = [NSArray arrayWithObjects:systemProperties, properties, nil];
+    *position = pos;
+    return statement;
+}
+
+- (NUIStatement *)loadArray:(int *)position
 {
     int pos = *position;
     NSString *op = @"[";
-    if (![string_ compare:op options:0 range:(NSRange){pos, op.length}] == NSOrderedSame) {
+    if (![data_.data compare:op options:0 range:(NSRange){pos, op.length}] == NSOrderedSame) {
         return nil;
     }
     pos += op.length;
@@ -354,27 +412,28 @@ typedef struct {
     NSMutableArray *array = [[[NSMutableArray alloc] init] autorelease];
     while (YES) {
         if (![self skipSpacesAndPunctuation:&pos]) {
-            NSAssert(NO, @"Error");
+            self.lastError = [NUIError errorWithData:data_ position:pos
+                message:@"Expecting ]."];
             return nil;
         }
-        if ([string_ compare:op options:0 range:(NSRange){pos, op.length}] == NSOrderedSame) {
+        if ([data_.data compare:op options:0 range:(NSRange){pos, op.length}] == NSOrderedSame) {
             pos += op.length;
+            NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
+                type:NUIStatementType_Array] autorelease];
+            statement.range = NSMakeRange(*position, pos - *position);
+            statement.value = array;
             *position = pos;
-            return array;
+            return statement;
         }
         id rvalue = [self loadRValue:&pos];
         if (!rvalue) {
-            NSAssert(NO, @"Error");
             return nil;
         }
         [array addObject:rvalue];
     }
-
-    NSAssert(NO, @"Error");
-    return nil;
 }
 
-- (NUIBinaryOperator *)loadAssignment:(int *)position
+- (NUIStatement *)loadAssignment:(int *)position
 {
     int pos = *position;
     id lvalue = [self loadIdentifier:&pos];
@@ -383,50 +442,57 @@ typedef struct {
     }
 
     if (![self skipSpaces:&pos]) {
-        NSAssert(NO, @"Error");
+        self.lastError = [NUIError errorWithData:data_ position:pos
+            message:@"Unexpected end of file."];
         return nil;
     }
-    NUIBinaryOperator *binaryOperator = [[[NUIBinaryOperator alloc] init] autorelease];
-    binaryOperator.lvalue = lvalue;
     NSString *op = @"=";
-    if ([string_ compare:op options:0 range:(NSRange){pos, op.length}] == NSOrderedSame) {
-        binaryOperator.type = NUIBinaryOperatorType_Assignment;
+    if ([data_.data compare:op options:0 range:(NSRange){pos, op.length}] == NSOrderedSame) {
         pos += op.length;
         if (![self skipSpaces:&pos]) {
-            NSAssert(NO, @"Error");
+            self.lastError = [NUIError errorWithData:data_ position:pos
+                message:@"Unexpected end of file."];
             return nil;
         }
-        binaryOperator.rvalue = [self loadRValue:&pos];
-        if (!binaryOperator.rvalue) {
-            NSAssert(NO, @"Error");
+        id rvalue = [self loadRValue:&pos];
+        if (!rvalue) {
             return nil;
         }
-        //assignment.range = (NSRange){startPos, pos - *position};
+        NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_ type:
+            NUIStatementType_AssignmentOperator] autorelease];
+        statement.range = NSMakeRange(*position, pos - *position);
+        statement.value = [NSArray arrayWithObjects:lvalue, rvalue, nil];
+
         *position = pos;
-        return binaryOperator;
+        return statement;
     } else {
         op = @"<=";
-        if ([string_ compare:op options:0 range:(NSRange){pos, op.length}] == NSOrderedSame) {
-            binaryOperator.type = NUIBinaryOperatorType_Modification;
+        if ([data_.data compare:op options:0 range:(NSRange){pos, op.length}] == NSOrderedSame) {
             pos += op.length;
             if (![self skipSpaces:&pos]) {
-                NSAssert(NO, @"Error");
+                self.lastError = [NUIError errorWithData:data_ position:pos
+                    message:@"Unexpected end of file."];
                 return nil;
             }
-            binaryOperator.rvalue = [self loadObject:&pos];
-            if (!binaryOperator.rvalue) {
-                NSAssert(NO, @"Error");
+            id rvalue = [self loadObject:&pos];
+            if (!rvalue) {
                 return nil;
             }
+            NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_ type:
+                NUIStatementType_ModificationOperator] autorelease];
+            statement.range = NSMakeRange(*position, pos - *position);
+            statement.value = [NSArray arrayWithObjects:lvalue, rvalue, nil];
+
             *position = pos;
-            return binaryOperator;
+            return statement;
         }
     }
-    NSAssert(NO, @"Error");
+    self.lastError = [NUIError errorWithData:data_ position:pos
+        message:@"Expecting = or <= operator."];
     return nil;
 }
 
-- (NUIBinaryOperator *)loadBinaryOperator:(NSString *)op lvalueLoader:(SEL)lvalueLoader
+- (NUIStatement *)loadBinaryOperator:(NSString *)op lvalueLoader:(SEL)lvalueLoader
     rvalueLoader:(SEL)rvalueLoader position:(int *)position
 {
     int pos = *position;
@@ -435,39 +501,44 @@ typedef struct {
         return nil;
     }
     if (![self skipSpaces:&pos]) {
-        NSAssert(NO, @"Error");
+        self.lastError = [NUIError errorWithData:data_ position:pos
+            message:@"Unexpected end of file."];
         return nil;
     }
-    NUIBinaryOperator *binaryOperator = [[[NUIBinaryOperator alloc] init] autorelease];
-    binaryOperator.lvalue = lvalue;
-    if ([string_ compare:op options:0 range:(NSRange){pos, op.length}] != NSOrderedSame) {
+    if ([data_.data compare:op options:0 range:(NSRange){pos, op.length}] != NSOrderedSame) {
         return nil;
     }
     pos += op.length;
     if (![self skipSpaces:&pos]) {
-        NSAssert(NO, @"Error");
+        self.lastError = [NUIError errorWithData:data_ position:pos
+            message:@"Unexpected end of file."];
         return nil;
     }
-    binaryOperator.rvalue = objc_msgSend(self, rvalueLoader, &pos);
-    if (!binaryOperator.rvalue) {
-        NSAssert(NO, @"Error");
+    id rvalue = objc_msgSend(self, rvalueLoader, &pos);
+    if (!rvalue) {
+        self.lastError = [NUIError errorWithData:data_ position:pos
+            message:@"Unexpected end of file."];
         return nil;
     }
+
+    NUIStatement *statement = [[[NUIStatement alloc] init] autorelease];
+    statement.range = NSMakeRange(*position, pos - *position);
+    statement.value = [NSArray arrayWithObjects:lvalue, rvalue, nil];
+
     *position = pos;
-    //assignment.range = (NSRange){startPos, position_ - startPos};
-    return binaryOperator;
+    return statement;
 }
 
-- (NUIBinaryOperator *)loadNumericOperator:(int *)position
+- (NUIStatement *)loadNumericOperator:(int *)position lvalue:(id)lvalue
 {
     static NUIBinaryOperatorValue numericOperators[] = {
-        @"|", NUIBinaryOperatorType_BitwiseOr
+        @"|", NUIStatementType_BitwiseOrOperator
     };
 
     int pos  = *position;
     int count = sizeof(numericOperators) / sizeof(numericOperators[0]);
     for (int i = 0; i < count; ++i) {
-        if ([string_ compare:numericOperators[i].value options:0 range:(NSRange){pos,
+        if ([data_.data compare:numericOperators[i].value options:0 range:(NSRange){pos,
             numericOperators[i].value.length}] == NSOrderedSame) {
             pos += numericOperators[i].value.length;
             if (![self skipSpaces:&pos]) {
@@ -477,11 +548,13 @@ typedef struct {
             if (!rvalue) {
                 return nil;
             }
-            NUIBinaryOperator *op = [[[NUIBinaryOperator alloc] init] autorelease];
-            op.type = numericOperators[i].type;
-            op.rvalue = rvalue;
+            NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
+                type:numericOperators[i].type] autorelease];
+            statement.range = NSMakeRange(*position, pos - *position);
+            statement.value = [NSArray arrayWithObjects:lvalue, rvalue, nil];
+
             *position = pos;
-            return op;
+            return statement;
         }
     }
     return nil;
@@ -496,9 +569,8 @@ typedef struct {
     }
     if (res) {
         if ([self skipSpaces:&pos]) {
-            NUIBinaryOperator *op = [self loadNumericOperator:&pos];
+            NUIStatement *op = [self loadNumericOperator:&pos lvalue:res];
             if (op) {
-                op.lvalue = res;
                 res = op;
             }
         }
@@ -522,11 +594,16 @@ typedef struct {
     }
     if (res) {
         *position = pos;
+    } else {
+        if (!lastError_) {
+            self.lastError = [NUIError errorWithData:data_ position:*position
+                message:@"Expecting a string, an object, an array or an expression."];
+        }
     }
     return res;
 }
 
-- (NSNumber *)loadNumber:(int *)position
+- (NUIStatement *)loadNumber:(int *)position
 {
     static NSRegularExpression *numberRegEx = nil;
     static dispatch_once_t onceToken;
@@ -535,15 +612,19 @@ typedef struct {
             error:nil];
     });
 
-    NSRange range = [numberRegEx rangeOfFirstMatchInString:string_ options:NSMatchingAnchored
-        range:(NSRange){*position, string_.length - *position}];
+    NSRange range = [numberRegEx rangeOfFirstMatchInString:data_.data options:NSMatchingAnchored
+        range:(NSRange){*position, data_.data.length - *position}];
     if (!range.length) {
         return nil;
     }
-    NSString *str = [string_ substringWithRange:(NSRange){*position, range.length}];
-    NSNumber *number = [NSNumber numberWithDouble:[str doubleValue]];
+    NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
+        type:NUIStatementType_Number] autorelease];
+    statement.range = NSMakeRange(*position, range.length);
+    NSString *str = [data_.data substringWithRange:(NSRange){*position, range.length}];
+    statement.value = [NSNumber numberWithDouble:[str doubleValue]];
+
     *position += range.length;
-    return number;
+    return statement;
 }
 
 @end

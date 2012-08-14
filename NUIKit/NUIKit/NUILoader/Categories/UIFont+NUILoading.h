@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@class NUIObject;
+@class NUIStatement;
+@class NUIError;
 @class NUILoader;
 
 @interface UIFont (NUILoading)
@@ -16,6 +17,7 @@
 // Loads font from a NUI element. Size attribute is mandatory. If no other attributes normal system
 // font is used. Specify type attribute to use bold, italic or normal system font. To load font with
 // specific name set name attribute.
-+ (id)loadFromNUIObject:(NUIObject *)nuiObject loader:(NUILoader *)loader;
++ (id)loadFromNUIObject:(NUIStatement *)nuiObject loader:(NUILoader *)loader
+    error:(NUIError **)error;
 
 @end

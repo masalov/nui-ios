@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@class NUIObject;
+@class NUIStatement;
+@class NUIError;
 @class NUILoader;
 
 @interface UIImage (NUILoading)
 
 // Loads image from a NUI element. File attribute is mandatory. Optional attributes are leftCapWidth
 // and topCapHeight.
-+ (id)loadFromNUIObject:(NUIObject *)nuiObject loader:(NUILoader *)loader;
++ (id)loadFromNUIObject:(NUIStatement *)nuiObject loader:(NUILoader *)loader
+    error:(NUIError **)error;
 
 @end

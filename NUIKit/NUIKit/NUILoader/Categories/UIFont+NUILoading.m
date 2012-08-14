@@ -8,15 +8,18 @@
 
 #import "UIFont+NUILoading.h"
 #import "NUILoader.h"
-#import "NUIObject.h"
+#import "NUIStatement+Object.h"
+#import "NUIError.h"
 
 @implementation UIFont (NUILoading)
 
-+ (id)loadFromNUIObject:(NUIObject *)nuiObject loader:(NUILoader *)loader
++ (id)loadFromNUIObject:(NUIStatement *)nuiObject loader:(NUILoader *)loader
+    error:(NUIError **)error
 {
     NSNumber *size = [nuiObject property:@"size" ofClass:[NSNumber class]];
     if (!size) {
-        NSAssert(NO, @"Font must have size attribute");
+        *error = [NUIError errorWithData:nuiObject.data position:nuiObject.range.location
+            message:@"Expecting size property."];
         return nil;
     }
     id object = nil;
@@ -32,10 +35,15 @@
         } else if ([type compare:@"bold" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
             object = [UIFont boldSystemFontOfSize:[size floatValue]];
         } else {
-            NSAssert(NO, @"Unknown font type %@", type);
+            *error = [NUIError errorWithData:nuiObject.data position:nuiObject.range.location
+                message:[NSString stringWithFormat:@"Unknown font type %@.", type]];
+            return nil;
         }
     }
-    NSAssert(object, @"Failed to load font.");
+    if (!object) {
+        *error = [NUIError errorWithData:nuiObject.data position:nuiObject.range.location
+            message:@"Failed to create font."];
+    }
     return object;
 }
 

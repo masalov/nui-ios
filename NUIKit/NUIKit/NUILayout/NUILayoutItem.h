@@ -31,7 +31,7 @@ typedef enum {
 } NUIVisibility;
 
 // Base class for layout item.
-// Layout item defines layouting attibutes of corresponding view.
+// Layout item defines layouting attributes of corresponding view.
 @interface NUILayoutItem : NSObject
 
 @property (nonatomic, retain) UIView *view;
@@ -59,7 +59,7 @@ typedef enum {
 // Use it instead of view hidden property
 @property (nonatomic, assign) NUIVisibility visibility;
 
-// Constraing by min and max sizes
+// Constraining by min and max sizes
 - (CGFloat)constraintWidth:(CGFloat)width;
 - (CGFloat)constraintHeight:(CGFloat)height;
 - (CGSize)constraintSize:(CGSize)size;

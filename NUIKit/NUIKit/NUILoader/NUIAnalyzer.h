@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@class NUIObject;
+@class NUIData;
+@class NUIStatement;
+@class NUIError;
 
 @interface NUIAnalyzer : NSObject
 
@@ -16,9 +18,10 @@
 @property (nonatomic, readonly) NSDictionary *constants;
 @property (nonatomic, readonly) NSDictionary *styles;
 @property (nonatomic, readonly) NSDictionary *states;
-@property (nonatomic, readonly) NUIObject *rootObject;
+@property (nonatomic, readonly) NUIStatement *rootObject;
+@property (nonatomic, retain, readonly) NUIError *lastError;
 
-- (id)initWithString:(NSString *)string;
+- (id)initWithData:(NUIData *)data;
 
 - (BOOL)loadImports;
 - (BOOL)loadContentFromMainFile:(BOOL)mainFile;

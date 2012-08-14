@@ -8,10 +8,8 @@
 
 #import "UIView+NUILoading.h"
 #import "NUILoader.h"
-#import "NUIIdentifier.h"
-#import "NUIObject.h"
-
-#import "nui_utils.h"
+#import "NUIStatement+Object.h"
+#import "NUIError.h"
 
 @implementation UIView (NUILoading)
 
@@ -34,22 +32,25 @@
     return autoresizingMaskConstants;
 }
 
-- (BOOL)loadNUISubviewsFromRValue:(NSArray *)array loader:(NUILoader *)loader
+- (BOOL)loadNUISubviewsFromRValue:(NUIStatement *)array loader:(NUILoader *)loader
+    error:(NUIError **)error
 {
-    if (![array isKindOfClass:[NSArray class]]) {
-        NSAssert(NO, @"Subviews should be array.");
+    if (array.statementType != NUIStatementType_Array) {
+        *error = [NUIError errorWithData:array.data position:array.range.location
+            message:@"Subviews should be an array."];
         return NO;
     }
-    for (NUIObject *object in array) {
-        if (![object isKindOfClass:[NUIObject class]]) {
-            NSAssert(NO, @"Subview should be dictionary.");
+    for (NUIStatement *object in array.value) {
+        if (object.statementType != NUIStatementType_Object) {
+            *error = [NUIError errorWithData:object.data position:object.range.location
+                message:@"Subview should be an object."];
             return NO;
         }
         UIView *subview = [loader loadObjectOfClass:[UIView class] fromNUIObject:object];
         if (subview) {
             [self addSubview:subview];
         } else {
-            NSAssert(NO, @"Failed to load subview.");
+            *error = loader.lastError;
             return NO;
         }
     }

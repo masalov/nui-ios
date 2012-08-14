@@ -8,10 +8,12 @@
 
 #import "NUILoader.h"
 #import <objc/message.h>
+#import <Foundation/Foundation.h>
+#import "NUIData.h"
 #import "NUIAnalyzer.h"
-#import "NUIObject.h"
-#import "NUIIdentifier.h"
-#import "NUIBinaryOperator.h"
+#import "NUIStatement+Object.h"
+#import "NUIStatement+BinaryOperator.h"
+#import "NUIError.h"
 
 #import "nui_utils.h"
 
@@ -21,15 +23,9 @@ static SEL setterFromProperty(NSString *property)
         capitalizedString], [property substringFromIndex:1]]);
 }
 
-static SEL nuiSetterFromProperty(NSString *property)
-{
-    return NSSelectorFromString([NSString stringWithFormat:@"setNUI%@%@:", [[property substringToIndex:1]
-        capitalizedString], [property substringFromIndex:1]]);
-}
-
 static SEL nuiLoaderFromProperty(NSString *property)
 {
-    return NSSelectorFromString([NSString stringWithFormat:@"loadNUI%@%@FromRValue:loader:",
+    return NSSelectorFromString([NSString stringWithFormat:@"loadNUI%@%@FromRValue:loader:error:",
         [[property substringToIndex:1] capitalizedString], [property substringFromIndex:1]]);
 }
 
@@ -68,6 +64,7 @@ static SEL propertyConstantsGetter(NSString *property)
 @implementation NUILoader
 
 @synthesize rootObject = rootObject_;
+@synthesize lastError = lastError_;
 
 - (id)initWithRootObject:(id)rootObject
 {
@@ -93,6 +90,7 @@ static SEL propertyConstantsGetter(NSString *property)
     [constants_ release];
     [styles_ release];
     [states_ release];
+    [lastError_ release];
 
     [super dealloc];
 }
@@ -106,19 +104,20 @@ static SEL propertyConstantsGetter(NSString *property)
 
 - (BOOL)loadFromFile:(NSString *)file
 {
+    self.lastError = nil;
     return [self loadFromFile:file mainFile:YES];
 }
 
 - (BOOL)loadState:(NSString *)state
 {
-    NUIObject *nuiObject = [states_ objectForKey:state];
+    NUIStatement *nuiObject = [states_ objectForKey:state];
     if (!nuiObject) {
-        NSAssert(NO, @"Unkonw state \"%@\"", state);
+        NSLog(@"Unkonw state \"%@\"", state);
         return NO;
     }
-    for (NUIBinaryOperator *op in nuiObject.properties) {
-        NUIIdentifier *identifier = op.lvalue;
-        if (op.type == NUIBinaryOperatorType_Assignment) {
+    for (NUIStatement *op in nuiObject.properties) {
+        NUIStatement *identifier = op.lvalue;
+        if (op.statementType == NUIStatementType_AssignmentOperator) {
             NSRange range = [identifier.value rangeOfString:@"." options:NSBackwardsSearch];
             if (!range.length) {
                 NSAssert(NO, @"Can set only object properties, not an object");
@@ -154,27 +153,31 @@ static SEL propertyConstantsGetter(NSString *property)
     }
 }
 
-- (id)loadObjectOfClass:(Class)cls fromNUIObject:(NUIObject *)nuiObject
+- (id)loadObjectOfClass:(Class)cls fromNUIObject:(NUIStatement *)nuiObject
 {
     Class subclass = nil;
-    if (nuiObject.type) {
-        subclass = NSClassFromString(nuiObject.type);
+    NUIStatement *className = [nuiObject.systemProperties objectForKey:@":class"];
+    if (className) {
+        subclass = NSClassFromString(className.value);
     }
     if (subclass) {
         if (!isSuperClass(subclass, cls)) {
-            NSAssert(NO, @"Expecting subclass of %@, not %@", NSStringFromClass(cls),
-                NSStringFromClass(subclass));
-            return NO;
+            self.lastError = [NUIError errorWithData:className.data position:
+                className.range.location message:[NSString stringWithFormat:
+                @"Expecting subclass of %@, not %@", NSStringFromClass(cls), className.value]];
+            return nil;
         }
     } else {
         subclass = cls;
     }
-    if ([subclass respondsToSelector:@selector(loadFromNUIObject:loader:)]) {
-        return [subclass loadFromNUIObject:nuiObject loader:self];
+    if ([subclass respondsToSelector:@selector(loadFromNUIObject:loader:error:)]) {
+        NUIError *error = nil;
+        id object = [subclass loadFromNUIObject:nuiObject loader:self error:&error];
+        self.lastError = error;
+        return object;
     }
     id object = [[[subclass alloc] init] autorelease];
     if (![self loadObject:object fromNUIObject:nuiObject]) {
-        NSAssert(NO, @"Failed to load.");
         return nil;
     }
     return object;
@@ -190,17 +193,18 @@ static SEL propertyConstantsGetter(NSString *property)
     }
     id object = [globalObjects_ objectForKey:objectId];
     if (!object) {
-        id constant = [constants_ objectForKey:objectId];
+        NUIStatement *constant = [constants_ objectForKey:objectId];
         if (constant) {
-            if ([constant isKindOfClass:[NUIObject class]]) {
-                NUIObject *nuiObject = (id)constant;
-                NSString *className = nuiObject.type;
-                Class cl = NSClassFromString(className);
-                if ([cl respondsToSelector:@selector(loadFromNUIObject:loader:)]) {
-                    object = [cl loadFromNUIObject:nuiObject loader:self];
+            if (constant.statementType == NUIStatementType_Object) {
+                NUIStatement *className = [constant.systemProperties objectForKey:@":class"];
+                Class cl = NSClassFromString(className.value);
+                if ([cl respondsToSelector:@selector(loadFromNUIObject:loader:error:)]) {
+                    NUIError *error = nil;
+                    object = [cl loadFromNUIObject:constant loader:self error:&error];
+                    self.lastError = error;
                 } else {
                     object = [[[cl alloc] init] autorelease];
-                    [self loadObject:object fromNUIObject:nuiObject];
+                    [self loadObject:object fromNUIObject:constant];
                 }
             }
             if (object) {
@@ -214,58 +218,70 @@ static SEL propertyConstantsGetter(NSString *property)
     return object;
 }
 
-- (NSNumber *)calculateNumericExpression:(id)expression constants:(NSDictionary *)constants
+- (NSNumber *)calculateNumericExpression:(NUIStatement *)expression
+    constants:(NSDictionary *)constants
 {
-    if ([expression isKindOfClass:[NSNumber class]]) {
-        return expression;
+    if (expression.statementType == NUIStatementType_Number) {
+        return expression.value;
     }
-    if ([expression isKindOfClass:[NUIIdentifier class]]) {
-        id res = [constants objectForKey:((NUIIdentifier *)expression).value];
+    if (expression.statementType == NUIStatementType_Identifier) {
+        id res = [constants objectForKey:expression.value];
         if (!res) {
-            res = [self globalObjectForKey:((NUIIdentifier *)expression).value];
+            res = [self globalObjectForKey:expression.value];
         }
         return res;
     }
-    if ([expression isKindOfClass:[NUIBinaryOperator class]]) {
-        NSNumber *lvalue = [self calculateNumericExpression:((NUIBinaryOperator *)expression).lvalue
-            constants:constants];
+    if ([expression isBinaryOperator]) {
+        NSNumber *lvalue = [self calculateNumericExpression:expression.lvalue constants:constants];
         if (!lvalue) {
             return nil;
         }
-        NSNumber *rvalue = [self calculateNumericExpression:((NUIBinaryOperator *)expression).rvalue
-            constants:constants];
+        NSNumber *rvalue = [self calculateNumericExpression:expression.rvalue constants:constants];
         if (!rvalue) {
             return nil;
         }
-        switch (((NUIBinaryOperator *)expression).type) {
-            case NUIBinaryOperatorType_BitwiseOr:
+        switch (expression.statementType) {
+            case NUIStatementType_BitwiseOrOperator:
                 return [NSNumber numberWithInt:([lvalue intValue] | [rvalue intValue])];
             default:
                 return nil;
         }
-        return expression;
     }
     return nil;
 }
 
 #pragma mark - private methods
 
+- (void)logError:(NUIError *)error data:(NUIData *)data
+{
+    if (error) {
+        NUIPositionInLine pos = [data positionInLineFromPosition:error.position];
+        NSLog(@"Error in file: \"%@\" line: %d position: %d.\nError: %@", data.fileName, pos.line +
+            1, pos.position + 1, error.message);
+    } else {
+        NSLog(@"Unknown error in file: \"%@\"", data.fileName);
+    }
+}
+
 - (BOOL)loadFromFile:(NSString *)file mainFile:(BOOL)mainFile
 {
-    file = [[NSBundle mainBundle] pathForResource:file ofType:nil];
-    if (!file) {
-        NSAssert(NO, @"Can not find file \"%@\"", file);
+    NUIData *data = [[[NUIData alloc] init] autorelease];
+    data.fileName = file;
+    NSString *fullPath = [[NSBundle mainBundle] pathForResource:file ofType:nil];
+    if (!fullPath) {
+        NSLog(@"Can not find file \"%@\"", file);
         return NO;
     }
     NSError *error = nil;
-    NSString *text = [[[NSString alloc] initWithContentsOfFile:file encoding:NSUTF8StringEncoding error:&error]
-        autorelease];
-    if (!text || error) {
-        NSAssert(NO, @"Can not load file \"%@\": %@", file, [error description]);
+    data.data = [[[NSString alloc] initWithContentsOfFile:fullPath
+        encoding:NSUTF8StringEncoding error:&error] autorelease];
+    if (!data.data || error) {
+        NSLog(@"Can not load file \"%@\": %@", file, [error description]);
         return NO;
     }
-    NUIAnalyzer *analyzer = [[[NUIAnalyzer alloc] initWithString:text] autorelease];
+    NUIAnalyzer *analyzer = [[[NUIAnalyzer alloc] initWithData:data] autorelease];
     if (![analyzer loadImports]) {
+        [self logError:analyzer.lastError data:data];
         return NO;
     }
     for (NSString *f in analyzer.imports) {
@@ -274,18 +290,20 @@ static SEL propertyConstantsGetter(NSString *property)
         }
     }
     if (![analyzer loadContentFromMainFile:mainFile]) {
+        [self logError:analyzer.lastError data:data];
         return NO;
     }
     [constants_ addEntriesFromDictionary:analyzer.constants];
     [styles_ addEntriesFromDictionary:analyzer.styles];
     [states_ addEntriesFromDictionary:analyzer.states];
-    if (mainFile) {
-        return [self loadRootObjectFromNUIObject:analyzer.rootObject];
+    if (mainFile && ![self loadRootObjectFromNUIObject:analyzer.rootObject]) {
+        [self logError:self.lastError data:data];
+        return NO;
     }
     return YES;
 }
 
-- (BOOL)loadRootObjectFromNUIObject:(NUIObject *)object
+- (BOOL)loadRootObjectFromNUIObject:(NUIStatement *)object
 {
     if (![self loadObject:rootObject_ fromNUIObject:object]) {
         return NO;
@@ -293,11 +311,13 @@ static SEL propertyConstantsGetter(NSString *property)
     return YES;
 }
 
-- (BOOL)loadObject:(id)object fromNUIObject:(NUIObject *)nuiObject
+- (BOOL)loadObject:(id)object fromNUIObject:(NUIStatement *)nuiObject
 {
     for (NSString *key in nuiObject.systemProperties) {
-        NUIIdentifier *rvalue = [nuiObject.systemProperties objectForKey:key];
-        if (![rvalue isKindOfClass:[NUIIdentifier class]]) {
+        NUIStatement *rvalue = [nuiObject.systemProperties objectForKey:key];
+        if (rvalue.statementType != NUIStatementType_Identifier) {
+            self.lastError = [NUIError errorWithData:rvalue.data position:
+                rvalue.range.location message:@"Expecting an identifier."];
             return NO;
         }
         // Set id
@@ -318,12 +338,12 @@ static SEL propertyConstantsGetter(NSString *property)
             }
             continue;
         }
-        NSAssert(NO, @"Error");
-        return NO;
+        /*NSAssert(NO, @"Error");
+        return NO;*/
     }
-    for (NUIBinaryOperator *op in nuiObject.properties) {
-        NUIIdentifier *identifier = op.lvalue;
-        if (op.type == NUIBinaryOperatorType_Assignment) {
+    for (NUIStatement *op in nuiObject.properties) {
+        NUIStatement *identifier = op.lvalue;
+        if (op.statementType == NUIStatementType_AssignmentOperator) {
             if (object == rootObject_) {
                 [rootProperties_ addObject:identifier.value];
             }
@@ -338,7 +358,8 @@ static SEL propertyConstantsGetter(NSString *property)
                 return NO;
             }
         } else {
-            if (![self loadObject:[object valueForKeyPath:identifier.value] fromNUIObject:op.rvalue]) {
+            if (![self loadObject:[object valueForKeyPath:identifier.value]
+                fromNUIObject:op.rvalue]) {
                 return NO;
             }
         }
@@ -346,80 +367,87 @@ static SEL propertyConstantsGetter(NSString *property)
     return YES;
 }
 
-- (BOOL)assignObject:(id)object property:(NSString *)property value:(id)rvalue
+- (BOOL)assignObject:(id)object property:(NSString *)property value:(NUIStatement *)rvalue
 {
     SEL sel = nuiLoaderFromProperty(property);
     if ([object respondsToSelector:sel]) {
-        return ((BOOL (*)(id, SEL, id, id))objc_msgSend)(object, sel, rvalue, self);
+        NUIError *error = nil;
+        BOOL res =  ((BOOL (*)(id, SEL, id, id, NUIError **))objc_msgSend)(object, sel, rvalue,
+            self, &error);
+        self.lastError = error;
+        return res;
     }
-    sel = nuiSetterFromProperty(property);
+    // Assigning to global object property
+    if (rvalue.statementType == NUIStatementType_Identifier) {
+        id value = [self globalObjectForKey:rvalue.value];
+        if (value) {
+            [object setValue:value forKey:property];
+            return YES;
+        }
+    }
+    sel = setterFromProperty(property);
     if ([object respondsToSelector:sel]) {
-        [object performSelector:sel withObject:rvalue];
-        return YES;
-    } else {
-        // Assigning to global object property
-        if ([rvalue isKindOfClass:[NUIIdentifier class]]) {
-            NUIIdentifier *prop = (id)rvalue;
-            id value = [self globalObjectForKey:prop.value];
-            if (value) {
-                [object setValue:value forKey:property];
-                return YES;
-            }
+        SEL parser = propertyParser([object class], property);
+        if (parser && [self respondsToSelector:parser]) {
+            objc_msgSend(self, parser, object, property, rvalue);
+            return YES;
         }
-        sel = setterFromProperty(property);
-        if ([object respondsToSelector:sel]) {
-            SEL parser = propertyParser([object class], property);
-            if (parser && [self respondsToSelector:parser]) {
-                objc_msgSend(self, parser, object, property, rvalue);
-                return YES;
-            }
-            if ([rvalue isKindOfClass:[NSString class]]) {
-                objc_msgSend(object, sel, (NSString *)rvalue);
-                return YES;
-            }
-            if ([rvalue isKindOfClass:[NUIObject class]]) {
-                NUIObject *nuiObject = rvalue;
-                NSString *className = nuiObject.type;
-                Class cl = nil;
-                if (className) {
-                    cl = NSClassFromString(className);
-                    if (cl == nil) {
-                        return NO;
-                    }
-                }
-                NSString *defaultClassName = propertyClassName([object class], property);
-                if (!defaultClassName) {
+        if ([rvalue isKindOfClass:[NSString class]]) {
+            objc_msgSend(object, sel, (NSString *)(rvalue.value));
+            return YES;
+        }
+        if (rvalue.statementType == NUIStatementType_Object) {
+            NUIStatement *className = [rvalue.systemProperties objectForKey:@":class"];
+            Class cl = nil;
+            if (className) {
+                cl = NSClassFromString(className.value);
+                if (cl == nil) {
+                    self.lastError = [NUIError errorWithData:className.data position:
+                        className.range.location message:[NSString stringWithFormat:
+                        @"Unknown class name: %@.", className]];
                     return NO;
                 }
-                Class defaultCl = NSClassFromString(defaultClassName);
-                if (cl && !isSuperClass(cl, defaultCl)) {
-                    return NO;
-                }
-                id value = [[[cl ? cl : defaultCl alloc] init] autorelease];
-                [self loadObject:value fromNUIObject:nuiObject];
-                objc_msgSend(object, sel, value);
-                return YES;
             }
-            NSMethodSignature *sign = [[object class] instanceMethodSignatureForSelector:sel];
-            const char *type = [sign getArgumentTypeAtIndex:2];
-            int len = strlen(type);
-            if (len > 1 && type[0] == '{') {
-                for (int i = 0; i < len; ++i) {
-                    if (type[i] == '=') {
-                        NSString *tmp = [[[NSString alloc] initWithBytes:type + 1 length:i - 1
-                            encoding:NSASCIIStringEncoding] autorelease];
-                        SEL parser = structPropertyParser(tmp);
-                        if ([self respondsToSelector:parser]) {
-                            objc_msgSend(self, parser, object, sel, rvalue);
-                            return YES;
-                        }
+            NSString *defaultClassName = propertyClassName([object class], property);
+            if (!defaultClassName) {
+                self.lastError = [NUIError errorWithData:rvalue.data position:
+                    rvalue.range.location message:[NSString stringWithFormat:
+                    @"Can not get name of default class of %@ property.", property]];
+                return NO;
+            }
+            Class defaultCl = NSClassFromString(defaultClassName);
+            if (cl && !isSuperClass(cl, defaultCl)) {
+                self.lastError = [NUIError errorWithData:className.data position:
+                    className.range.location message:[NSString stringWithFormat:
+                    @"%@ is no a subclass of %@.", className, defaultClassName]];
+                return NO;
+            }
+            id value = [[[cl ? cl : defaultCl alloc] init] autorelease];
+            [self loadObject:value fromNUIObject:rvalue];
+            objc_msgSend(object, sel, value);
+            return YES;
+        }
+        NSMethodSignature *sign = [[object class] instanceMethodSignatureForSelector:sel];
+        const char *type = [sign getArgumentTypeAtIndex:2];
+        int len = strlen(type);
+        if (len > 1 && type[0] == '{') {
+            for (int i = 0; i < len; ++i) {
+                if (type[i] == '=') {
+                    NSString *tmp = [[[NSString alloc] initWithBytes:type + 1 length:i - 1
+                        encoding:NSASCIIStringEncoding] autorelease];
+                    SEL parser = structPropertyParser(tmp);
+                    if ([self respondsToSelector:parser]) {
+                        objc_msgSend(self, parser, object, sel, rvalue);
+                        return YES;
                     }
                 }
             }
-            return [self assignObject:object property:property type:type numericExpression:rvalue];
         }
+        return [self assignObject:object property:property type:type numericExpression:rvalue];
     }
-    NSAssert(NO, @"Object doesn't have %@ property", property);
+    self.lastError = [NUIError errorWithData:rvalue.data position:
+        rvalue.range.location message:[NSString stringWithFormat:@"%@ doesn't have %@ property.",
+        NSStringFromClass([object class]), property]];
     return NO;
 }
 

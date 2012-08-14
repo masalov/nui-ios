@@ -7,9 +7,9 @@
 //
 
 #import "UIControl+NUILoading.h"
-#import "NUIObject.h"
-#import "NUIIdentifier.h"
+#import "NUIStatement+Object.h"
 #import "NUILoader.h"
+#import "NUIError.h"
 
 @implementation UIControl (NUILoading)
 
@@ -75,23 +75,28 @@
     return NO;
 }
 
-- (BOOL)loadNUIActionFromRValue:(NUIObject *)value loader:(NUILoader *)loader
+- (BOOL)loadNUIActionFromRValue:(NUIStatement *)value loader:(NUILoader *)loader
+    error:(NUIError **)error
 {
-    if (![value isKindOfClass:[NUIObject class]]) {
+    if (value.statementType != NUIStatementType_Object) {
+        *error = [NUIError errorWithData:value.data position:value.range.location
+            message:@"Expecting an object."];
         return NO;
     }
 
     UIControlEvents event = 0;
     NSString *strEvent = [value property:@"event" ofClass:[NSString class]];
     if (![self controlEvent:&event fromNUIValue:strEvent]) {
+        *error = [NUIError errorWithData:value.data position:value.range.location
+            message:@"Expecting event string property."];
         return NO;
     }
     SEL selector = NSSelectorFromString([value property:@"selector" ofClass:[NSString class]]);
 
     id target = loader.rootObject;
-    NUIIdentifier *targetId = [value property:@"target" ofClass:[NUIIdentifier class]];
+    NSString *targetId = [value property:@"target" ofClass:[NSString class]];
     if (targetId) {
-        target = [loader globalObjectForKey:targetId.value];
+        target = [loader globalObjectForKey:targetId];
     }
 
     [self addTarget:target action:selector forControlEvents:event];

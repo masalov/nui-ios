@@ -8,7 +8,6 @@
 
 #import "NUISimpleLayout.h"
 #import "NUILayoutItem.h"
-#import "UIView+NUILayout.h"
 
 @implementation NUISimpleLayout
 

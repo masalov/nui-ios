@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@class NUIObject;
+@class NUIStatement;
+@class NUIError;
 
 // Class for loading objects from NUI files.
 //
 // Properties can be set via methods with the following signatures:
-// set<Propery name>:
-// setNUI<Propery name>:(NSString *)value
-// loadNUI<Propery name>FromRValue:(id)rvalue loader:(NUILoader *)loader
+// set<Property name>:
+// loadNUI<Property name>FromRValue:(id)rvalue loader:(NUILoader *)loader error:(NUIError **)error
 //
 // To add support for loading a struct from a string for any property add method to NUILoader with
 // signature: load<struct name>PropertyOfObject:setter:value:
@@ -27,6 +27,7 @@
 @interface NUILoader : NSObject
 
 @property (nonatomic, assign, readonly) id rootObject;
+@property (nonatomic, retain) NUIError *lastError;
 
 - (id)initWithRootObject:(id)rootObject;
 
@@ -37,11 +38,12 @@
 - (void)resetRootObjectProperties;
 
 
-- (id)loadObjectOfClass:(Class)cls fromNUIObject:(NUIObject *)nuiObject;
+- (id)loadObjectOfClass:(Class)cls fromNUIObject:(NUIStatement *)nuiObject;
 
 - (id)globalObjectForKey:(id)key;
 
-- (NSNumber *)calculateNumericExpression:(id)expression constants:(NSDictionary *)constants;
+- (NSNumber *)calculateNumericExpression:(NUIStatement *)expression
+    constants:(NSDictionary *)constants;
 
 @end
 
@@ -50,6 +52,7 @@
 
 @optional
 
-+ (id)loadFromNUIObject:(NUIObject *)nuiObject loader:(NUILoader *)loader;
++ (id)loadFromNUIObject:(NUIStatement *)nuiObject loader:(NUILoader *)loader
+    error:(NUIError **)error;
 
 @end

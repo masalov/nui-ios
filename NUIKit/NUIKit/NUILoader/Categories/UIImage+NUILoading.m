@@ -8,22 +8,25 @@
 
 #import "UIImage+NUILoading.h"
 #import "NUILoader.h"
-#import "NUIObject.h"
+#import "NUIStatement+Object.h"
+#import "NUIError.h"
 
 @implementation UIImage (NUILoading)
 
-+ (id)loadFromNUIObject:(NUIObject *)nuiObject loader:(NUILoader *)loader
++ (id)loadFromNUIObject:(NUIStatement *)nuiObject loader:(NUILoader *)loader
+    error:(NUIError **)error
 {
     NSString *path = [nuiObject property:@"file" ofClass:[NSString class]];
     UIImage *image = [UIImage imageNamed:path];
     if (!image) {
-        NSAssert(NO, @"Failed to load image from file: %@", path);
+        *error = [NUIError errorWithData:nuiObject.data position:nuiObject.range.location
+            message:[NSString stringWithFormat:@"Failed to load image from file: \"%@\".", path]];
         return nil;
     }
-    CGFloat leftCapWidth = [[nuiObject property:@"leftCapWidth" ofClass:[NSNumber class]]
-        floatValue];
-    CGFloat topCapHeight = [[nuiObject property:@"topCapHeight" ofClass:[NSNumber class]]
-        floatValue];
+    NSInteger leftCapWidth = [[nuiObject property:@"leftCapWidth" ofClass:[NSNumber class]]
+        integerValue];
+    NSInteger topCapHeight = [[nuiObject property:@"topCapHeight" ofClass:[NSNumber class]]
+        integerValue];
     if (leftCapWidth != 0 || topCapHeight != 0) {
         image = [image stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
     }

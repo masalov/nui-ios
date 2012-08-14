@@ -7,7 +7,6 @@
 //
 
 #import "NUIScrollView.h"
-#import "UIView+NUILayout.h"
 #import "NUILayoutItem.h"
 
 @implementation NUIScrollView

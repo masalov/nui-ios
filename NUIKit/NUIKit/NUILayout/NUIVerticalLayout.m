@@ -8,7 +8,6 @@
 
 #import "NUIVerticalLayout.h"
 #import "NUILayoutItem.h"
-#import "UIView+NUILayout.h"
 
 @implementation NUIVerticalLayout
 

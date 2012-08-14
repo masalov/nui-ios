@@ -71,5 +71,5 @@ property of the same category to YES on preferred size changes. By default prefe
 that is more reasonable than the current frame returned by sizeThatFits method. See NUILabel for details of
 implementation.
 
-In addition there is NUIScrollView. It is scrollview that has only one subview and corresponding layout item and
+In addition there is NUIScrollView. It is scroll view that has only one subview and corresponding layout item and
 calculates content size automatically.

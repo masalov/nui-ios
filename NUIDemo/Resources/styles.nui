@@ -1,8 +1,10 @@
-const my_font = UIFont:{
-  size = 50
+const my_font = {
+    :class = UIFont
+    size = 50
 }
 
-style my_label = UILabel:{
-  font = my_font
-  textColor = "00FF00"
+style my_label = {
+    :class = UILabel
+    font = my_font
+    textColor = "00FF00"
 }

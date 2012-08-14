@@ -8,8 +8,6 @@
 
 #import "MasterViewController.h"
 
-#import "NUIViewController.h"
-
 @interface MasterViewController ()
 
 @property (nonatomic, retain) NSArray *vcs;

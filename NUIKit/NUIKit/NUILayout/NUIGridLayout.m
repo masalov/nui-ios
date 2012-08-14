@@ -165,7 +165,7 @@
     return columnsCount_;
 }
 
-- (void)addSubview:(UIView *)view layoutItem:(NUILayoutItem *)layoutItem
+- (void)addSubview:(UIView *)view layoutItem:(NUIGridLayoutItem *)layoutItem
 {
     [super addSubview:view layoutItem:layoutItem];
     isColumnsCountValid_ = NO;
@@ -365,7 +365,7 @@
         }
     }
 
-    // Calculate contsraint size - min size
+    // Calculate constraint size - min size
     CGSize constraintSize = size;
     if (constraintSize.width != CGFLOAT_MAX) {
         for (NSUInteger i = 0; i < columns_.count; ++i) {

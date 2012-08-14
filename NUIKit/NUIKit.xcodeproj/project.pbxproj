@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C133B1815D93A4200480DDD /* NUIError.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C133B1615D93A4100480DDD /* NUIError.h */; };
+		2C133B1915D93A4200480DDD /* NUIError.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C133B1715D93A4100480DDD /* NUIError.m */; };
+		318212D2D26421F06E86C561 /* NUIData.h in Headers */ = {isa = PBXBuildFile; fileRef = 31821F228888E8398B1803C0 /* NUIData.h */; };
+		31821C5FB788D982A21A6CF1 /* NUIData.m in Sources */ = {isa = PBXBuildFile; fileRef = 31821F30DD9C8880BB448E2D /* NUIData.m */; };
 		BD15054F15CF954C0096EB13 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD15054E15CF954C0096EB13 /* Foundation.framework */; };
 		BD15055D15CF957E0096EB13 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD15055C15CF957E0096EB13 /* UIKit.framework */; };
 		BD1505A615CF96EE0096EB13 /* NUIFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15056115CF96EE0096EB13 /* NUIFlowLayout.m */; };
@@ -37,10 +41,7 @@
 		BD1505BF15CF96EE0096EB13 /* UITextField+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059615CF96EE0096EB13 /* UITextField+NUILoading.m */; };
 		BD1505C015CF96EE0096EB13 /* UIView+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059815CF96EE0096EB13 /* UIView+NUILoading.m */; };
 		BD1505C115CF96EE0096EB13 /* NUIAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059A15CF96EE0096EB13 /* NUIAnalyzer.m */; };
-		BD1505C215CF96EE0096EB13 /* NUIBinaryOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059C15CF96EE0096EB13 /* NUIBinaryOperator.m */; };
-		BD1505C315CF96EE0096EB13 /* NUIIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059E15CF96EE0096EB13 /* NUIIdentifier.m */; };
 		BD1505C415CF96EE0096EB13 /* NUILoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1505A015CF96EE0096EB13 /* NUILoader.m */; };
-		BD1505C515CF96EE0096EB13 /* NUIObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1505A215CF96EE0096EB13 /* NUIObject.m */; };
 		BD1505C615CF96EE0096EB13 /* nui_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1505A515CF96EE0096EB13 /* nui_utils.m */; };
 		BD1505C815CF97D50096EB13 /* NUIFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15056015CF96EE0096EB13 /* NUIFlowLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD1505C915CF97D50096EB13 /* NUIGridLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15056215CF96EE0096EB13 /* NUIGridLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -70,14 +71,21 @@
 		BD1505E115CF97D60096EB13 /* UITextField+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059515CF96EE0096EB13 /* UITextField+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD1505E215CF97D60096EB13 /* UIView+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059715CF96EE0096EB13 /* UIView+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD1505E315CF97D60096EB13 /* NUIAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059915CF96EE0096EB13 /* NUIAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BD1505E415CF97D60096EB13 /* NUIBinaryOperator.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059B15CF96EE0096EB13 /* NUIBinaryOperator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BD1505E515CF97D60096EB13 /* NUIIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059D15CF96EE0096EB13 /* NUIIdentifier.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD1505E615CF97D60096EB13 /* NUILoader.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059F15CF96EE0096EB13 /* NUILoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BD1505E715CF97D60096EB13 /* NUIObject.h in Headers */ = {isa = PBXBuildFile; fileRef = BD1505A115CF96EE0096EB13 /* NUIObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD1505E815CF97D60096EB13 /* nui_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = BD1505A415CF96EE0096EB13 /* nui_utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BDCE268D15D38B9200560545 /* NUIStatement.h in Headers */ = {isa = PBXBuildFile; fileRef = BDCE268B15D38B9200560545 /* NUIStatement.h */; };
+		BDCE268E15D38B9200560545 /* NUIStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = BDCE268C15D38B9200560545 /* NUIStatement.m */; };
+		CD6B002AA96E979DEE425C7C /* NUIStatement+Object.h in Headers */ = {isa = PBXBuildFile; fileRef = CD6B06D13A73F84AB86BDAFE /* NUIStatement+Object.h */; };
+		CD6B01AFE8AC9A1FCA2B2D8B /* NUIStatement+BinaryOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6B07F6D926B8DE73B9535D /* NUIStatement+BinaryOperator.m */; };
+		CD6B02C3A258704F473627CD /* NUIStatement+Object.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6B0E50D22C34F07217659C /* NUIStatement+Object.m */; };
+		CD6B0ADA3B4C772DD7F06F48 /* NUIStatement+BinaryOperator.h in Headers */ = {isa = PBXBuildFile; fileRef = CD6B0C6EBF5DCA28874EE478 /* NUIStatement+BinaryOperator.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C133B1615D93A4100480DDD /* NUIError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIError.h; sourceTree = "<group>"; };
+		2C133B1715D93A4100480DDD /* NUIError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIError.m; sourceTree = "<group>"; };
+		31821F228888E8398B1803C0 /* NUIData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIData.h; sourceTree = "<group>"; };
+		31821F30DD9C8880BB448E2D /* NUIData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIData.m; sourceTree = "<group>"; };
 		BD15054B15CF954C0096EB13 /* libNUIKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNUIKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD15054E15CF954C0096EB13 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BD15055C15CF957E0096EB13 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -138,16 +146,16 @@
 		BD15059815CF96EE0096EB13 /* UIView+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+NUILoading.m"; sourceTree = "<group>"; };
 		BD15059915CF96EE0096EB13 /* NUIAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIAnalyzer.h; sourceTree = "<group>"; };
 		BD15059A15CF96EE0096EB13 /* NUIAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIAnalyzer.m; sourceTree = "<group>"; };
-		BD15059B15CF96EE0096EB13 /* NUIBinaryOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIBinaryOperator.h; sourceTree = "<group>"; };
-		BD15059C15CF96EE0096EB13 /* NUIBinaryOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIBinaryOperator.m; sourceTree = "<group>"; };
-		BD15059D15CF96EE0096EB13 /* NUIIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIIdentifier.h; sourceTree = "<group>"; };
-		BD15059E15CF96EE0096EB13 /* NUIIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIIdentifier.m; sourceTree = "<group>"; };
 		BD15059F15CF96EE0096EB13 /* NUILoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUILoader.h; sourceTree = "<group>"; };
 		BD1505A015CF96EE0096EB13 /* NUILoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUILoader.m; sourceTree = "<group>"; };
-		BD1505A115CF96EE0096EB13 /* NUIObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIObject.h; sourceTree = "<group>"; };
-		BD1505A215CF96EE0096EB13 /* NUIObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIObject.m; sourceTree = "<group>"; };
 		BD1505A415CF96EE0096EB13 /* nui_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nui_utils.h; sourceTree = "<group>"; };
 		BD1505A515CF96EE0096EB13 /* nui_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nui_utils.m; sourceTree = "<group>"; };
+		BDCE268B15D38B9200560545 /* NUIStatement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIStatement.h; sourceTree = "<group>"; };
+		BDCE268C15D38B9200560545 /* NUIStatement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIStatement.m; sourceTree = "<group>"; };
+		CD6B06D13A73F84AB86BDAFE /* NUIStatement+Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NUIStatement+Object.h"; sourceTree = "<group>"; };
+		CD6B07F6D926B8DE73B9535D /* NUIStatement+BinaryOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NUIStatement+BinaryOperator.m"; sourceTree = "<group>"; };
+		CD6B0C6EBF5DCA28874EE478 /* NUIStatement+BinaryOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NUIStatement+BinaryOperator.h"; sourceTree = "<group>"; };
+		CD6B0E50D22C34F07217659C /* NUIStatement+Object.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NUIStatement+Object.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,17 +260,21 @@
 		BD15058315CF96EE0096EB13 /* NUILoader */ = {
 			isa = PBXGroup;
 			children = (
+				31821F228888E8398B1803C0 /* NUIData.h */,
+				31821F30DD9C8880BB448E2D /* NUIData.m */,
+				CD6B0C6EBF5DCA28874EE478 /* NUIStatement+BinaryOperator.h */,
+				CD6B07F6D926B8DE73B9535D /* NUIStatement+BinaryOperator.m */,
+				CD6B06D13A73F84AB86BDAFE /* NUIStatement+Object.h */,
+				CD6B0E50D22C34F07217659C /* NUIStatement+Object.m */,
 				BD15058415CF96EE0096EB13 /* Categories */,
 				BD15059915CF96EE0096EB13 /* NUIAnalyzer.h */,
 				BD15059A15CF96EE0096EB13 /* NUIAnalyzer.m */,
-				BD15059B15CF96EE0096EB13 /* NUIBinaryOperator.h */,
-				BD15059C15CF96EE0096EB13 /* NUIBinaryOperator.m */,
-				BD15059D15CF96EE0096EB13 /* NUIIdentifier.h */,
-				BD15059E15CF96EE0096EB13 /* NUIIdentifier.m */,
 				BD15059F15CF96EE0096EB13 /* NUILoader.h */,
 				BD1505A015CF96EE0096EB13 /* NUILoader.m */,
-				BD1505A115CF96EE0096EB13 /* NUIObject.h */,
-				BD1505A215CF96EE0096EB13 /* NUIObject.m */,
+				BDCE268B15D38B9200560545 /* NUIStatement.h */,
+				BDCE268C15D38B9200560545 /* NUIStatement.m */,
+				2C133B1615D93A4100480DDD /* NUIError.h */,
+				2C133B1715D93A4100480DDD /* NUIError.m */,
 			);
 			path = NUILoader;
 			sourceTree = "<group>";
@@ -338,11 +350,13 @@
 				BD1505E115CF97D60096EB13 /* UITextField+NUILoading.h in Headers */,
 				BD1505E215CF97D60096EB13 /* UIView+NUILoading.h in Headers */,
 				BD1505E315CF97D60096EB13 /* NUIAnalyzer.h in Headers */,
-				BD1505E415CF97D60096EB13 /* NUIBinaryOperator.h in Headers */,
-				BD1505E515CF97D60096EB13 /* NUIIdentifier.h in Headers */,
 				BD1505E615CF97D60096EB13 /* NUILoader.h in Headers */,
-				BD1505E715CF97D60096EB13 /* NUIObject.h in Headers */,
 				BD1505E815CF97D60096EB13 /* nui_utils.h in Headers */,
+				BDCE268D15D38B9200560545 /* NUIStatement.h in Headers */,
+				2C133B1815D93A4200480DDD /* NUIError.h in Headers */,
+				CD6B002AA96E979DEE425C7C /* NUIStatement+Object.h in Headers */,
+				CD6B0ADA3B4C772DD7F06F48 /* NUIStatement+BinaryOperator.h in Headers */,
+				318212D2D26421F06E86C561 /* NUIData.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,11 +439,13 @@
 				BD1505BF15CF96EE0096EB13 /* UITextField+NUILoading.m in Sources */,
 				BD1505C015CF96EE0096EB13 /* UIView+NUILoading.m in Sources */,
 				BD1505C115CF96EE0096EB13 /* NUIAnalyzer.m in Sources */,
-				BD1505C215CF96EE0096EB13 /* NUIBinaryOperator.m in Sources */,
-				BD1505C315CF96EE0096EB13 /* NUIIdentifier.m in Sources */,
 				BD1505C415CF96EE0096EB13 /* NUILoader.m in Sources */,
-				BD1505C515CF96EE0096EB13 /* NUIObject.m in Sources */,
 				BD1505C615CF96EE0096EB13 /* nui_utils.m in Sources */,
+				BDCE268E15D38B9200560545 /* NUIStatement.m in Sources */,
+				2C133B1915D93A4200480DDD /* NUIError.m in Sources */,
+				CD6B02C3A258704F473627CD /* NUIStatement+Object.m in Sources */,
+				CD6B01AFE8AC9A1FCA2B2D8B /* NUIStatement+BinaryOperator.m in Sources */,
+				31821C5FB788D982A21A6CF1 /* NUIData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,6 +541,7 @@
 				BD15055B15CF954C0096EB13 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

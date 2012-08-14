@@ -8,23 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
-@class NUIObject;
+@class NUIStatement;
 @class NUILoader;
+@class NUIError;
 
 @interface UIButton (NUILoading)
 
 // Title
-- (BOOL)setNUITitle:(NSString *)value;
-- (BOOL)setNUILocalizedTitle:(NSString *)value;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *localizedTitle;
 
-- (BOOL)setNUIHighlightedTitle:(NSString *)value;
-- (BOOL)setNUILocalizedHighlightedTitle:(NSString *)value;
+@property (nonatomic, copy) NSString *highlightedTitle;
+@property (nonatomic, copy) NSString *localizedHighlightedTitle;
 
-- (BOOL)setNUIDisabledTitle:(NSString *)value;
-- (BOOL)setNUILocalizedDisabledTitle:(NSString *)value;
 
-- (BOOL)setNUISelectedTitle:(NSString *)value;
-- (BOOL)setNUILocalizedSelectedTitle:(NSString *)value;
+@property (nonatomic, copy) NSString *disabledTitle;
+@property (nonatomic, copy) NSString *localizedDisabledTitle;
+
+@property (nonatomic, copy) NSString *selectedTitle;
+@property (nonatomic, copy) NSString *localizedSelectedTitle;
 
 // Title color
 @property (nonatomic, retain) UIColor *titleColor;
@@ -51,6 +53,7 @@
 @property (nonatomic, retain) UIImage *selectedBackgroundImage;
 
 // Overrides UIControl method for using UIControlEventTouchUpInside as default event
-- (BOOL)loadNUIActionFromRValue:(NUIObject *)value loader:(NUILoader *)loader;
+- (BOOL)loadNUIActionFromRValue:(NUIStatement *)value loader:(NUILoader *)loader
+    error:(NUIError **)error;
 
 @end
