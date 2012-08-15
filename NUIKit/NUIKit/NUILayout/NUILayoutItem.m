@@ -215,6 +215,10 @@
 
 - (void)placeInRect:(CGRect)rect preferredSize:(CGSize)size
 {
+    if (view_.hidden != (visibility_ != NUIVisibility_Visible)) {
+        view_.hidden = visibility_ != NUIVisibility_Visible;
+    }
+
     rect = UIEdgeInsetsInsetRect(rect, margin_);
     if (visibility_ == NUIVisibility_Collapsed) {
         view_.frame = rect;

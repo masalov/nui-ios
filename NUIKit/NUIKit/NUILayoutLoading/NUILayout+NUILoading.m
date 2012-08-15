@@ -21,8 +21,8 @@
                 message:@"Layout item should be an object."];
             return NO;
         }
-        NUILayoutItem *item = [loader loadObjectOfClass:[NUILayoutItem class] fromNUIObject:object];
-        if (item) {
+        NUILayoutItem *item = [self createLayoutItem];
+        if ([loader loadObject:item fromNUIObject:object]) {
             [self addSubview:item.view layoutItem:item];
         } else {
             *error = loader.lastError;

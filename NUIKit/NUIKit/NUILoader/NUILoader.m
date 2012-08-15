@@ -72,6 +72,7 @@ static SEL propertyConstantsGetter(NSString *property)
     if (self) {
         rootObject_ = rootObject;
         globalObjects_ = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+            rootObject_, @"self",
             [NSNumber numberWithBool:YES], @"YES",
             [NSNumber numberWithBool:NO], @"NO",
             nil];
@@ -120,24 +121,23 @@ static SEL propertyConstantsGetter(NSString *property)
         if (op.statementType == NUIStatementType_AssignmentOperator) {
             NSRange range = [identifier.value rangeOfString:@"." options:NSBackwardsSearch];
             if (!range.length) {
-                NSAssert(NO, @"Can set only object properties, not an object");
+                NSLog(@"Can set only object properties, not an object");
                 return NO;
             }
             id object = [self globalObjectForKey:[identifier.value substringToIndex:range.location]];
             if (!object) {
-                NSAssert(NO, @"Object \"%@\" not found", [identifier.value
-                    substringToIndex:range.location]);
+                NSLog(@"Object \"%@\" not found", [identifier.value substringToIndex:range.location]);
                 return NO;
             }
             if (![self assignObject:object property:[identifier.value
                 substringFromIndex:range.location + range.length] value:op.rvalue]) {
-                NSAssert(NO, @"Failed to load property \"%@\"", [identifier.value
-                    substringFromIndex:range.location + range.length]);
+                [self logError:self.lastError data:self.lastError.data];
                 return NO;
             }
         } else {
             id object = [self globalObjectForKey:identifier.value];
             if (![self loadObject:object fromNUIObject:op.rvalue]) {
+                [self logError:self.lastError data:self.lastError.data];
                 return NO;
             }
         }
@@ -229,6 +229,11 @@ static SEL propertyConstantsGetter(NSString *property)
         if (!res) {
             res = [self globalObjectForKey:expression.value];
         }
+        if (!res) {
+            self.lastError = [NUIError errorWithData:expression.data
+                position:expression.range.location message:[NSString stringWithFormat:
+                    @"Unknown identifier: %@.", expression.value]];
+        }
         return res;
     }
     if ([expression isBinaryOperator]) {
@@ -244,9 +249,11 @@ static SEL propertyConstantsGetter(NSString *property)
             case NUIStatementType_BitwiseOrOperator:
                 return [NSNumber numberWithInt:([lvalue intValue] | [rvalue intValue])];
             default:
-                return nil;
+                break;
         }
     }
+    self.lastError = [NUIError errorWithData:expression.data position:expression.range.location
+        message:@"Expecting numeric expression."];
     return nil;
 }
 
@@ -297,7 +304,7 @@ static SEL propertyConstantsGetter(NSString *property)
     [styles_ addEntriesFromDictionary:analyzer.styles];
     [states_ addEntriesFromDictionary:analyzer.states];
     if (mainFile && ![self loadRootObjectFromNUIObject:analyzer.rootObject]) {
-        [self logError:self.lastError data:data];
+        [self logError:self.lastError data:self.lastError ? self.lastError.data : data];
         return NO;
     }
     return YES;
@@ -392,22 +399,11 @@ static SEL propertyConstantsGetter(NSString *property)
             objc_msgSend(self, parser, object, property, rvalue);
             return YES;
         }
-        if ([rvalue isKindOfClass:[NSString class]]) {
+        if (rvalue.statementType == NUIStatementType_String) {
             objc_msgSend(object, sel, (NSString *)(rvalue.value));
             return YES;
         }
         if (rvalue.statementType == NUIStatementType_Object) {
-            NUIStatement *className = [rvalue.systemProperties objectForKey:@":class"];
-            Class cl = nil;
-            if (className) {
-                cl = NSClassFromString(className.value);
-                if (cl == nil) {
-                    self.lastError = [NUIError errorWithData:className.data position:
-                        className.range.location message:[NSString stringWithFormat:
-                        @"Unknown class name: %@.", className]];
-                    return NO;
-                }
-            }
             NSString *defaultClassName = propertyClassName([object class], property);
             if (!defaultClassName) {
                 self.lastError = [NUIError errorWithData:rvalue.data position:
@@ -416,14 +412,10 @@ static SEL propertyConstantsGetter(NSString *property)
                 return NO;
             }
             Class defaultCl = NSClassFromString(defaultClassName);
-            if (cl && !isSuperClass(cl, defaultCl)) {
-                self.lastError = [NUIError errorWithData:className.data position:
-                    className.range.location message:[NSString stringWithFormat:
-                    @"%@ is no a subclass of %@.", className, defaultClassName]];
+            id value = [self loadObjectOfClass:defaultCl fromNUIObject:rvalue];
+            if (!value) {
                 return NO;
             }
-            id value = [[[cl ? cl : defaultCl alloc] init] autorelease];
-            [self loadObject:value fromNUIObject:rvalue];
             objc_msgSend(object, sel, value);
             return YES;
         }
@@ -440,8 +432,16 @@ static SEL propertyConstantsGetter(NSString *property)
                         objc_msgSend(self, parser, object, sel, rvalue);
                         return YES;
                     }
+                    self.lastError = [NUIError errorWithData:rvalue.data
+                        position:rvalue.range.location message:[NSString stringWithFormat:
+                            @"There are no parser for %@ struct.", [NSString stringWithCString:type
+                            encoding:NSASCIIStringEncoding]]];
+                    return NO;
                 }
             }
+            self.lastError = [NUIError errorWithData:rvalue.data position:rvalue.range.location
+                message:@"Failed to determine property type."];
+            return NO;
         }
         return [self assignObject:object property:property type:type numericExpression:rvalue];
     }

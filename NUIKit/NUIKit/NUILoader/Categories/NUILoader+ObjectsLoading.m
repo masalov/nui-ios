@@ -7,14 +7,15 @@
 //
 
 #import "NUILoader+ObjectsLoading.h"
+#import "NUIStatement.h"
 #import <UIKit/UIKit.h>
 
 @implementation NUILoader (ObjectsLoading)
 
-- (BOOL)loadUIColorPropertyOfObject:(id)object property:(NSString *)property value:(id)rvalue
+- (BOOL)loadUIColorPropertyOfObject:(id)object property:(NSString *)property value:(NUIStatement *)rvalue
 {
-    if ([rvalue isKindOfClass:[NSString class]]) {
-        NSString *value = (NSString *)rvalue;
+    if (rvalue.statementType == NUIStatementType_String) {
+        NSString *value = rvalue.value;
         if (value.length != 6 && value.length != 8) {
             NSAssert(NO, @"Invalid color format");
             return NO;
@@ -36,19 +37,19 @@
             forKey:property];
         return YES;
     }
-    if ([rvalue isKindOfClass:[NSArray class]]) {
-        NSArray *array = (NSArray *)rvalue;
+    if (rvalue.statementType == NUIStatementType_Array) {
+        NSArray *array = rvalue.value;
         if (array.count == 3) {
-            [object setValue:[UIColor colorWithRed:[[array objectAtIndex:0] floatValue] / 255.0f
-                green:[[array objectAtIndex:1] floatValue] / 255.0f
-                blue:[[array objectAtIndex:2] floatValue] / 255.0f
+            [object setValue:[UIColor colorWithRed:[[[array objectAtIndex:0] value] floatValue] / 255.0f
+                green:[[[array objectAtIndex:1] value] floatValue] / 255.0f
+                blue:[[[array objectAtIndex:2] value] floatValue] / 255.0f
                 alpha:1.0f]
                 forKey:property];
         } else if (array.count == 4) {
-            [object setValue:[UIColor colorWithRed:[[array objectAtIndex:0] floatValue] / 255.0f
-                green:[[array objectAtIndex:1] floatValue] / 255.0f
-                blue:[[array objectAtIndex:2] floatValue] / 255.0f
-                alpha:[[array objectAtIndex:3] floatValue] / 255.0f]
+            [object setValue:[UIColor colorWithRed:[[[array objectAtIndex:0] value] floatValue] / 255.0f
+                green:[[[array objectAtIndex:1] value] floatValue] / 255.0f
+                blue:[[[array objectAtIndex:2] value] floatValue] / 255.0f
+                alpha:[[[array objectAtIndex:3] value] floatValue] / 255.0f]
                 forKey:property];
         } else {
             NSAssert(NO, @"Invalid color format");

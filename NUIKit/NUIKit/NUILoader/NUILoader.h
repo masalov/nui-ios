@@ -38,6 +38,7 @@
 - (void)resetRootObjectProperties;
 
 
+- (BOOL)loadObject:(id)object fromNUIObject:(NUIStatement *)nuiObject;
 - (id)loadObjectOfClass:(Class)cls fromNUIObject:(NUIStatement *)nuiObject;
 
 - (id)globalObjectForKey:(id)key;

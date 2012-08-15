@@ -8,6 +8,8 @@
 
 #import "UIView+NUILayout.h"
 #import <objc/runtime.h>
+#import "NUILayoutView.h"
+#import "NUILayout.h"
 
 static int NeedsToUpdateSizeKey;
 
@@ -24,6 +26,14 @@ static int NeedsToUpdateSizeKey;
 {
     NSNumber *value = objc_getAssociatedObject(self, &NeedsToUpdateSizeKey);
     return [value boolValue];
+}
+
+- (NUILayoutItem *)layoutItem
+{
+    if ([self.superview isKindOfClass:[NUILayoutView class]]) {
+        return  [[(NUILayoutView *) self.superview layout] layoutItemForSubview:self];
+    }
+    return nil;
 }
 
 - (CGSize)preferredSizeThatFits:(CGSize)size
