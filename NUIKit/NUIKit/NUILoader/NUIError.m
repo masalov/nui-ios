@@ -6,8 +6,10 @@
 //  Copyright (c) 2012 Ivan Masalov. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import "NUIError.h"
 #import "NUIData.h"
+#import "NUIStatement.h"
 
 @implementation NUIError
 
@@ -26,6 +28,11 @@
     return self;
 }
 
+- (id)initWithStatement:(NUIStatement *)statement message:(NSString *)message
+{
+    return [self initWithData:statement.data position:statement.range.location message:message];
+}
+
 - (void)dealloc
 {
     [data_ release];
@@ -37,6 +44,11 @@
 + (id)errorWithData:(NUIData *)data position:(int)position message:(NSString *)message
 {
     return [[[NUIError alloc] initWithData:data position:position message:message] autorelease];
+}
+
++ (id)errorWithStatement:(NUIStatement *)statement message:(NSString *)message
+{
+    return [[[NUIError alloc] initWithStatement:statement message:message] autorelease];
 }
 
 @end

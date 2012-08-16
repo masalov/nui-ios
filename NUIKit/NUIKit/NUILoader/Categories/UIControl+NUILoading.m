@@ -85,16 +85,23 @@
     }
 
     UIControlEvents event = 0;
-    NSString *strEvent = [value property:@"event" ofClass:[NSString class]];
+    NSString *strEvent = [value property:@"event" ofClass:[NSString class] error:error];
+    if (!strEvent) {
+        return NO;
+    }
     if (![self controlEvent:&event fromNUIValue:strEvent]) {
         *error = [NUIError errorWithData:value.data position:value.range.location
             message:@"Expecting event string property."];
         return NO;
     }
-    SEL selector = NSSelectorFromString([value property:@"selector" ofClass:[NSString class]]);
+    SEL selector = NSSelectorFromString([value property:@"selector" ofClass:[NSString class]
+        error:error]);
+    if (!selector) {
+        return NO;
+    }
 
     id target = loader.rootObject;
-    NSString *targetId = [value property:@"target" ofClass:[NSString class]];
+    NSString *targetId = [value property:@"target" ofClass:[NSString class] error:error];
     if (targetId) {
         target = [loader globalObjectForKey:targetId];
     }

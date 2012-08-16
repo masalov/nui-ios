@@ -16,18 +16,16 @@
 + (id)loadFromNUIObject:(NUIStatement *)nuiObject loader:(NUILoader *)loader
     error:(NUIError **)error
 {
-    NSNumber *size = [nuiObject property:@"size" ofClass:[NSNumber class]];
+    NSNumber *size = [nuiObject property:@"size" ofClass:[NSNumber class] error:error];
     if (!size) {
-        *error = [NUIError errorWithData:nuiObject.data position:nuiObject.range.location
-            message:@"Expecting size property."];
         return nil;
     }
     id object = nil;
-    NSString *name = [nuiObject property:@"name" ofClass:[NSString class]];
+    NSString *name = [nuiObject property:@"name" ofClass:[NSString class] error:error];
     if (name) {
         object = [UIFont fontWithName:name size:[size floatValue]];
     } else {
-        NSString *type = [nuiObject property:@"type" ofClass:[NSString class]];
+        NSString *type = [nuiObject property:@"type" ofClass:[NSString class] error:error];
         if (!type || [type compare:@"normal" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
             object = [UIFont systemFontOfSize:[size floatValue]];
         } else  if ([type compare:@"italic" options:NSCaseInsensitiveSearch] == NSOrderedSame) {

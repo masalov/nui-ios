@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "NUIStatement.h"
 
+@class NUIError;
+
 @interface NUIStatement (Object)
 
 - (NSMutableDictionary *)systemProperties;
 - (NSMutableArray *)properties;
-- (id)property:(NSString *)property ofClass:(Class)class;
+- (id)property:(NSString *)property ofClass:(Class)class error:(NUIError **)error;
 
 @end

@@ -16,17 +16,9 @@
 
 // Title
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *localizedTitle;
-
 @property (nonatomic, copy) NSString *highlightedTitle;
-@property (nonatomic, copy) NSString *localizedHighlightedTitle;
-
-
 @property (nonatomic, copy) NSString *disabledTitle;
-@property (nonatomic, copy) NSString *localizedDisabledTitle;
-
 @property (nonatomic, copy) NSString *selectedTitle;
-@property (nonatomic, copy) NSString *localizedSelectedTitle;
 
 // Title color
 @property (nonatomic, retain) UIColor *titleColor;
@@ -51,6 +43,12 @@
 @property (nonatomic, retain) UIImage *highlightedBackgroundImage;
 @property (nonatomic, retain) UIImage *disabledBackgroundImage;
 @property (nonatomic, retain) UIImage *selectedBackgroundImage;
+
+// Localized title
+- (void)setLocalizedTitle:(NSString *)localizedTitle;
+- (void)setLocalizedHighlightedTitle:(NSString *)localizedHighlightedTitle;
+- (void)setLocalizedDisabledTitle:(NSString *)localizedDisabledTitle;
+- (void)setLocalizedSelectedTitle:(NSString *)localizedSelectedTitle;
 
 // Overrides UIControl method for using UIControlEventTouchUpInside as default event
 - (BOOL)loadNUIActionFromRValue:(NUIStatement *)value loader:(NUILoader *)loader

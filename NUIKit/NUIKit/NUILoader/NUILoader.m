@@ -19,8 +19,8 @@
 
 static SEL setterFromProperty(NSString *property)
 {
-    return NSSelectorFromString([NSString stringWithFormat:@"set%@%@:", [[property substringToIndex:1]
-        capitalizedString], [property substringFromIndex:1]]);
+    return NSSelectorFromString([NSString stringWithFormat:@"set%@%@:",
+            [[property substringToIndex:1] capitalizedString], [property substringFromIndex:1]]);
 }
 
 static SEL nuiLoaderFromProperty(NSString *property)
@@ -31,22 +31,24 @@ static SEL nuiLoaderFromProperty(NSString *property)
 
 static SEL structPropertyParser(NSString *structName)
 {
-    return NSSelectorFromString([NSString stringWithFormat:@"load%@PropertyOfObject:setter:value:", structName]);
+    return NSSelectorFromString([NSString stringWithFormat:
+        @"load%@PropertyOfObject:setter:value:error:", structName]);
 }
 
 static SEL propertyParser(Class class, NSString *propertyName)
 {
     NSString *className = propertyClassName(class, propertyName);
     if (className) {
-        return NSSelectorFromString([NSString stringWithFormat:@"load%@PropertyOfObject:property:value:", className]);
+        return NSSelectorFromString([NSString stringWithFormat:
+            @"load%@PropertyOfObject:property:value:error:", className]);
     }
     return nil;
 }
 
 static SEL propertyConstantsGetter(NSString *property)
 {
-    return NSSelectorFromString([NSString stringWithFormat:@"nuiConstantsFor%@%@", [[property substringToIndex:1]
-        capitalizedString], [property substringFromIndex:1]]);
+    return NSSelectorFromString([NSString stringWithFormat:@"nuiConstantsFor%@%@",
+            [[property substringToIndex:1] capitalizedString], [property substringFromIndex:1]]);
 }
 
 @interface NUILoader ()
@@ -396,7 +398,11 @@ static SEL propertyConstantsGetter(NSString *property)
     if ([object respondsToSelector:sel]) {
         SEL parser = propertyParser([object class], property);
         if (parser && [self respondsToSelector:parser]) {
-            objc_msgSend(self, parser, object, property, rvalue);
+            NUIError *error = nil;
+            if (!objc_msgSend(self, parser, object, property, rvalue, &error)) {
+                self.lastError = error;
+                return NO;
+            }
             return YES;
         }
         if (rvalue.statementType == NUIStatementType_String) {
@@ -429,7 +435,11 @@ static SEL propertyConstantsGetter(NSString *property)
                         encoding:NSASCIIStringEncoding] autorelease];
                     SEL parser = structPropertyParser(tmp);
                     if ([self respondsToSelector:parser]) {
-                        objc_msgSend(self, parser, object, sel, rvalue);
+                        NUIError *error = nil;
+                        if (!objc_msgSend(self, parser, object, sel, rvalue, &error)) {
+                            self.lastError = error;
+                            return NO;
+                        }
                         return YES;
                     }
                     self.lastError = [NUIError errorWithData:rvalue.data

@@ -18,11 +18,11 @@
 // loadNUI<Property name>FromRValue:(id)rvalue loader:(NUILoader *)loader error:(NUIError **)error
 //
 // To add support for loading a struct from a string for any property add method to NUILoader with
-// signature: load<struct name>PropertyOfObject:setter:value:
+// signature: load<struct name>PropertyOfObject:setter:value:error:
 // See NUILoader (StructuresLoading) for examples.
 //
 // To add support for loading an object from a string for any property add method to NUILoader with
-// signature: load<class name>PropertyOfObject:property:value:
+// signature: load<class name>PropertyOfObject:property:value:error:
 // See NUILoader (ObjectsLoading) for examples.
 @interface NUILoader : NSObject
 

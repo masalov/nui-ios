@@ -7,20 +7,22 @@
 //
 
 #import "NUILoader+StructuresLoading.h"
-#import "NUIStatement.h"
 #import <UIKit/UIKit.h>
 #import <objc/message.h>
+#import "NUIStatement.h"
+#import "NUIError.h"
 
 @implementation NUILoader (StructuresLoading)
 
 - (BOOL)loadCGSizePropertyOfObject:(id)object setter:(SEL)setter value:(NUIStatement *)value
+    error:(NUIError **)error
 {
     if (value.statementType != NUIStatementType_Array) {
-        NSAssert(NO, @"Should be array");
+        *error = [NUIError errorWithStatement:value message:@"Expecting an array."];
         return NO;
     }
     if ([value.value count] != 2) {
-        NSAssert(NO, @"Invalid size format");
+        *error = [NUIError errorWithStatement:value message:@"Expecting 2 numbers."];
         return NO;
     }
     CGSize sz = CGSizeMake([[[value.value objectAtIndex:0] value] floatValue],
@@ -30,13 +32,14 @@
 }
 
 - (BOOL)loadCGRectPropertyOfObject:(id)object setter:(SEL)setter value:(NUIStatement *)value
+    error:(NUIError **)error
 {
     if (value.statementType != NUIStatementType_Array) {
-        NSAssert(NO, @"Should be array");
+        *error = [NUIError errorWithStatement:value message:@"Expecting an array."];
         return NO;
     }
     if ([value.value count] != 4) {
-        NSAssert(NO, @"Invalid rect format");
+        *error = [NUIError errorWithStatement:value message:@"Expecting 4 numbers."];
         return NO;
     }
     CGRect rc = CGRectMake([[[value.value objectAtIndex:0] value] floatValue],
@@ -48,33 +51,37 @@
 }
 
 - (BOOL)loadNSRangePropertyOfObject:(id)object setter:(SEL)setter value:(NUIStatement *)value
+    error:(NUIError **)error
 {
     if (value.statementType != NUIStatementType_Array) {
-        NSAssert(NO, @"Should be array");
+        *error = [NUIError errorWithStatement:value message:@"Expecting an array."];
         return NO;
     }
     if ([value.value count] != 2) {
-        NSAssert(NO, @"Invalid range format");
+        *error = [NUIError errorWithStatement:value message:@"Expecting 2 numbers."];
         return NO;
     }
-    NSRange range = (NSRange){[[[value.value objectAtIndex:0] value] floatValue], [[[value.value objectAtIndex:1] value] floatValue]};
+    NSRange range = (NSRange){[[[value.value objectAtIndex:0] value] floatValue],
+        [[[value.value objectAtIndex:1] value] floatValue]};
     objc_msgSend(object, setter, range);
     return YES;
 }
 
-- (BOOL)load_NSRangePropertyOfObject:(id)object setter:(SEL)setter value:(NUIStatement *)value;
+- (BOOL)load_NSRangePropertyOfObject:(id)object setter:(SEL)setter value:(NUIStatement *)value
+    error:(NUIError **)error
 {
-    return [self loadNSRangePropertyOfObject:object setter:setter value:value];
+    return [self loadNSRangePropertyOfObject:object setter:setter value:value error:error];
 }
 
 - (BOOL)loadUIEdgeInsetsPropertyOfObject:(id)object setter:(SEL)setter value:(NUIStatement *)value
+    error:(NUIError **)error
 {
     if (value.statementType != NUIStatementType_Array) {
-        NSAssert(NO, @"Should be array");
+        *error = [NUIError errorWithStatement:value message:@"Expecting an array."];
         return NO;
     }
     if ([value.value count] != 4) {
-        NSAssert(NO, @"Invalid edge insets format");
+        *error = [NUIError errorWithStatement:value message:@"Expecting 4 numbers."];
         return NO;
     }
     UIEdgeInsets insets = UIEdgeInsetsMake([[[value.value objectAtIndex:0] value] floatValue],
@@ -85,14 +92,15 @@
     return YES;
 }
 
-- (BOOL)loadCGAffineTransformPropertyOfObject:(id)object setter:(SEL)setter value:(NUIStatement *)value
+- (BOOL)loadCGAffineTransformPropertyOfObject:(id)object setter:(SEL)setter
+    value:(NUIStatement *)value error:(NUIError **)error
 {
     if (value.statementType != NUIStatementType_Array) {
-        NSAssert(NO, @"Should be array");
+        *error = [NUIError errorWithStatement:value message:@"Expecting an array."];
         return NO;
     }
     if ([value.value count] != 6) {
-        NSAssert(NO, @"Invalid affine transform format");
+        *error = [NUIError errorWithStatement:value message:@"Expecting 6 numbers."];
         return NO;
     }
     CGAffineTransform transform =

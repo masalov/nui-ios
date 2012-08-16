@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "NUILoader.h"
 
-@class NUIStatement;
-
 // To parse a struct add a method to NUILoader with the signature:
-// - (BOOL)load<class name>PropertyOfObject:(id)object property:(NSString *)property value:(id)rvalue
+// - (BOOL)load<class name>PropertyOfObject:(id)object property:(NSString *)property
+// value:(id)rvalue error:(NUIError *)error
 @interface NUILoader (ObjectsLoading)
 
-- (BOOL)loadUIColorPropertyOfObject:(id)object property:(NSString *)property value:(NUIStatement *)rvalue;
+- (BOOL)loadUIColorPropertyOfObject:(id)object property:(NSString *)property
+    value:(NUIStatement *)rvalue error:(NUIError **)error;
 
 @end

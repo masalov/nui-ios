@@ -26,16 +26,6 @@
     return [self titleForState:UIControlStateNormal];
 }
 
-- (void)setLocalizedTitle:(NSString *)localizedTitle
-{
-    [self setTitle:NSLocalizedString(localizedTitle, nil) forState:UIControlStateNormal];
-}
-
-- (NSString *)localizedTitle
-{
-    return nil;
-}
-
 - (void)setHighlightedTitle:(NSString *)highlightedTitle
 {
     [self setTitle:highlightedTitle forState:UIControlStateHighlighted];
@@ -44,17 +34,6 @@
 - (NSString *)highlightedTitle
 {
     return [self titleForState:UIControlStateHighlighted];
-}
-
-- (void)setLocalizedHighlightedTitle:(NSString *)localizedHighlightedTitle
-{
-    [self setTitle:NSLocalizedString(localizedHighlightedTitle, nil)
-        forState:UIControlStateHighlighted];
-}
-
-- (NSString *)localizedHighlightedTitle
-{
-    return nil;
 }
 
 - (void)setDisabledTitle:(NSString *)disabledTitle
@@ -67,16 +46,6 @@
     return [self titleForState:UIControlStateDisabled];
 }
 
-- (void)setLocalizedDisabledTitle:(NSString *)localizedDisabledTitle
-{
-    [self setTitle:NSLocalizedString(localizedDisabledTitle, nil) forState:UIControlStateDisabled];
-}
-
-- (NSString *)localizedDisabledTitle
-{
-    return nil;
-}
-
 - (void)setSelectedTitle:(NSString *)selectedTitle
 {
     [self setTitle:selectedTitle forState:UIControlStateSelected];
@@ -85,16 +54,6 @@
 - (NSString *)selectedTitle
 {
     return [self titleForState:UIControlStateSelected];
-}
-
-- (void)setLocalizedSelectedTitle:(NSString *)localizedSelectedTitle
-{
-    [self setTitle:NSLocalizedString(localizedSelectedTitle, nil) forState:UIControlStateSelected];
-}
-
-- (NSString *)localizedSelectedTitle
-{
-    return nil;
 }
 
 // Title color
@@ -265,6 +224,29 @@
     return [self backgroundImageForState:UIControlStateSelected];
 }
 
+// Localized title
+
+- (void)setLocalizedTitle:(NSString *)localizedTitle
+{
+    [self setTitle:NSLocalizedString(localizedTitle, nil) forState:UIControlStateNormal];
+}
+
+- (void)setLocalizedHighlightedTitle:(NSString *)localizedHighlightedTitle
+{
+    [self setTitle:NSLocalizedString(localizedHighlightedTitle, nil)
+        forState:UIControlStateHighlighted];
+}
+
+- (void)setLocalizedDisabledTitle:(NSString *)localizedDisabledTitle
+{
+    [self setTitle:NSLocalizedString(localizedDisabledTitle, nil) forState:UIControlStateDisabled];
+}
+
+- (void)setLocalizedSelectedTitle:(NSString *)localizedSelectedTitle
+{
+    [self setTitle:NSLocalizedString(localizedSelectedTitle, nil) forState:UIControlStateSelected];
+}
+
 - (BOOL)loadNUIActionFromRValue:(NUIStatement *)value loader:(NUILoader *)loader
     error:(NUIError **)error
 {
@@ -275,17 +257,21 @@
     }
 
     UIControlEvents event = UIControlEventTouchUpInside;
-    NSString *strEvent = [value property:@"event" ofClass:[NSString class]];
+    NSString *strEvent = [value property:@"event" ofClass:[NSString class] error:error];
     if (strEvent && ![self controlEvent:&event fromNUIValue:strEvent]) {
         *error = [NUIError errorWithData:value.data position:value.range.location
-            message:@"Expecting event string property."];
+            message:@"Invalid value."];
         return NO;
     }
     
-    SEL selector = NSSelectorFromString([value property:@"selector" ofClass:[NSString class]]);
+    SEL selector = NSSelectorFromString([value property:@"selector" ofClass:[NSString class]
+        error:error]);
+    if (!selector) {
+        return NO;
+    }
 
     id target = loader.rootObject;
-    NSString *targetId = [value property:@"target" ofClass:[NSString class]];
+    NSString *targetId = [value property:@"target" ofClass:[NSString class] error:error];
     if (targetId) {
         target = [loader globalObjectForKey:targetId];
     }

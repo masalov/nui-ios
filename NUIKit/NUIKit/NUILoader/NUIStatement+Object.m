@@ -8,6 +8,7 @@
 
 #import "NUIStatement+Object.h"
 #import "NUIStatement+BinaryOperator.h"
+#import "NUIError.h"
 
 @implementation NUIStatement (Object)
 
@@ -21,17 +22,21 @@
     return [(NUIStatement *)[self.value objectAtIndex:1] value];
 }
 
-- (id)property:(NSString *)property ofClass:(Class)class
+- (id)property:(NSString *)property ofClass:(Class)class error:(NUIError **)error
 {
     for (NUIStatement *op in [self properties]) {
         if ([property isEqual:[op lvalue].value]) {
             if ([op.rvalue.value isKindOfClass:class]) {
                 return op.rvalue.value;
             }
-            NSAssert(NO, @"Error");
+            *error = [NUIError errorWithStatement:op.lvalue message:[NSString stringWithFormat:
+                @"Expecting %@ not %@.", NSStringFromClass(class),
+                    NSStringFromClass([op.rvalue.value class])]];
             return nil;
         }
     }
+    *error = [NUIError errorWithStatement:self message:[NSString stringWithFormat:
+        @"Property %@ not found.", property]];
     return nil;
 }
 

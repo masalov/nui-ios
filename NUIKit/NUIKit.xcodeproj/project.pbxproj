@@ -37,7 +37,6 @@
 		BD1505BB15CF96EE0096EB13 /* UIFont+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15058E15CF96EE0096EB13 /* UIFont+NUILoading.m */; };
 		BD1505BC15CF96EE0096EB13 /* UIImage+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059015CF96EE0096EB13 /* UIImage+NUILoading.m */; };
 		BD1505BD15CF96EE0096EB13 /* UILabel+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059215CF96EE0096EB13 /* UILabel+NUILoading.m */; };
-		BD1505BE15CF96EE0096EB13 /* UITextField+Localized.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059415CF96EE0096EB13 /* UITextField+Localized.m */; };
 		BD1505BF15CF96EE0096EB13 /* UITextField+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059615CF96EE0096EB13 /* UITextField+NUILoading.m */; };
 		BD1505C015CF96EE0096EB13 /* UIView+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059815CF96EE0096EB13 /* UIView+NUILoading.m */; };
 		BD1505C115CF96EE0096EB13 /* NUIAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = BD15059A15CF96EE0096EB13 /* NUIAnalyzer.m */; };
@@ -67,7 +66,6 @@
 		BD1505DD15CF97D60096EB13 /* UIFont+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15058D15CF96EE0096EB13 /* UIFont+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD1505DE15CF97D60096EB13 /* UIImage+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15058F15CF96EE0096EB13 /* UIImage+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD1505DF15CF97D60096EB13 /* UILabel+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059115CF96EE0096EB13 /* UILabel+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BD1505E015CF97D60096EB13 /* UITextField+Localized.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059315CF96EE0096EB13 /* UITextField+Localized.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD1505E115CF97D60096EB13 /* UITextField+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059515CF96EE0096EB13 /* UITextField+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD1505E215CF97D60096EB13 /* UIView+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059715CF96EE0096EB13 /* UIView+NUILoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD1505E315CF97D60096EB13 /* NUIAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = BD15059915CF96EE0096EB13 /* NUIAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -140,8 +138,6 @@
 		BD15059015CF96EE0096EB13 /* UIImage+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NUILoading.m"; sourceTree = "<group>"; };
 		BD15059115CF96EE0096EB13 /* UILabel+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+NUILoading.h"; sourceTree = "<group>"; };
 		BD15059215CF96EE0096EB13 /* UILabel+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+NUILoading.m"; sourceTree = "<group>"; };
-		BD15059315CF96EE0096EB13 /* UITextField+Localized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Localized.h"; sourceTree = "<group>"; };
-		BD15059415CF96EE0096EB13 /* UITextField+Localized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Localized.m"; sourceTree = "<group>"; };
 		BD15059515CF96EE0096EB13 /* UITextField+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+NUILoading.h"; sourceTree = "<group>"; };
 		BD15059615CF96EE0096EB13 /* UITextField+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+NUILoading.m"; sourceTree = "<group>"; };
 		BD15059715CF96EE0096EB13 /* UIView+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+NUILoading.h"; sourceTree = "<group>"; };
@@ -300,8 +296,6 @@
 				BD15059015CF96EE0096EB13 /* UIImage+NUILoading.m */,
 				BD15059115CF96EE0096EB13 /* UILabel+NUILoading.h */,
 				BD15059215CF96EE0096EB13 /* UILabel+NUILoading.m */,
-				BD15059315CF96EE0096EB13 /* UITextField+Localized.h */,
-				BD15059415CF96EE0096EB13 /* UITextField+Localized.m */,
 				BD15059515CF96EE0096EB13 /* UITextField+NUILoading.h */,
 				BD15059615CF96EE0096EB13 /* UITextField+NUILoading.m */,
 				BD15059715CF96EE0096EB13 /* UIView+NUILoading.h */,
@@ -350,7 +344,6 @@
 				BD1505DD15CF97D60096EB13 /* UIFont+NUILoading.h in Headers */,
 				BD1505DE15CF97D60096EB13 /* UIImage+NUILoading.h in Headers */,
 				BD1505DF15CF97D60096EB13 /* UILabel+NUILoading.h in Headers */,
-				BD1505E015CF97D60096EB13 /* UITextField+Localized.h in Headers */,
 				BD1505E115CF97D60096EB13 /* UITextField+NUILoading.h in Headers */,
 				BD1505E215CF97D60096EB13 /* UIView+NUILoading.h in Headers */,
 				BD1505E315CF97D60096EB13 /* NUIAnalyzer.h in Headers */,
@@ -439,7 +432,6 @@
 				BD1505BB15CF96EE0096EB13 /* UIFont+NUILoading.m in Sources */,
 				BD1505BC15CF96EE0096EB13 /* UIImage+NUILoading.m in Sources */,
 				BD1505BD15CF96EE0096EB13 /* UILabel+NUILoading.m in Sources */,
-				BD1505BE15CF96EE0096EB13 /* UITextField+Localized.m in Sources */,
 				BD1505BF15CF96EE0096EB13 /* UITextField+NUILoading.m in Sources */,
 				BD1505C015CF96EE0096EB13 /* UIView+NUILoading.m in Sources */,
 				BD1505C115CF96EE0096EB13 /* NUIAnalyzer.m in Sources */,
