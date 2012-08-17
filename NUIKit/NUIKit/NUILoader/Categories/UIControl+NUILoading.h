@@ -14,6 +14,9 @@
 
 @interface UIControl (NUILoading)
 
++ (NSDictionary *)nuiConstantsForContentVerticalAlignment;
++ (NSDictionary *)nuiConstantsForContentHorizontalAlignment;
+
 - (BOOL)controlEvent:(UIControlEvents *)event fromNUIValue:(NSString *)value;
 // Load subscription to event. Required fields are event and selector. Use a suffix of one of the
 // UIControlEvents values for event and a string for selector. Optional field is target. If it is

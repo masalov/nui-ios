@@ -160,7 +160,6 @@
             columnsCount_ = MAX(r.location + r.length, columnsCount_);
         }
         isColumnsCountValid_ = YES;
-        NSLog(@"columns %d", columnsCount_);
     }
     return columnsCount_;
 }

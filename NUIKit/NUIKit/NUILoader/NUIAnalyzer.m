@@ -356,6 +356,9 @@ typedef struct {
         }
         NUIStatement *assignment = [self loadAssignment:&pos];
         if (!assignment) {
+            if (self.lastError) {
+                return nil;
+            }
             break;
         }
         [properties addObject:assignment];
@@ -585,6 +588,9 @@ typedef struct {
     id res = [self loadString:&pos];
     if (!res) {
         res = [self loadObject:&pos];
+        if (!res && self.lastError) {
+            return nil;
+        }
     }
     if (!res) {
         res = [self loadArray:&pos];
