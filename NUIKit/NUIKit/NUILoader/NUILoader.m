@@ -74,7 +74,6 @@ static SEL propertyConstantsGetter(NSString *property)
     if (self) {
         rootObject_ = rootObject;
         globalObjects_ = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-            rootObject_, @"self",
             [NSNumber numberWithBool:YES], @"YES",
             [NSNumber numberWithBool:NO], @"NO",
             nil];
@@ -126,9 +125,11 @@ static SEL propertyConstantsGetter(NSString *property)
                 NSLog(@"Can set only object properties, not an object");
                 return NO;
             }
-            id object = [self globalObjectForKey:[identifier.value substringToIndex:range.location]];
+            id object = [self globalObjectForKey:[identifier.value substringToIndex:
+                range.location]];
             if (!object) {
-                NSLog(@"Object \"%@\" not found", [identifier.value substringToIndex:range.location]);
+                NSLog(@"Object \"%@\" not found", [identifier.value substringToIndex:
+                    range.location]);
                 return NO;
             }
             if (![self assignObject:object property:[identifier.value
@@ -185,7 +186,7 @@ static SEL propertyConstantsGetter(NSString *property)
     return object;
 }
 
-- (id)globalObjectForKey:(id)key
+- (id)globalObjectForKey:(id)key containingObject:(id)containingObject
 {
     // If key is an identifier of kind a.b.c, get object for first part and than use valueForKeyPath
     id objectId = key;
@@ -193,24 +194,29 @@ static SEL propertyConstantsGetter(NSString *property)
     if (range.length) {
         objectId = [key substringToIndex:range.location];
     }
-    id object = [globalObjects_ objectForKey:objectId];
-    if (!object) {
-        NUIStatement *constant = [constants_ objectForKey:objectId];
-        if (constant) {
-            if (constant.statementType == NUIStatementType_Object) {
-                NUIStatement *className = [constant.systemProperties objectForKey:@":class"];
-                Class cl = NSClassFromString(className.value);
-                if ([cl respondsToSelector:@selector(loadFromNUIObject:loader:error:)]) {
-                    NUIError *error = nil;
-                    object = [cl loadFromNUIObject:constant loader:self error:&error];
-                    self.lastError = error;
-                } else {
-                    object = [[[cl alloc] init] autorelease];
-                    [self loadObject:object fromNUIObject:constant];
+    id object = nil;
+    if ([objectId isEqual:@"self"]) {
+        object = containingObject;
+    } else {
+        object = [globalObjects_ objectForKey:objectId];
+        if (!object) {
+            NUIStatement *constant = [constants_ objectForKey:objectId];
+            if (constant) {
+                if (constant.statementType == NUIStatementType_Object) {
+                    NUIStatement *className = [constant.systemProperties objectForKey:@":class"];
+                    Class cl = NSClassFromString(className.value);
+                    if ([cl respondsToSelector:@selector(loadFromNUIObject:loader:error:)]) {
+                        NUIError *error = nil;
+                        object = [cl loadFromNUIObject:constant loader:self error:&error];
+                        self.lastError = error;
+                    } else {
+                        object = [[[cl alloc] init] autorelease];
+                        [self loadObject:object fromNUIObject:constant];
+                    }
                 }
-            }
-            if (object) {
-                [globalObjects_ setObject:object forKey:objectId];
+                if (object) {
+                    [globalObjects_ setObject:object forKey:objectId];
+                }
             }
         }
     }
@@ -220,8 +226,13 @@ static SEL propertyConstantsGetter(NSString *property)
     return object;
 }
 
+- (id)globalObjectForKey:(id)key
+{
+    return [self globalObjectForKey:key containingObject:nil];
+}
+
 - (NSNumber *)calculateNumericExpression:(NUIStatement *)expression
-    constants:(NSDictionary *)constants
+    containingObject:(id)containingObject constants:(NSDictionary *)constants
 {
     if (expression.statementType == NUIStatementType_Number) {
         return expression.value;
@@ -229,7 +240,7 @@ static SEL propertyConstantsGetter(NSString *property)
     if (expression.statementType == NUIStatementType_Identifier) {
         id res = [constants objectForKey:expression.value];
         if (!res) {
-            res = [self globalObjectForKey:expression.value];
+            res = [self globalObjectForKey:expression.value containingObject:containingObject];
         }
         if (!res) {
             self.lastError = [NUIError errorWithData:expression.data
@@ -239,11 +250,13 @@ static SEL propertyConstantsGetter(NSString *property)
         return res;
     }
     if ([expression isBinaryOperator]) {
-        NSNumber *lvalue = [self calculateNumericExpression:expression.lvalue constants:constants];
+        NSNumber *lvalue = [self calculateNumericExpression:expression.lvalue
+            containingObject:containingObject constants:constants];
         if (!lvalue) {
             return nil;
         }
-        NSNumber *rvalue = [self calculateNumericExpression:expression.rvalue constants:constants];
+        NSNumber *rvalue = [self calculateNumericExpression:expression.rvalue
+            containingObject:containingObject constants:constants];
         if (!rvalue) {
             return nil;
         }
@@ -257,6 +270,23 @@ static SEL propertyConstantsGetter(NSString *property)
     self.lastError = [NUIError errorWithData:expression.data position:expression.range.location
         message:@"Expecting numeric expression."];
     return nil;
+}
+
+- (NSArray *)calculateArrayOfNumericExpressions:(NUIStatement *)array
+    containingObject:(id)containingObject
+{
+    NSArray *statements = array.value;
+    NSMutableArray *numbers = [NSMutableArray arrayWithCapacity:statements.count];
+    for (NUIStatement *statement in statements) {
+        NSNumber *number = [self calculateNumericExpression:statement
+            containingObject:containingObject constants:nil];
+        if (!number) {
+            return nil;
+        }
+        [numbers addObject:number];
+    }
+
+    return numbers;
 }
 
 #pragma mark - private methods
@@ -305,9 +335,12 @@ static SEL propertyConstantsGetter(NSString *property)
     [constants_ addEntriesFromDictionary:analyzer.constants];
     [styles_ addEntriesFromDictionary:analyzer.styles];
     [states_ addEntriesFromDictionary:analyzer.states];
-    if (mainFile && ![self loadRootObjectFromNUIObject:analyzer.rootObject]) {
-        [self logError:self.lastError data:self.lastError ? self.lastError.data : data];
-        return NO;
+    if (mainFile) {
+        [globalObjects_ setObject:rootObject_ forKey:[analyzer.mainAssignment lvalue].value];
+        if (![self loadRootObjectFromNUIObject:[analyzer.mainAssignment rvalue]]) {
+            [self logError:self.lastError data:self.lastError ? self.lastError.data : data];
+            return NO;
+        }
     }
     return YES;
 }
@@ -388,7 +421,7 @@ static SEL propertyConstantsGetter(NSString *property)
     }
     // Assigning to global object property
     if (rvalue.statementType == NUIStatementType_Identifier) {
-        id value = [self globalObjectForKey:rvalue.value];
+        id value = [self globalObjectForKey:rvalue.value containingObject:object];
         if (value) {
             [object setValue:value forKey:property];
             return YES;
@@ -469,7 +502,7 @@ static SEL propertyConstantsGetter(NSString *property)
     if ([[object class] respondsToSelector:constantsGetter]) {
         constants = [[object class] performSelector:constantsGetter];
     }
-    NSNumber *value = [self calculateNumericExpression:expression
+    NSNumber *value = [self calculateNumericExpression:expression containingObject:object
         constants:constants];
     if (!value) {
         return NO;

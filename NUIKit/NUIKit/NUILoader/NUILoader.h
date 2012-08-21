@@ -44,7 +44,9 @@
 - (id)globalObjectForKey:(id)key;
 
 - (NSNumber *)calculateNumericExpression:(NUIStatement *)expression
-    constants:(NSDictionary *)constants;
+    containingObject:(id)containingObject constants:(NSDictionary *)constants;
+- (NSArray *)calculateArrayOfNumericExpressions:(NUIStatement *)array
+    containingObject:(id)containingObject;
 
 @end
 

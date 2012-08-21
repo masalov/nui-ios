@@ -11,7 +11,7 @@ is optional. There following blocks:
 
 * Strings: "The string".
 * Numbers: 5.5.
-* Identifiers: self.view.
+* Identifiers: myLabel.text.
 * Arrays: ["Object 1" "Object2" "Object 3"].
 * Objects.
 
@@ -100,11 +100,11 @@ State is a list of assignments that can be applied in future:
 
 Root object definition:
 
-    self = {
+    root = {
         ....
     }
 
-Root object is placed in the global objects dictionary with "self" key.
+Root object is placed in the global objects dictionary with "root" key.
 
 Using from code
 ---------------

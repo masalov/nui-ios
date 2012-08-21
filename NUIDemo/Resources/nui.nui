@@ -20,7 +20,7 @@ state shown2 = {
     button2.selected = NO
 }
 
-self = {
+root = {
     view = {
         :class = NUIScrollView
         backgroundColor = "AA0000"

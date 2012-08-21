@@ -40,19 +40,23 @@
         return YES;
     }
     if (rvalue.statementType == NUIStatementType_Array) {
-        NSArray *array = rvalue.value;
+        NSArray *array = [self calculateArrayOfNumericExpressions:rvalue containingObject:object];
+        if (!array) {
+            *error = self.lastError;
+            return NO;
+        }
         if (array.count == 3) {
-            [object setValue:[UIColor colorWithRed:[[[array objectAtIndex:0] value] floatValue] / 255.0f
-                green:[[[array objectAtIndex:1] value] floatValue] / 255.0f
-                blue:[[[array objectAtIndex:2] value] floatValue] / 255.0f
+            [object setValue:[UIColor colorWithRed:[[array objectAtIndex:0] floatValue] / 255.0f
+                green:[[array objectAtIndex:1] floatValue] / 255.0f
+                blue:[[array objectAtIndex:2] floatValue] / 255.0f
                 alpha:1.0f]
                 forKey:property];
             return YES;
         } else if (array.count == 4) {
-            [object setValue:[UIColor colorWithRed:[[[array objectAtIndex:0] value] floatValue] / 255.0f
-                green:[[[array objectAtIndex:1] value] floatValue] / 255.0f
-                blue:[[[array objectAtIndex:2] value] floatValue] / 255.0f
-                alpha:[[[array objectAtIndex:3] value] floatValue] / 255.0f]
+            [object setValue:[UIColor colorWithRed:[[array objectAtIndex:0] floatValue] / 255.0f
+                green:[[array objectAtIndex:1] floatValue] / 255.0f
+                blue:[[array objectAtIndex:2] floatValue] / 255.0f
+                alpha:[[array objectAtIndex:3] floatValue] / 255.0f]
                 forKey:property];
             return YES;
         }

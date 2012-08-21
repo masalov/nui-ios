@@ -21,12 +21,17 @@
         *error = [NUIError errorWithStatement:value message:@"Expecting an array."];
         return NO;
     }
-    if ([value.value count] != 2) {
+    NSArray *array = [self calculateArrayOfNumericExpressions:value containingObject:object];
+    if (!array) {
+        *error = self.lastError;
+        return NO;
+    }
+    if (array.count != 2) {
         *error = [NUIError errorWithStatement:value message:@"Expecting 2 numbers."];
         return NO;
     }
-    CGSize sz = CGSizeMake([[[value.value objectAtIndex:0] value] floatValue],
-        [[[value.value objectAtIndex:1] value] floatValue]);
+    CGSize sz = CGSizeMake([[array objectAtIndex:0] floatValue],
+        [[array objectAtIndex:1] floatValue]);
     objc_msgSend(object, setter, sz);
     return YES;
 }
@@ -38,14 +43,18 @@
         *error = [NUIError errorWithStatement:value message:@"Expecting an array."];
         return NO;
     }
-    if ([value.value count] != 4) {
+    NSArray *array = [self calculateArrayOfNumericExpressions:value containingObject:object];
+    if (!array) {
+        *error = self.lastError;
+        return NO;
+    }
+    if (array.count != 4) {
         *error = [NUIError errorWithStatement:value message:@"Expecting 4 numbers."];
         return NO;
     }
-    CGRect rc = CGRectMake([[[value.value objectAtIndex:0] value] floatValue],
-        [[[value.value objectAtIndex:1] value] floatValue],
-        [[[value.value objectAtIndex:2] value] floatValue],
-        [[[value.value objectAtIndex:3] value] floatValue]);
+    CGRect rc = CGRectMake([[array objectAtIndex:0] floatValue],
+        [[array objectAtIndex:1] floatValue], [[array objectAtIndex:2] floatValue],
+        [[array objectAtIndex:3] floatValue]);
     objc_msgSend(object, setter, rc);
     return YES;
 }
@@ -57,12 +66,17 @@
         *error = [NUIError errorWithStatement:value message:@"Expecting an array."];
         return NO;
     }
-    if ([value.value count] != 2) {
+    NSArray *array = [self calculateArrayOfNumericExpressions:value containingObject:object];
+    if (!array) {
+        *error = self.lastError;
+        return NO;
+    }
+    if (array.count != 2) {
         *error = [NUIError errorWithStatement:value message:@"Expecting 2 numbers."];
         return NO;
     }
-    NSRange range = (NSRange){[[[value.value objectAtIndex:0] value] floatValue],
-        [[[value.value objectAtIndex:1] value] floatValue]};
+    NSRange range = (NSRange){ [[array objectAtIndex:0] floatValue],
+        [[array objectAtIndex:1] floatValue] };
     objc_msgSend(object, setter, range);
     return YES;
 }
@@ -80,14 +94,18 @@
         *error = [NUIError errorWithStatement:value message:@"Expecting an array."];
         return NO;
     }
-    if ([value.value count] != 4) {
+    NSArray *array = [self calculateArrayOfNumericExpressions:value containingObject:object];
+    if (!array) {
+        *error = self.lastError;
+        return NO;
+    }
+    if (array.count != 4) {
         *error = [NUIError errorWithStatement:value message:@"Expecting 4 numbers."];
         return NO;
     }
-    UIEdgeInsets insets = UIEdgeInsetsMake([[[value.value objectAtIndex:0] value] floatValue],
-        [[[value.value objectAtIndex:1] value] floatValue],
-        [[[value.value objectAtIndex:2] value] floatValue],
-        [[[value.value objectAtIndex:3] value] floatValue]);
+    UIEdgeInsets insets = UIEdgeInsetsMake([[array objectAtIndex:0] floatValue],
+        [[array objectAtIndex:1] floatValue], [[array objectAtIndex:2] floatValue],
+        [[array objectAtIndex:3] floatValue]);
     objc_msgSend(object, setter, insets);
     return YES;
 }
@@ -99,17 +117,22 @@
         *error = [NUIError errorWithStatement:value message:@"Expecting an array."];
         return NO;
     }
-    if ([value.value count] != 6) {
+    NSArray *array = [self calculateArrayOfNumericExpressions:value containingObject:object];
+    if (!array) {
+        *error = self.lastError;
+        return NO;
+    }
+    if (array.count != 6) {
         *error = [NUIError errorWithStatement:value message:@"Expecting 6 numbers."];
         return NO;
     }
     CGAffineTransform transform =
-        CGAffineTransformMake([[[value.value objectAtIndex:0] value] floatValue],
-        [[[value.value objectAtIndex:1] value] floatValue],
-        [[[value.value objectAtIndex:2] value] floatValue],
-        [[[value.value objectAtIndex:3] value] floatValue],
-        [[[value.value objectAtIndex:4] value] floatValue],
-        [[[value.value objectAtIndex:5] value] floatValue]);
+        CGAffineTransformMake([[array objectAtIndex:0] floatValue],
+        [[array objectAtIndex:1] floatValue],
+        [[array objectAtIndex:2] floatValue],
+        [[array objectAtIndex:3] floatValue],
+        [[array objectAtIndex:4] floatValue],
+        [[array objectAtIndex:5] floatValue]);
     objc_msgSend(object, setter, transform);
     return YES;
 }

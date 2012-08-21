@@ -8,6 +8,7 @@
 
 #import "NUIAnalyzer.h"
 #import <objc/message.h>
+#import <Foundation/Foundation.h>
 #import "NUIStatement+BinaryOperator.h"
 #import "NUIError.h"
 #import "NUIData.h"
@@ -41,7 +42,7 @@ typedef struct {
 @synthesize constants = constants_;
 @synthesize styles = styles_;
 @synthesize states = states_;
-@synthesize rootObject = rootObject_;
+@synthesize mainAssignment = mainAssignment_;
 @synthesize lastError = lastError_;
 
 - (id)initWithData:(NUIData *)data
@@ -68,10 +69,18 @@ typedef struct {
     [constants_ release];
     [styles_ release];
     [states_ release];
-    [rootObject_ release];
+    [mainAssignment_ release];
     [lastError_ release];
 
     [super dealloc];
+}
+
+- (void)setLastError:(NUIError *)lastError
+{
+    NSAssert(lastError == nil || lastError_ == nil, @"Last error already set.");
+    [lastError retain];
+    [lastError_ release];
+    lastError_ = lastError;
 }
 
 - (BOOL)loadImports
@@ -154,22 +163,10 @@ typedef struct {
                     st = [self loadAssignment];
                 }*/
                 continue;
-            } else if ([identifier.value isEqualToString:@"self"]) {
-                NSString *op = @"=";
-                if ([data_.data compare:op options:0 range:(NSRange){position_, op.length}]
-                    != NSOrderedSame) {
-                    self.lastError = [NUIError errorWithData:data_ position:position_
-                        message:@"Expecting =."];
-                    return NO;
-                }
-                position_ += op.length;
-                if (![self skipSpacesAndPunctuation:&position_]) {
-                    self.lastError = [NUIError errorWithData:data_ position:position_
-                        message:@"Unexpected end of file."];
-                    return NO;
-                }
-                rootObject_ = [[self loadObject:&position_] retain];
-                return rootObject_ != nil;
+            } else {
+                position_ = identifier.range.location;
+                mainAssignment_ = [[self loadAssignment:&position_] retain];
+                return mainAssignment_ != nil;
             }
         }
         self.lastError = [NUIError errorWithData:data_ position:position_
@@ -439,9 +436,13 @@ typedef struct {
 - (NUIStatement *)loadAssignment:(int *)position
 {
     int pos = *position;
-    id lvalue = [self loadIdentifier:&pos];
+    NUIStatement *lvalue = [self loadIdentifier:&pos];
     if (!lvalue) {
         return nil;
+    }
+    if ([lvalue.value isEqual:@"self"]) {
+        self.lastError = [NUIError errorWithStatement:lvalue message:
+            @"'self' can not be used as an identifier."];
     }
 
     if (![self skipSpaces:&pos]) {

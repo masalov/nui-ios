@@ -18,7 +18,7 @@
 @property (nonatomic, readonly) NSDictionary *constants;
 @property (nonatomic, readonly) NSDictionary *styles;
 @property (nonatomic, readonly) NSDictionary *states;
-@property (nonatomic, readonly) NUIStatement *rootObject;
+@property (nonatomic, readonly) NUIStatement *mainAssignment;
 @property (nonatomic, retain, readonly) NUIError *lastError;
 
 - (id)initWithData:(NUIData *)data;
