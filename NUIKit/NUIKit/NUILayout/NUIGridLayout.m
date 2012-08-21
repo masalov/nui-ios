@@ -6,10 +6,12 @@
 //  Copyright (c) 2012 eko team. All rights reserved.
 //
 
+#import <CoreGraphics/CoreGraphics.h>
 #import "NUIGridLayout.h"
 #import "NUIGridLength.h"
 #import "NUIGridLayoutItem.h"
 #import "UIView+NUILayout.h"
+#import "NUILayoutView.h"
 
 @interface NUIGridLayout ()
 {
@@ -19,17 +21,13 @@
     BOOL isRowsCountValid_;
 }
 
-- (void)calculateSubviewPosition:(UIView *)subview
-                         columns:(NSUInteger)columns
-                            rows:(NSUInteger)rows;
+- (void)calculateSubviewPosition:(id<NUIView>)subview columns:(NSUInteger)columns
+    rows:(NSUInteger)rows;
 
-- (void)widths:(CGFloat **)widths
-         count:(NSUInteger *)columnsCount
-       heights:(CGFloat **)heights
-         count:(NSUInteger *)rowsCount
-  subviewSizes:(NSMutableDictionary *)subviewSizes
-       forSize:(CGSize)size;
-- (NUIGridLayoutItem *)addLayoutItemForSubview:(UIView *)view;
+- (void)widths:(CGFloat **)widths count:(NSUInteger *)columnsCount heights:(CGFloat **)heights
+    count:(NSUInteger *)rowsCount subviewSizes:(NSMutableDictionary *)subviewSizes
+    forSize:(CGSize)size;
+- (NUIGridLayoutItem *)addLayoutItemForSubview:(id<NUIView>)view;
 
 @end
 
@@ -50,7 +48,7 @@
 
 - (void)dealloc
 {
-    for (UIView *subview in self.subviews) {
+    for (id<NUIView> subview in self.subviews) {
         NUIGridLayoutItem *item = (NUIGridLayoutItem *)[self layoutItemForSubview:subview];
         [item removeObserver:self forKeyPath:@"columnRange"];
         [item removeObserver:self forKeyPath:@"rowRange"];
@@ -62,21 +60,23 @@
 
 - (NUILayoutItem *)createLayoutItem
 {
-    return [[[NUIGridLayoutItem alloc] init] autorelease];
+    NUIGridLayoutItem *item = [[[NUIGridLayoutItem alloc] init] autorelease];
+    item.layout = self;
+    return item;
 }
 
 - (void)setRows:(NSArray *)rows
 {
     rows_ = [rows copy];
-    self.view.needsToUpdateSize = YES;
-    [self.view setNeedsLayout];
+    self.superview.needsToUpdateSize = YES;
+    [self.superview setNeedsLayout];
 }
 
 - (void)setColumns:(NSArray *)columns
 {
     columns_ = [columns copy];
-    self.view.needsToUpdateSize = YES;
-    [self.view setNeedsLayout];
+    self.superview.needsToUpdateSize = YES;
+    [self.superview setNeedsLayout];
 }
 
 - (void)setColumns:(NSArray *)columns rows:(NSArray *)rows
@@ -95,14 +95,14 @@
     self.rows = r;
 }
 
-- (NUIGridLayoutItem *)addSubview:(UIView *)view
+- (NUIGridLayoutItem *)addSubview:(id<NUIView>)view
 {
     NUIGridLayoutItem *item = [self addLayoutItemForSubview:view];
     [self calculateSubviewPosition:view columns:1 rows:1];
     return item;
 }
 
-- (NUIGridLayoutItem *)addSubview:(UIView *)view column:(NSUInteger)column row:(NSUInteger)row
+- (NUIGridLayoutItem *)addSubview:(id<NUIView>)view column:(NSUInteger)column row:(NSUInteger)row
 {
     NUIGridLayoutItem *item = [self addLayoutItemForSubview:view];
     item.columnRange = (NSRange){column, 1};
@@ -110,7 +110,8 @@
     return item;
 }
 
-- (NUIGridLayoutItem *)addSubview:(UIView *)view columnRange:(NSRange)columnRange rowRange:(NSRange)rowRange
+- (NUIGridLayoutItem *)addSubview:(id<NUIView>)view columnRange:(NSRange)columnRange
+    rowRange:(NSRange)rowRange
 {
     NUIGridLayoutItem *item = [self addLayoutItemForSubview:view];
     item.columnRange = columnRange;
@@ -118,14 +119,15 @@
     return item;
 }
 
-- (NUIGridLayoutItem *)addSubview:(UIView *)view columns:(NSUInteger)columns rows:(NSUInteger)rows
+- (NUIGridLayoutItem *)addSubview:(id<NUIView>)view columns:(NSUInteger)columns
+    rows:(NSUInteger)rows
 {
     NUIGridLayoutItem *item = [self addLayoutItemForSubview:view];
     [self calculateSubviewPosition:view columns:columns rows:rows];
     return item;
 }
 
-- (void)removeSubview:(UIView *)view
+- (void)removeSubview:(id<NUIView>)view
 {
     isColumnsCountValid_ = NO;
     isRowsCountValid_ = NO;
@@ -140,7 +142,7 @@
 {
     if (!isRowsCountValid_) {
         rowsCount_ = rows_.count;
-        for (UIView *subview in self.subviews) {
+        for (id<NUIView> subview in self.subviews) {
             NUIGridLayoutItem *item = (NUIGridLayoutItem *)[self layoutItemForSubview:subview];
             NSRange r = item.rowRange;
             rowsCount_ = MAX(r.location + r.length, rowsCount_);
@@ -154,7 +156,7 @@
 {
     if (!isColumnsCountValid_) {
         columnsCount_ = columns_.count;
-        for (UIView *subview in self.subviews) {
+        for (id<NUIView> subview in self.subviews) {
             NUIGridLayoutItem *item = (NUIGridLayoutItem *)[self layoutItemForSubview:subview];
             NSRange r = item.columnRange;
             columnsCount_ = MAX(r.location + r.length, columnsCount_);
@@ -165,7 +167,7 @@
     return columnsCount_;
 }
 
-- (void)addSubview:(UIView *)view layoutItem:(NUIGridLayoutItem *)layoutItem
+- (void)addSubview:(id<NUIView>)view layoutItem:(NUIGridLayoutItem *)layoutItem
 {
     [super addSubview:view layoutItem:layoutItem];
     isColumnsCountValid_ = NO;
@@ -180,24 +182,20 @@
                     context:NULL];
 }
 
-- (void)layoutForSize:(CGSize)size
+- (void)setFrame:(CGRect)frame
 {
-    [super layoutForSize:size];
+    [super setFrame:frame];
 
     NSUInteger cColumn = 0, cRow = 0;
     CGFloat *widths = NULL, *heights = NULL;
     NSMutableDictionary *subviewSizes = [NSMutableDictionary dictionary];
-    [self widths:&widths
-           count:&cColumn
-         heights:&heights
-           count:&cRow
-    subviewSizes:subviewSizes
-         forSize:size];
+    [self widths:&widths count:&cColumn heights:&heights count:&cRow subviewSizes:subviewSizes
+         forSize:frame.size];
     for (int i = 0; i < cColumn; ++i) {
-        size.width -= widths[i];
+        frame.size.width -= widths[i];
     }
     for (int i = 0; i < cRow; ++i) {
-        size.height -= heights[i];
+        frame.size.height -= heights[i];
     }
     CGFloat stretchFactor = 0;
     for (int i = 0; i < columns_.count; ++i) {
@@ -209,8 +207,8 @@
     for (int i = 0; i < columns_.count && stretchFactor > 0; ++i) {
         NUIGridLength *column = [columns_ objectAtIndex:i];
         if (column.type == NUIGridLengthType_Star) {
-            widths[i] = floorf(size.width * column.value / stretchFactor);
-            size.width -= widths[i];
+            widths[i] = floorf(frame.size.width * column.value / stretchFactor);
+            frame.size.width -= widths[i];
             stretchFactor -= column.value;
         }
     }
@@ -224,8 +222,8 @@
     for (int i = 0; i < rows_.count && stretchFactor > 0; ++i) {
         NUIGridLength *row = [rows_ objectAtIndex:i];
         if (row.type == NUIGridLengthType_Star) {
-            heights[i] = floorf(size.height * row.value / stretchFactor);
-            size.height -= heights[i];
+            heights[i] = floorf(frame.size.height * row.value / stretchFactor);
+            frame.size.height -= heights[i];
             stretchFactor -= row.value;
         }
     }
@@ -235,7 +233,7 @@
     for (int i = 1; i < cRow; ++i) {
         heights[i] += heights[i - 1];
     }
-    for (UIView *subview in self.subviews) {
+    for (id<NUIView> subview in self.subviews) {
         NUIGridLayoutItem *item = (NUIGridLayoutItem *)[self layoutItemForSubview:subview];
         NSRange range = item.columnRange;
         CGFloat x = range.location > 0 ? widths[range.location - 1] : 0;
@@ -249,7 +247,8 @@
         NSString *key = [[NSString alloc] initWithFormat:@"%p", subview];
         CGSize sz = [[subviewSizes objectForKey:key] CGSizeValue];
         [key release];
-        [item placeInRect:CGRectMake(x, y, x2 - x, y2 - y) preferredSize:sz];
+        [item placeInRect:CGRectMake(frame.origin.x + x, frame.origin.y + y, x2 - x, y2 - y)
+            preferredSize:sz];
     }
     free(widths);
     free(heights);
@@ -273,14 +272,13 @@
     return CGSizeMake(width, height);
 }
 
-- (void)calculateSubviewPosition:(UIView *)subview
-                         columns:(NSUInteger)columns
-                            rows:(NSUInteger)rows
+- (void)calculateSubviewPosition:(id<NUIView>)subview columns:(NSUInteger)columns
+    rows:(NSUInteger)rows
 {
     int column = 0, row = 0;
     switch (insertionMethod_) {
         case GridLayoutInsertionMethod_LeftRightTopDown:{
-            for (UIView *subview in self.subviews) {
+            for (id<NUIView> subview in self.subviews) {
                 NUIGridLayoutItem *item = (NUIGridLayoutItem *)[self layoutItemForSubview:subview];
                 NSRange r = item.rowRange;
                 row = MAX(r.location + r.length, row);
@@ -288,7 +286,7 @@
             if (row > 0) {
                 --row;
             }
-            for (UIView *subview in self.subviews) {
+            for (id<NUIView> subview in self.subviews) {
                 NUIGridLayoutItem *item = (NUIGridLayoutItem *)[self layoutItemForSubview:subview];
                 NSRange range = item.rowRange;
                 if (row >= range.location && row < range.location + range.length) {
@@ -306,7 +304,7 @@
             break;
         }
         case GridLayoutInsertionMethod_TopDownLeftRight:{
-            for (UIView *subview in self.subviews) {
+            for (id<NUIView> subview in self.subviews) {
                 NUIGridLayoutItem *item = (NUIGridLayoutItem *)[self layoutItemForSubview:subview];
                 NSRange r = item.columnRange;
                 column = MAX(r.location + r.length, column);
@@ -314,7 +312,7 @@
             if (column > 0) {
                 --column;
             }
-            for (UIView *subview in self.subviews) {
+            for (id<NUIView> subview in self.subviews) {
                 NUIGridLayoutItem *item = (NUIGridLayoutItem *)[self layoutItemForSubview:subview];
                 NSRange range = item.columnRange;
                 if (column >= range.location && column < range.location + range.length) {
@@ -383,7 +381,7 @@
     }
     for (int nColumn = 0; nColumn < cColumns; ++nColumn) {
         for (int nRow = 0; nRow < cRows; ++nRow) {
-            for (UIView *subview in self.subviews) {
+            for (id<NUIView> subview in self.subviews) {
                 NUIGridLayoutItem *item = (NUIGridLayoutItem *)[self layoutItemForSubview:subview];
                 NSRange rRange = item.rowRange;
                 NSRange cRange = item.columnRange;
@@ -457,7 +455,7 @@
     }
 }
 
-- (NUIGridLayoutItem *)addLayoutItemForSubview:(UIView *)view
+- (NUIGridLayoutItem *)addLayoutItemForSubview:(id<NUIView>)view
 {
     NUIGridLayoutItem *layoutItem = [[[NUIGridLayoutItem alloc] init] autorelease];
     [self addSubview:view layoutItem:layoutItem];

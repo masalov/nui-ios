@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@class UIView;
+@protocol NUIView;
+@class NUILayout;
 
 typedef enum {
     NUIVerticalAlignment_Center,
@@ -34,7 +35,8 @@ typedef enum {
 // Layout item defines layouting attributes of corresponding view.
 @interface NUILayoutItem : NSObject
 
-@property (nonatomic, retain) UIView *view;
+@property (nonatomic, assign) NUILayout *layout;
+@property (nonatomic, retain) id<NUIView> view;
 
 @property (nonatomic, assign) UIEdgeInsets margin;
 @property (nonatomic, assign) NUIVerticalAlignment verticalAlignment;

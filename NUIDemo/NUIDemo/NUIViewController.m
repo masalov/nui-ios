@@ -12,6 +12,7 @@
 @interface NUIViewController ()
 
 @property (nonatomic, retain) NUILoader *loader;
+@property (nonatomic, retain) UILabel *label;
 @property (nonatomic, retain) UILabel *label2;
 
 @end
@@ -26,7 +27,17 @@
     [super viewDidLoad];
     self.loader = [[[NUILoader alloc] initWithRootObject:self] autorelease];
     [loader_ loadFromFile:@"nui.nui"];
+    label2_.backgroundColor = [UIColor blueColor];
     label2_.backgroundColor = [UIColor redColor];
+}
+
+- (void)buttonTapped2:(UIButton *)b
+{
+    if (b.selected) {
+        [loader_ loadState:@"shown2"];
+    } else {
+        [loader_ loadState:@"hidden2"];
+    }
 }
 
 - (void)buttonTapped:(UIButton *)b

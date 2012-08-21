@@ -14,6 +14,6 @@
 // Lines are directed from the left to the right. First line is top one.
 @interface NUIFlowLayout : NUILayout
 
-- (NUILayoutItem *)addSubview:(UIView *)view;
+- (NUILayoutItem *)addSubview:(id<NUIView>)view;
 
 @end

@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 #import "NUILayoutView.h"
 #import "NUILayout.h"
+#import "NUILayoutItem.h"
 
 static int NeedsToUpdateSizeKey;
 
@@ -31,7 +32,8 @@ static int NeedsToUpdateSizeKey;
 - (NUILayoutItem *)layoutItem
 {
     if ([self.superview isKindOfClass:[NUILayoutView class]]) {
-        return  [[(NUILayoutView *) self.superview layout] layoutItemForSubview:self];
+        return  [[(NUILayoutView *)self.superview layout] layoutItemForSubview:self
+            recursively:YES];
     }
     return nil;
 }
@@ -39,6 +41,25 @@ static int NeedsToUpdateSizeKey;
 - (CGSize)preferredSizeThatFits:(CGSize)size
 {
     return CGSizeZero;
+}
+
+- (void)addToView:(NUILayoutView *)view
+{
+    [view addSubview:self];
+}
+
+- (void)insertIntoView:(NUILayoutView *)view belowSubview:(UIView *)siblingSubview
+{
+    [view insertSubview:self belowSubview:siblingSubview];
+}
+
+- (void)insertIntoView:(NUILayoutView *)view aboveSubview:(UIView *)siblingSubview
+    lastInsertedSubview:(UIView **)lastSubview
+{
+    [view insertSubview:self aboveSubview:siblingSubview];
+    if (lastSubview) {
+        *lastSubview = self;
+    }
 }
 
 @end

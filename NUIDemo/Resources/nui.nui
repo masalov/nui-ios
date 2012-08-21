@@ -1,50 +1,102 @@
 import "styles.nui"
 
 state hidden = {
-  labelItem.visibility = Collapsed
-  button.selected = YES
+    labelItem.visibility = Collapsed
+    button.selected = YES
 }
 
 state shown = {
-  labelItem.visibility = Visible
-  button.selected = NO
+    labelItem.visibility = Visible
+    button.selected = NO
+}
+
+state hidden2 = {
+    layoutItem.visibility = Collapsed
+    button2.selected = YES
+}
+
+state shown2 = {
+    layoutItem.visibility = Visible
+    button2.selected = NO
 }
 
 self = {
-  view = {
-    :class = NUILayoutView
-    layoutAnimation = {
-      duration = 0.3
-    }
-    layout = {
-      :class = NUIVerticalLayout
-      layoutItems = [
-        {
-          :id = labelItem
-          fixedHeight = 200
-          horizontalAlignment = Stretch
-          view = {
-            :class = UILabel
-            :property = label2
-            :style = my_label
-            text = "AAA"
-          }
+    view = {
+        :class = NUIScrollView
+        backgroundColor = "AA0000"
+        contentLayoutItem <= {
+            horizontalAlignment = Stretch
         }
-        {
-          fixedHeight = 50
-          horizontalAlignment = Stretch
-          view = {
-            :class = UIButton
-            :id = button
-            backgroundColor = "0000AA"
-            title = "Hide"
-            selectedTitle = "Show"
-            action = {
-              selector = "buttonTapped:"
+        contentView = {
+            :class = NUILayoutView
+            backgroundColor = "00AA00"
+            layoutAnimation = {
+                duration = 0.3
             }
-          }
+            layout = {
+                :class = NUIVerticalLayout
+                layoutItems = [
+                    {
+                        :id = layoutItem
+                        margin = [0, 10, 10, 10]
+                        horizontalAlignment = Stretch
+                        view = {
+                            :class = NUIVerticalLayout
+                            layoutItems = [
+                                {
+                                    :id = labelItem
+                                    fixedHeight = 200
+                                    horizontalAlignment = Stretch
+                                    view = {
+                                        :class = UILabel
+                                        :property = label
+                                        :style = my_label
+                                        text = "Label"
+                                    }
+                                },
+                                {
+                                    fixedHeight = 50
+                                    horizontalAlignment = Stretch
+                                    view = {
+                                        :id = button
+                                        :class = UIButton
+                                        backgroundColor = "0000AA"
+                                        title = "Hide label"
+                                        selectedTitle = "Show label"
+                                        action = {
+                                            selector = "buttonTapped:"
+                                        }
+                                    }
+                                },
+                                {
+                                    fixedHeight = 200
+                                    horizontalAlignment = Stretch
+                                    view = {
+                                        :class = UILabel
+                                        :property = label2
+                                        :style = my_label
+                                        text = "Label 2"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        fixedHeight = 50
+                        horizontalAlignment = Stretch
+                        view = {
+                            :id = button2
+                            :class = UIButton
+                            backgroundColor = "0000AA"
+                            title = "Hide view"
+                            selectedTitle = "Show view"
+                            action = {
+                                selector = "buttonTapped2:"
+                            }
+                        }
+                    }
+                ]
+            }
         }
-      ]
     }
-  }
 }

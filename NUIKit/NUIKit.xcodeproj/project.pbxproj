@@ -10,6 +10,7 @@
 		2C133B1815D93A4200480DDD /* NUIError.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C133B1615D93A4100480DDD /* NUIError.h */; };
 		2C133B1915D93A4200480DDD /* NUIError.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C133B1715D93A4100480DDD /* NUIError.m */; };
 		318212D2D26421F06E86C561 /* NUIData.h in Headers */ = {isa = PBXBuildFile; fileRef = 31821F228888E8398B1803C0 /* NUIData.h */; };
+		318216A3274E7B84F1D29C0C /* NUIView.h in Headers */ = {isa = PBXBuildFile; fileRef = 31821F5CB85004435C71B8D0 /* NUIView.h */; };
 		31821C5FB788D982A21A6CF1 /* NUIData.m in Sources */ = {isa = PBXBuildFile; fileRef = 31821F30DD9C8880BB448E2D /* NUIData.m */; };
 		BD15054F15CF954C0096EB13 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD15054E15CF954C0096EB13 /* Foundation.framework */; };
 		BD15055D15CF957E0096EB13 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD15055C15CF957E0096EB13 /* UIKit.framework */; };
@@ -86,6 +87,7 @@
 		2CE86F8115DAB64400F98E43 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		31821F228888E8398B1803C0 /* NUIData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIData.h; sourceTree = "<group>"; };
 		31821F30DD9C8880BB448E2D /* NUIData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIData.m; sourceTree = "<group>"; };
+		31821F5CB85004435C71B8D0 /* NUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIView.h; sourceTree = "<group>"; };
 		BD15054B15CF954C0096EB13 /* libNUIKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNUIKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD15054E15CF954C0096EB13 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BD15055C15CF957E0096EB13 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -210,6 +212,7 @@
 		BD15055F15CF96EE0096EB13 /* NUILayout */ = {
 			isa = PBXGroup;
 			children = (
+				31821F5CB85004435C71B8D0 /* NUIView.h */,
 				2CE86F7F15DAB63A00F98E43 /* README.md */,
 				BD15056015CF96EE0096EB13 /* NUIFlowLayout.h */,
 				BD15056115CF96EE0096EB13 /* NUIFlowLayout.m */,
@@ -354,6 +357,7 @@
 				CD6B002AA96E979DEE425C7C /* NUIStatement+Object.h in Headers */,
 				CD6B0ADA3B4C772DD7F06F48 /* NUIStatement+BinaryOperator.h in Headers */,
 				318212D2D26421F06E86C561 /* NUIData.h in Headers */,
+				318216A3274E7B84F1D29C0C /* NUIView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

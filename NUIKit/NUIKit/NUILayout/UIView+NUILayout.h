@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NUIView.h"
 
-@class NUILayoutItem;
-
-@interface UIView (NUILayout)
+@interface UIView (NUILayout) <NUIView>
 
 // Layout objects monitor this option to update layout and set their needsToUpdateSize to YES
 // so parent layout will update layout too

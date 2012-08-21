@@ -11,21 +11,21 @@
 
 @implementation NUISimpleLayout
 
-- (NUILayoutItem *)addSubview:(UIView *)view
+- (NUILayoutItem *)addSubview:(id<NUIView>)view
 {
     NUILayoutItem *layoutItem = [[[NUILayoutItem alloc] init] autorelease];
     [self addSubview:view layoutItem:layoutItem];
     return layoutItem;
 }
 
-- (NUILayoutItem *)insertSubview:(UIView *)view belowSubview:(UIView *)siblingSubview
+- (NUILayoutItem *)insertSubview:(id<NUIView>)view belowSubview:(UIView *)siblingSubview
 {
     NUILayoutItem *layoutItem = [[[NUILayoutItem alloc] init] autorelease];
     [self insertSubview:view belowSubview:siblingSubview layoutItem:layoutItem];
     return layoutItem;
 }
 
-- (NUILayoutItem *)insertSubview:(UIView *)view aboveSubview:(UIView *)siblingSubview
+- (NUILayoutItem *)insertSubview:(id<NUIView>)view aboveSubview:(UIView *)siblingSubview
 {
     NUILayoutItem *layoutItem = [[[NUILayoutItem alloc] init] autorelease];
     [self insertSubview:view aboveSubview:siblingSubview layoutItem:layoutItem];

@@ -35,11 +35,13 @@ typedef enum {
 
 - (void)setColumns:(NSArray *)columns rows:(NSArray *)rows;
 
-- (NUIGridLayoutItem *)addSubview:(UIView *)view;
-- (NUIGridLayoutItem *)addSubview:(UIView *)view column:(NSUInteger)column row:(NSUInteger)row;
-- (NUIGridLayoutItem *)addSubview:(UIView *)view columnRange:(NSRange)columnRange rowRange:(NSRange)rowRange;
-- (NUIGridLayoutItem *)addSubview:(UIView *)view columns:(NSUInteger)columns rows:(NSUInteger)rows;
-- (void)removeSubview:(UIView *)view;
+- (NUIGridLayoutItem *)addSubview:(id<NUIView>)view;
+- (NUIGridLayoutItem *)addSubview:(id<NUIView>)view column:(NSUInteger)column row:(NSUInteger)row;
+- (NUIGridLayoutItem *)addSubview:(id<NUIView>)view columnRange:(NSRange)columnRange
+    rowRange:(NSRange)rowRange;
+- (NUIGridLayoutItem *)addSubview:(id<NUIView>)view columns:(NSUInteger)columns
+    rows:(NSUInteger)rows;
+- (void)removeSubview:(id<NUIView>)view;
 
 // Including auto-generated
 - (NSUInteger)columnsCount;

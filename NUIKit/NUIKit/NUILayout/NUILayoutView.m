@@ -50,17 +50,19 @@
     if (layout == layout_) {
         return;
     }
-    layout.view = self;
-    [layout retain];
 
-    layout_.view = nil;
-    for (UIView *subview in [layout_ subviews]) {
+    layout_.superview = nil;
+    for (id<NUIView> subview in [layout_ subviews]) {
         [subview removeFromSuperview];
     }
+
+    [layout retain];
     [layout_ release];
     layout_ = layout;
-    for (UIView *subview in [layout_ subviews]) {
-        [self addSubview:subview];
+
+    layout_.superview = self;
+    for (id<NUIView> subview in [layout_ subviews]) {
+        [subview addToView:self];
     }
 }
 
@@ -72,7 +74,7 @@
         [UIView setAnimationDelay:layoutAnimation_.delay];
         [UIView setAnimationCurve:layoutAnimation_.curve];
     }
-    [layout_ layoutForSize:self.bounds.size];
+    layout_.frame = self.bounds;
     if (!firstLayouting_ && layoutAnimation_) {
         [UIView commitAnimations];
     }

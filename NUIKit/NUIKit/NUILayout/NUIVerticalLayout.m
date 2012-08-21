@@ -6,22 +6,23 @@
 //  Copyright (c) 2012 eko team. All rights reserved.
 //
 
+#import <CoreGraphics/CoreGraphics.h>
 #import "NUIVerticalLayout.h"
 #import "NUILayoutItem.h"
 
 @implementation NUIVerticalLayout
 
-- (void)layoutForSize:(CGSize)size
+- (void)setFrame:(CGRect)frame
 {
-    [super layoutForSize:size];
+    [super setFrame:frame];
 
     CGSize *sizes = (CGSize *)malloc(sizeof(CGSize) * self.subviews.count);
     __block CGFloat y = 0;
-    __block CGFloat restSize = size.height;
+    __block CGFloat restSize = frame.size.height;
     __block int cStretchable = 0;
-    __block CGSize constraintSize = size;
+    __block CGSize constraintSize = frame.size;
     // Get preferred sizes and count of stretchable elements
-    [self.subviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
+    [self.subviews enumerateObjectsUsingBlock:^(id<NUIView> subview, NSUInteger idx, BOOL *stop) {
         NUILayoutItem *item = [self layoutItemForSubview:subview];
         sizes[idx] = [item sizeWithMarginThatFits:constraintSize];
         restSize -= sizes[idx].height;
@@ -35,7 +36,7 @@
         }
     }];
     // layout elements
-    [self.subviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
+    [self.subviews enumerateObjectsUsingBlock:^(id<NUIView> subview, NSUInteger idx, BOOL *stop) {
         NUILayoutItem *item = [self layoutItemForSubview:subview];
         if (item.verticalAlignment == NUIVerticalAlignment_Stretch && restSize > 0) {
             CGFloat additionalSize = floorf(restSize / cStretchable);
@@ -43,8 +44,8 @@
             restSize -= additionalSize;
             --cStretchable;
         }
-        [item placeInRect:CGRectMake(0, y, size.width, sizes[idx].height)
-            preferredSize:sizes[idx]];
+        [item placeInRect:CGRectMake(frame.origin.x, frame.origin.y + y, frame.size.width,
+            sizes[idx].height) preferredSize:sizes[idx]];
         y += sizes[idx].height;
     }];
     free(sizes);
@@ -53,7 +54,7 @@
 - (CGSize)preferredSizeThatFits:(CGSize)size
 {
     CGFloat width = 0, height = 0;
-    for (UIView *subview in self.subviews) {
+    for (id<NUIView> subview in self.subviews) {
         NUILayoutItem *item = [self layoutItemForSubview:subview];
         CGSize sz = [item sizeWithMarginThatFits:size];
         if (width < sz.width) {

@@ -7,10 +7,12 @@
 //
 
 #import "NUILayoutItem.h"
-#import "UIView+NUILayout.h"
+#import "NUILayout.h"
+#import "NUIView.h"
 
 @implementation NUILayoutItem
 
+@synthesize layout = layout_;
 @synthesize view = view_;
 @synthesize margin = margin_;
 @synthesize verticalAlignment = verticalAlignment_;
@@ -153,7 +155,7 @@
 - (void)setVisibility:(NUIVisibility)visibility
 {
     visibility_ = visibility;
-    view_.hidden = visibility_ != NUIVisibility_Visible;
+    [view_ setHidden:visibility_ != NUIVisibility_Visible];
     view_.needsToUpdateSize = YES;
 }
 
@@ -215,13 +217,13 @@
 
 - (void)placeInRect:(CGRect)rect preferredSize:(CGSize)size
 {
-    if (view_.hidden != (visibility_ != NUIVisibility_Visible)) {
-        view_.hidden = visibility_ != NUIVisibility_Visible;
-    }
-
+    NUILayoutItem *layoutItem = [layout_ layoutItem];
+    [view_ setHidden:visibility_ != NUIVisibility_Visible ||
+        (layoutItem && layoutItem.visibility != NUIVisibility_Visible)];
+    // Setting frame even if a view is hidden to perform correct animation on showing/hiding.
     rect = UIEdgeInsetsInsetRect(rect, margin_);
     if (visibility_ == NUIVisibility_Collapsed) {
-        view_.frame = rect;
+        [view_ setFrame:rect];
         return;
     }
     size.width -= margin_.left + margin_.right;
@@ -261,7 +263,7 @@
             y = floorf(rect.origin.y + (rect.size.height - size.height) / 2);
             break;
     }
-    view_.frame = CGRectMake(x, y, size.width, size.height);
+    [view_ setFrame:CGRectMake(x, y, size.width, size.height)];
 }
 
 @end

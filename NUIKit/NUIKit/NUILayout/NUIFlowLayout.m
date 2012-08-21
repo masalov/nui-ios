@@ -11,15 +11,17 @@
 
 @implementation NUIFlowLayout
 
-- (NUILayoutItem *)addSubview:(UIView *)view
+- (NUILayoutItem *)addSubview:(id<NUIView>)view
 {
     NUILayoutItem *layoutItem = [[[NUILayoutItem alloc] init] autorelease];
     [self addSubview:view layoutItem:layoutItem];
     return layoutItem;
 }
 
-- (void)layoutForSize:(CGSize)size
+- (void)setFrame:(CGRect)frame
 {
+    [super setFrame:frame];
+
     CGFloat y = 0;
     for (int firstView = 0; firstView < self.subviews.count;) {
         id pool = [[NSAutoreleasePool alloc] init];
@@ -28,11 +30,12 @@
         int nextFirstView = firstView;
         CGFloat width = 0;
         for (; nextFirstView < self.subviews.count; ++nextFirstView) {
-            UIView *view = [self.subviews objectAtIndex:nextFirstView];
+            id<NUIView> view = [self.subviews objectAtIndex:nextFirstView];
             NUILayoutItem *item = [self layoutItemForSubview:view];
-            CGSize sz = [item sizeWithMarginThatFits:(CGSize){size.width - width, size.height - y}];
+            CGSize sz = [item sizeWithMarginThatFits:(CGSize){frame.size.width - width,
+                frame.size.height - y}];
 
-            if (width + sz.width > size.width) {
+            if (width + sz.width > frame.size.width) {
                 if (nextFirstView == firstView) {
                     [sizes addObject:[NSValue valueWithCGSize:sz]];
                     ++nextFirstView;
@@ -50,10 +53,10 @@
         }
         CGFloat x = 0;
         for (int i = firstView; i < nextFirstView; ++i) {
-            UIView *view = [self.subviews objectAtIndex:i];
+            id<NUIView> view = [self.subviews objectAtIndex:i];
             NUILayoutItem *item = [self layoutItemForSubview:view];
             CGSize sz = [[sizes objectAtIndex:i - firstView] CGSizeValue];
-            [item placeInRect:(CGRect){x, y, sz.width, maxHeight}
+            [item placeInRect:(CGRect){frame.origin.x + x, frame.origin.y + y, sz.width, maxHeight}
                 preferredSize:sz];
             x += sz.width;
         }
@@ -72,7 +75,7 @@
         CGFloat width = 0;
         CGFloat maxHeight = 0;
         for (; nextFirstView < self.subviews.count; ++nextFirstView) {
-            UIView *view = [self.subviews objectAtIndex:nextFirstView];
+            id<NUIView> view = [self.subviews objectAtIndex:nextFirstView];
             NUILayoutItem *item = [self layoutItemForSubview:view];
             CGSize sz = [item sizeWithMarginThatFits:(CGSize){size.width - width, size.height - y}];
 

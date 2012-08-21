@@ -8,6 +8,7 @@
 
 #import "NUIScrollView.h"
 #import "NUILayoutItem.h"
+#import "UIView+NUILayout.h"
 
 @implementation NUIScrollView
 
@@ -20,7 +21,9 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        verticalScrollerEnabled_ = YES;
         contentLayoutItem_ = [[NUILayoutItem alloc] init];
+        contentLayoutItem_.verticalAlignment = NUIVerticalAlignment_Top;
     }
     return self;
 }

@@ -16,10 +16,11 @@
 
 //  Default value is NO
 @property (nonatomic, assign) BOOL horizontalScrollerEnabled;
-//  Default value is NO
+//  Default value is YES
 @property (nonatomic, assign) BOOL verticalScrollerEnabled;
 
 @property (nonatomic, retain) UIView *contentView;
+// By default vertical alignment is set to top.
 @property (nonatomic, readonly) NUILayoutItem *contentLayoutItem;
 
 @end

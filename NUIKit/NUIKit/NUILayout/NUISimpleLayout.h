@@ -11,8 +11,8 @@
 // Base class for layouts that works with NUILayoutItem (not with a subclass of it)
 @interface NUISimpleLayout : NUILayout
 
-- (NUILayoutItem *)addSubview:(UIView *)view;
-- (NUILayoutItem *)insertSubview:(UIView *)view belowSubview:(UIView *)siblingSubview;
-- (NUILayoutItem *)insertSubview:(UIView *)view aboveSubview:(UIView *)siblingSubview;
+- (NUILayoutItem *)addSubview:(id<NUIView>)view;
+- (NUILayoutItem *)insertSubview:(id<NUIView>)view belowSubview:(UIView *)siblingSubview;
+- (NUILayoutItem *)insertSubview:(id<NUIView>)view aboveSubview:(UIView *)siblingSubview;
 
 @end
