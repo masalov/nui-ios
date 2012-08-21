@@ -13,6 +13,36 @@
 
 @implementation UIControl (NUILoading)
 
++ (NSDictionary *)nuiConstantsForContentVerticalAlignment
+{
+    static NSDictionary *contentVerticalAlignmentConstants = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        contentVerticalAlignmentConstants = [[NSDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithInt:UIControlContentVerticalAlignmentCenter], @"Center",
+            [NSNumber numberWithInt:UIControlContentVerticalAlignmentTop], @"Top",
+            [NSNumber numberWithInt:UIControlContentVerticalAlignmentBottom], @"Bottom",
+            [NSNumber numberWithInt:UIControlContentVerticalAlignmentFill], @"Fill",
+            nil];
+    });
+    return contentVerticalAlignmentConstants;
+}
+
++ (NSDictionary *)nuiConstantsForContentHorizontalAlignment
+{
+    static NSDictionary *contentHorizontalAlignmentConstants = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        contentHorizontalAlignmentConstants = [[NSDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithInt:UIControlContentHorizontalAlignmentCenter], @"Center",
+            [NSNumber numberWithInt:UIControlContentHorizontalAlignmentLeft], @"Left",
+            [NSNumber numberWithInt:UIControlContentHorizontalAlignmentRight], @"Right",
+            [NSNumber numberWithInt:UIControlContentHorizontalAlignmentFill], @"Fill",
+            nil];
+    });
+    return contentHorizontalAlignmentConstants;
+}
+
 - (BOOL)controlEvent:(UIControlEvents *)event fromNUIValue:(NSString *)value
 {
     if ([value compare:@"TouchDown" options:NSCaseInsensitiveSearch] == NSOrderedSame) {

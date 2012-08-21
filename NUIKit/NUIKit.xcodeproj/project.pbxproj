@@ -74,6 +74,8 @@
 		BD1505E815CF97D60096EB13 /* nui_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = BD1505A415CF96EE0096EB13 /* nui_utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BDCE268D15D38B9200560545 /* NUIStatement.h in Headers */ = {isa = PBXBuildFile; fileRef = BDCE268B15D38B9200560545 /* NUIStatement.h */; };
 		BDCE268E15D38B9200560545 /* NUIStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = BDCE268C15D38B9200560545 /* NUIStatement.m */; };
+		BDDE2F8115DE5F7500A1145A /* UIColor+NUILoading.h in Headers */ = {isa = PBXBuildFile; fileRef = BDDE2F7F15DE5F7500A1145A /* UIColor+NUILoading.h */; };
+		BDDE2F8215DE5F7500A1145A /* UIColor+NUILoading.m in Sources */ = {isa = PBXBuildFile; fileRef = BDDE2F8015DE5F7500A1145A /* UIColor+NUILoading.m */; };
 		CD6B002AA96E979DEE425C7C /* NUIStatement+Object.h in Headers */ = {isa = PBXBuildFile; fileRef = CD6B06D13A73F84AB86BDAFE /* NUIStatement+Object.h */; };
 		CD6B01AFE8AC9A1FCA2B2D8B /* NUIStatement+BinaryOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6B07F6D926B8DE73B9535D /* NUIStatement+BinaryOperator.m */; };
 		CD6B02C3A258704F473627CD /* NUIStatement+Object.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6B0E50D22C34F07217659C /* NUIStatement+Object.m */; };
@@ -152,6 +154,8 @@
 		BD1505A515CF96EE0096EB13 /* nui_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nui_utils.m; sourceTree = "<group>"; };
 		BDCE268B15D38B9200560545 /* NUIStatement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUIStatement.h; sourceTree = "<group>"; };
 		BDCE268C15D38B9200560545 /* NUIStatement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUIStatement.m; sourceTree = "<group>"; };
+		BDDE2F7F15DE5F7500A1145A /* UIColor+NUILoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+NUILoading.h"; sourceTree = "<group>"; };
+		BDDE2F8015DE5F7500A1145A /* UIColor+NUILoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+NUILoading.m"; sourceTree = "<group>"; };
 		CD6B06D13A73F84AB86BDAFE /* NUIStatement+Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NUIStatement+Object.h"; sourceTree = "<group>"; };
 		CD6B07F6D926B8DE73B9535D /* NUIStatement+BinaryOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NUIStatement+BinaryOperator.m"; sourceTree = "<group>"; };
 		CD6B0C6EBF5DCA28874EE478 /* NUIStatement+BinaryOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NUIStatement+BinaryOperator.h"; sourceTree = "<group>"; };
@@ -285,6 +289,8 @@
 		BD15058415CF96EE0096EB13 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				BDDE2F7F15DE5F7500A1145A /* UIColor+NUILoading.h */,
+				BDDE2F8015DE5F7500A1145A /* UIColor+NUILoading.m */,
 				BD15058515CF96EE0096EB13 /* NUILoader+ObjectsLoading.h */,
 				BD15058615CF96EE0096EB13 /* NUILoader+ObjectsLoading.m */,
 				BD15058715CF96EE0096EB13 /* NUILoader+StructuresLoading.h */,
@@ -358,6 +364,7 @@
 				CD6B0ADA3B4C772DD7F06F48 /* NUIStatement+BinaryOperator.h in Headers */,
 				318212D2D26421F06E86C561 /* NUIData.h in Headers */,
 				318216A3274E7B84F1D29C0C /* NUIView.h in Headers */,
+				BDDE2F8115DE5F7500A1145A /* UIColor+NUILoading.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +453,7 @@
 				CD6B02C3A258704F473627CD /* NUIStatement+Object.m in Sources */,
 				CD6B01AFE8AC9A1FCA2B2D8B /* NUIStatement+BinaryOperator.m in Sources */,
 				31821C5FB788D982A21A6CF1 /* NUIData.m in Sources */,
+				BDDE2F8215DE5F7500A1145A /* UIColor+NUILoading.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
