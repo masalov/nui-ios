@@ -30,9 +30,7 @@
 
 - (void)dealloc
 {
-    for (UIView *subview in self.subviews) {
-        [subview removeObserver:self forKeyPath:@"needsToUpdateSize"];
-    }
+    [contentView_ removeObserver:self forKeyPath:@"needsToUpdateSize"];
     [contentView_ release];
     [contentLayoutItem_ release];
     [super dealloc];
@@ -113,6 +111,11 @@
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
+}
+
+- (CGSize)preferredSizeThatFits:(CGSize)size
+{
+    return [contentView_ preferredSizeThatFits:size];
 }
 
 @end

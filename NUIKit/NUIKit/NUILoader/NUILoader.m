@@ -67,6 +67,7 @@ static SEL propertyConstantsGetter(NSString *property)
 
 @synthesize rootObject = rootObject_;
 @synthesize lastError = lastError_;
+@synthesize styles = styles_;
 
 - (id)initWithRootObject:(id)rootObject
 {
@@ -337,18 +338,10 @@ static SEL propertyConstantsGetter(NSString *property)
     [states_ addEntriesFromDictionary:analyzer.states];
     if (mainFile) {
         [globalObjects_ setObject:rootObject_ forKey:[analyzer.mainAssignment lvalue].value];
-        if (![self loadRootObjectFromNUIObject:[analyzer.mainAssignment rvalue]]) {
+        if (![self loadObject:rootObject_ fromNUIObject:[analyzer.mainAssignment rvalue]]) {
             [self logError:self.lastError data:self.lastError ? self.lastError.data : data];
             return NO;
         }
-    }
-    return YES;
-}
-
-- (BOOL)loadRootObjectFromNUIObject:(NUIStatement *)object
-{
-    if (![self loadObject:rootObject_ fromNUIObject:object]) {
-        return NO;
     }
     return YES;
 }
@@ -407,6 +400,15 @@ static SEL propertyConstantsGetter(NSString *property)
         }
     }
     return YES;
+}
+
+- (BOOL)loadObject:(id)object fromNUIObject:(NUIStatement *)nuiObject logErrors:(BOOL)logErrors
+{
+    BOOL res = [self loadObject:object fromNUIObject:nuiObject];
+    if (logErrors && !res) {
+        [self logError:lastError_ data:lastError_.data];
+    }
+    return res;
 }
 
 - (BOOL)assignObject:(id)object property:(NSString *)property value:(NUIStatement *)rvalue

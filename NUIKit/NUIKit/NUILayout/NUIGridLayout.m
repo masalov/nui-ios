@@ -276,7 +276,7 @@
 {
     int column = 0, row = 0;
     switch (insertionMethod_) {
-        case GridLayoutInsertionMethod_LeftRightTopDown:{
+        case NUIGridLayoutInsertionMethod_LeftRightTopDown:{
             for (id<NUIView> subview in self.subviews) {
                 NUIGridLayoutItem *item = (NUIGridLayoutItem *)[self layoutItemForSubview:subview];
                 NSRange r = item.rowRange;
@@ -302,7 +302,7 @@
             }
             break;
         }
-        case GridLayoutInsertionMethod_TopDownLeftRight:{
+        case NUIGridLayoutInsertionMethod_TopDownLeftRight:{
             for (id<NUIView> subview in self.subviews) {
                 NUIGridLayoutItem *item = (NUIGridLayoutItem *)[self layoutItemForSubview:subview];
                 NSRange r = item.columnRange;
@@ -393,11 +393,15 @@
                     // Calculate subview size
                     if (!value) {
                         CGSize maxSize = constraintSize;
-                        for (int i = cRange.location; i < cRange.location + cRange.length; ++i) {
-                            maxSize.width += minWidth[i];
+                        if (maxSize.width != CGFLOAT_MAX) {
+                            for (int i = cRange.location; i < cRange.location + cRange.length; ++i) {
+                                maxSize.width += minWidth[i];
+                            }
                         }
-                        for (int i = rRange.location; i < rRange.location + rRange.length; ++i) {
-                            maxSize.height += minHeight[i];
+                        if (maxSize.height != CGFLOAT_MAX) {
+                            for (int i = rRange.location; i < rRange.location + rRange.length; ++i) {
+                                maxSize.height += minHeight[i];
+                            }
                         }
                         subviewSize = [item sizeWithMarginThatFits:maxSize];
                         [subviewSizes setObject:[NSValue valueWithCGSize:subviewSize] forKey:key];
@@ -414,7 +418,9 @@
                             }
                         }
                         if (minWidth[nColumn] < subviewSize.width) {
-                            constraintSize.width += subviewSize.width - minWidth[nColumn];
+                            if (constraintSize.width != CGFLOAT_MAX) {
+                                constraintSize.width += subviewSize.width - minWidth[nColumn];
+                            }
                             minWidth[nColumn] = subviewSize.width;
                         }
                     }
@@ -427,7 +433,9 @@
                             }
                         }
                         if (minHeight[nRow] < subviewSize.height) {
-                            constraintSize.height += subviewSize.height - minHeight[nRow];
+                            if (constraintSize.height != CGFLOAT_MAX) {
+                                constraintSize.height += subviewSize.height - minHeight[nRow];
+                            }
                             minHeight[nRow] = subviewSize.height;
                         }
                     }

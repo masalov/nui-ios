@@ -18,6 +18,7 @@
 @interface NUILayout : NSObject <NUIView>
 
 @property (nonatomic, assign) NUILayoutView *superview;
+@property(nonatomic,getter=isHidden) BOOL hidden;
 @property (nonatomic, assign) BOOL needsToUpdateSize;
 
 - (void)addSubview:(id<NUIView>)view layoutItem:(NUILayoutItem *)layoutItem;

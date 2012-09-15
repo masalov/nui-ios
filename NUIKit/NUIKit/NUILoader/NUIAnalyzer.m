@@ -139,18 +139,27 @@ typedef struct {
             NUIStatement *op = [self loadBinaryOperator:@"="
                 lvalueLoader:@selector(loadSimpleIdentifier:) rvalueLoader:@selector(loadRValue:)
                 position:&position_];
+            if (!op) {
+                return NO;
+            }
             [constants_ setObject:[op rvalue] forKey:[op lvalue].value];
             continue;
         } else if ([identifier.value isEqualToString:@"style"]) {
             NUIStatement *op = [self loadBinaryOperator:@"="
                 lvalueLoader:@selector(loadSimpleIdentifier:) rvalueLoader:@selector(loadObject:)
                 position:&position_];
+            if (!op) {
+                return NO;
+            }
             [styles_ setObject:[op rvalue] forKey:[op lvalue].value];
             continue;
         } else if ([identifier.value isEqualToString:@"state"]) {
             NUIStatement *op = [self loadBinaryOperator:@"="
                 lvalueLoader:@selector(loadSimpleIdentifier:) rvalueLoader:@selector(loadObject:)
                 position:&position_];
+            if (!op) {
+                return NO;
+            }
             [states_ setObject:[op rvalue] forKey:[op lvalue].value];
             continue;
         } else if (mainFile) {
@@ -227,7 +236,7 @@ typedef struct {
     static NSRegularExpression *identifierRegEx = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        identifierRegEx = [[NSRegularExpression alloc] initWithPattern:@"([A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)?)+"
+        identifierRegEx = [[NSRegularExpression alloc] initWithPattern:@"[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*"
             options:0 error:nil];
     });
 
@@ -520,8 +529,10 @@ typedef struct {
     }
     id rvalue = objc_msgSend(self, rvalueLoader, &pos);
     if (!rvalue) {
-        self.lastError = [NUIError errorWithData:data_ position:pos
-            message:@"Unexpected end of file."];
+        if (!self.lastError) {
+            self.lastError = [NUIError errorWithData:data_ position:pos
+                message:@"Unexpected end of file."];
+        }
         return nil;
     }
 
@@ -615,8 +626,8 @@ typedef struct {
     static NSRegularExpression *numberRegEx = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        numberRegEx = [[NSRegularExpression alloc] initWithPattern:@"[0-9]+(.[0-9]+)?" options:0
-            error:nil];
+        numberRegEx = [[NSRegularExpression alloc] initWithPattern:@"[-+]?[0-9]+(.[0-9]+)?"
+            options:0 error:nil];
     });
 
     NSRange range = [numberRegEx rangeOfFirstMatchInString:data_.data options:NSMatchingAnchored

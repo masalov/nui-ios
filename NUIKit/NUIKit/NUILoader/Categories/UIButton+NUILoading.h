@@ -50,7 +50,7 @@
 - (void)setLocalizedDisabledTitle:(NSString *)localizedDisabledTitle;
 - (void)setLocalizedSelectedTitle:(NSString *)localizedSelectedTitle;
 
-// Overrides UIControl method for using UIControlEventTouchUpInside as default event
+// Overrides UIControl method for using UIControlEventTouchUpInside as default event.
 - (BOOL)loadNUIActionFromRValue:(NUIStatement *)value loader:(NUILoader *)loader
     error:(NUIError **)error;
 

@@ -25,6 +25,7 @@
 @implementation NUILayout
 
 @synthesize superview = superview_;
+@synthesize hidden = hidden_;
 
 - (id)init
 {
@@ -68,11 +69,6 @@
     for (id<NUIView> subview in self.subviews) {
         subview.needsToUpdateSize = NO;
     }
-}
-
-- (void)setHidden:(BOOL)hidden
-{
-    // Do nothing. Subview will be hidden by layout item.
 }
 
 - (void)addToView:(NUILayoutView *)view

@@ -11,10 +11,10 @@
 @class NUIGridLayoutItem;
 
 typedef enum {
-    GridLayoutInsertionMethod_None,
-    GridLayoutInsertionMethod_LeftRightTopDown,
-    GridLayoutInsertionMethod_TopDownLeftRight
-} GridLayoutInsertionMethod;
+    NUIGridLayoutInsertionMethod_None,
+    NUIGridLayoutInsertionMethod_LeftRightTopDown,
+    NUIGridLayoutInsertionMethod_TopDownLeftRight
+} NUIGridLayoutInsertionMethod;
 
 // Layout subviews in grid. Use UIView (GridLayout) properties for settings rows range and column range
 // Use UIView (CommonLayoutProperties) properties for setting minimum size, padding and alignment of view
@@ -25,10 +25,10 @@ typedef enum {
 
 @interface NUIGridLayout : NUILayout
 
-// Array of GridLength
+// Array of NUIGridLength
 @property (nonatomic, copy) NSArray *rows;
 @property (nonatomic, copy) NSArray *columns;
-@property (nonatomic, assign) GridLayoutInsertionMethod insertionMethod;
+@property (nonatomic, assign) NUIGridLayoutInsertionMethod insertionMethod;
 
 // columns and rows are array of strings. they are passed to initWithString: of GridLength
 - (id)initWithColumns:(NSArray *)columns rows:(NSArray *)rows;

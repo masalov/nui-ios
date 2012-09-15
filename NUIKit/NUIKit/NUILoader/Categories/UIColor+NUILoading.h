@@ -14,7 +14,8 @@
 
 @interface UIColor (NUILoading)
 
-// Loads font from a NUI element. Should have color attribute or red, blue, green and alpha.
+// Loads font from a NUI element. Should have color attribute, or red, blue, green and alpha or
+// patternImage.
 + (id)loadFromNUIObject:(NUIStatement *)nuiObject loader:(NUILoader *)loader
     error:(NUIError **)error;
 

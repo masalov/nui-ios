@@ -7,9 +7,9 @@
 //
 
 #import "NUILoader+ObjectsLoading.h"
-#import <UIKit/UIKit.h>
 #import "NUIStatement.h"
 #import "NUIError.h"
+#import "UIColor+NUILoading.h"
 
 @implementation NUILoader (ObjectsLoading)
 
@@ -63,7 +63,11 @@
         *error = [NUIError errorWithStatement:rvalue message:@"Expecting 6 or 8 numbers."];
         return NO;
     }
-    *error = [NUIError errorWithStatement:rvalue message:@"Expecting a string or an array."];
+    id color = [UIColor loadFromNUIObject:rvalue loader:self error:error];
+    if (color) {
+        [object setValue:color forKey:property];
+        return YES;
+    }
     return NO;
 }
 

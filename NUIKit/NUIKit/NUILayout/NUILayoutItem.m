@@ -10,6 +10,15 @@
 #import "NUILayout.h"
 #import "NUIView.h"
 
+static int ObserverContext;
+
+@interface NUILayoutItem ()
+{
+    CGSize lastPrefferedSize_;
+    CGSize lastPrefferedSizeConstraint_;
+}
+@end
+
 @implementation NUILayoutItem
 
 @synthesize layout = layout_;
@@ -38,12 +47,18 @@
     if (self) {
         maxWidth_ = CGFLOAT_MAX;
         maxHeight_ = CGFLOAT_MAX;
+        lastPrefferedSize_ = CGSizeMake(-1, -1);
+        lastPrefferedSizeConstraint_ = CGSizeMake(-1, -1);
+
+        [self addObserver:self forKeyPath:@"view.needsToUpdateSize" options:0
+            context:&ObserverContext];
     }
     return self;
 }
 
 - (void)dealloc
 {
+    [self removeObserver:self forKeyPath:@"view.needsToUpdateSize"];
     [view_ release];
     [super dealloc];
 }
@@ -159,6 +174,19 @@
     view_.needsToUpdateSize = YES;
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change
+    context:(void *)context
+{
+    if (context == &ObserverContext) {
+        if ([view_ needsToUpdateSize]) {
+            lastPrefferedSize_ = CGSizeMake(-1, -1);
+            lastPrefferedSizeConstraint_ = CGSizeMake(-1, -1);
+        }
+        return;
+    }
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
 - (CGFloat)constraintWidth:(CGFloat)width
 {
     if (self.isFixedWidthSet) {
@@ -201,11 +229,21 @@
         return CGSizeMake(self.fixedWidth + margin.left + margin.right,
                           self.fixedHeight + margin.top + margin.bottom);
     }
-    size.width -= margin.left + margin.right;
-    size.height -= margin.top + margin.bottom;
+    if (size.width != CGFLOAT_MAX) {
+        size.width -= margin.left + margin.right;
+    }
+    if (size.height != CGFLOAT_MAX) {
+        size.height -= margin.top + margin.bottom;
+    }
 
     size = [self constraintSize:size];
-    size = [self constraintSize:[view_ preferredSizeThatFits:size]];
+    if ((size.width != lastPrefferedSizeConstraint_.width ||
+        size.height != lastPrefferedSizeConstraint_.height) &&
+        (size.width != lastPrefferedSize_.width || size.height != lastPrefferedSize_.height)) {
+        lastPrefferedSizeConstraint_ = size;
+        lastPrefferedSize_ = [view_ preferredSizeThatFits:size];
+    }
+    size = [self constraintSize:lastPrefferedSize_];
     if (size.width != CGFLOAT_MAX) {
         size.width += margin.left + margin.right;
     }
@@ -217,9 +255,7 @@
 
 - (void)placeInRect:(CGRect)rect preferredSize:(CGSize)size
 {
-    NUILayoutItem *layoutItem = [layout_ layoutItem];
-    [view_ setHidden:visibility_ != NUIVisibility_Visible ||
-        (layoutItem && layoutItem.visibility != NUIVisibility_Visible)];
+    [view_ setHidden:visibility_ != NUIVisibility_Visible || layout_.hidden];
     // Setting frame even if a view is hidden to perform correct animation on showing/hiding.
     rect = UIEdgeInsetsInsetRect(rect, margin_);
     if (visibility_ == NUIVisibility_Collapsed) {

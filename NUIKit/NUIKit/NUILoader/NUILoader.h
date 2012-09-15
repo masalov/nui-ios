@@ -28,6 +28,7 @@
 
 @property (nonatomic, assign, readonly) id rootObject;
 @property (nonatomic, retain) NUIError *lastError;
+@property (nonatomic, retain, readonly) NSDictionary *styles;
 
 - (id)initWithRootObject:(id)rootObject;
 
@@ -39,6 +40,7 @@
 
 
 - (BOOL)loadObject:(id)object fromNUIObject:(NUIStatement *)nuiObject;
+- (BOOL)loadObject:(id)object fromNUIObject:(NUIStatement *)nuiObject logErrors:(BOOL)logErrors;
 - (id)loadObjectOfClass:(Class)cls fromNUIObject:(NUIStatement *)nuiObject;
 
 - (id)globalObjectForKey:(id)key;

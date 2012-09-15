@@ -79,6 +79,9 @@
         [UIView commitAnimations];
     }
     firstLayouting_ = NO;
+    for (UIView *view in self.subviews) {
+        [view layoutIfNeeded];
+    }
 }
 
 - (CGSize)preferredSizeThatFits:(CGSize)size

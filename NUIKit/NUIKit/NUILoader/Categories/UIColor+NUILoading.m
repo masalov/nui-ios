@@ -38,6 +38,10 @@
             blue:(CGFloat)((intColor & 0x0000FF00) >> 8) / 255.f
             alpha:(CGFloat)(intColor & 0x000000FF) / 255.f];
     }
+    value = [nuiObject property:@"patternImage" ofClass:[NSString class] error:error];
+    if (value) {
+        return [UIColor colorWithPatternImage:[UIImage imageNamed:value]];
+    }
     NSNumber *red = [nuiObject property:@"red" ofClass:[NSNumber class] error:error];
     NSNumber *green = [nuiObject property:@"green" ofClass:[NSNumber class] error:error];
     NSNumber *blue = [nuiObject property:@"blue" ofClass:[NSNumber class] error:error];

@@ -29,6 +29,7 @@
 
 - (UIView *)superview;
 - (void)setFrame:(CGRect)frame;
+- (BOOL)isHidden;
 - (void)setHidden:(BOOL)hidden;
 
 - (void)addToView:(NUILayoutView *)view;
