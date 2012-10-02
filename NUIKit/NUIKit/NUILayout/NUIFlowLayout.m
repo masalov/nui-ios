@@ -11,17 +11,8 @@
 
 @implementation NUIFlowLayout
 
-- (NUILayoutItem *)addSubview:(id<NUIView>)view
+- (void)layoutInRect:(CGRect)rect
 {
-    NUILayoutItem *layoutItem = [[[NUILayoutItem alloc] init] autorelease];
-    [self addSubview:view layoutItem:layoutItem];
-    return layoutItem;
-}
-
-- (void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-
     CGFloat y = 0;
     for (int firstView = 0; firstView < self.subviews.count;) {
         id pool = [[NSAutoreleasePool alloc] init];
@@ -32,10 +23,10 @@
         for (; nextFirstView < self.subviews.count; ++nextFirstView) {
             id<NUIView> view = [self.subviews objectAtIndex:nextFirstView];
             NUILayoutItem *item = [self layoutItemForSubview:view];
-            CGSize sz = [item sizeWithMarginThatFits:(CGSize){frame.size.width - width,
-                frame.size.height - y}];
+            CGSize sz = [item sizeWithMarginThatFits:(CGSize){rect.size.width - width,
+                rect.size.height - y}];
 
-            if (width + sz.width > frame.size.width) {
+            if (width + sz.width > rect.size.width) {
                 if (nextFirstView == firstView) {
                     [sizes addObject:[NSValue valueWithCGSize:sz]];
                     ++nextFirstView;
@@ -56,7 +47,7 @@
             id<NUIView> view = [self.subviews objectAtIndex:i];
             NUILayoutItem *item = [self layoutItemForSubview:view];
             CGSize sz = [[sizes objectAtIndex:i - firstView] CGSizeValue];
-            [item placeInRect:(CGRect){frame.origin.x + x, frame.origin.y + y, sz.width, maxHeight}
+            [item placeInRect:(CGRect){rect.origin.x + x, rect.origin.y + y, sz.width, maxHeight}
                 preferredSize:sz];
             x += sz.width;
         }

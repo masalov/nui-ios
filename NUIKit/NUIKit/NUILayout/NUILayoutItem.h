@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol NUIView;
+
 @class NUILayout;
 
 typedef enum {
@@ -31,8 +32,7 @@ typedef enum {
     NUIVisibility_Collapsed,
 } NUIVisibility;
 
-// Base class for layout item.
-// Layout item defines layouting attributes of corresponding view.
+/*! A base class for layout item. Layout item defines layouting attributes of corresponding view. */
 @interface NUILayoutItem : NSObject
 
 @property (nonatomic, assign) NUILayout *layout;
@@ -58,17 +58,20 @@ typedef enum {
 @property (nonatomic, assign) CGFloat fixedHeight;
 @property (nonatomic, assign) BOOL isFixedHeightSet;
 
-// Use it instead of view hidden property
+/*! Use it instead of view \b hidden property. */
 @property (nonatomic, assign) NUIVisibility visibility;
 
-// Constraining by min and max sizes
+/*! Constraining by min and max widths. */
 - (CGFloat)constraintWidth:(CGFloat)width;
+/*! Constraining by min and max heights. */
 - (CGFloat)constraintHeight:(CGFloat)height;
+/*! Constraining by min and max sizes. */
 - (CGSize)constraintSize:(CGSize)size;
 
+/*! Returns constained size returned by \b preferredSizeThatFits:. Performs caching.*/
 - (CGSize)sizeWithMarginThatFits:(CGSize)size;
 
-// Set view frame taking in respect view alignment
+/*! Sets view frame taking in respect view alignment. */
 - (void)placeInRect:(CGRect)rect preferredSize:(CGSize)size;
 
 @end

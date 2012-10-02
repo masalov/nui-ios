@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-// Sets needsToUpdateSize when needed
-// Maybe it would be better to write own label not based on UILabel
+/*! Overrides \b preferredSizeThatFits: method and set \b needsToUpdateSize to \b YES on changes. */
 @interface NUILabel : UILabel
+
+- (CGSize)preferredSizeThatFits:(CGSize)size;
 
 @end

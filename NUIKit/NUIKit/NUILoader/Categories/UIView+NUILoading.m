@@ -32,6 +32,30 @@
     return autoresizingMaskConstants;
 }
 
++ (NSDictionary *)nuiConstantsForContentMode
+{
+    static NSDictionary *contentModeConstants = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        contentModeConstants = [[NSDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithInt:UIViewContentModeScaleToFill], @"ScaleToFill",
+            [NSNumber numberWithInt:UIViewContentModeScaleAspectFit], @"ScaleAspectFit",
+            [NSNumber numberWithInt:UIViewContentModeScaleAspectFill], @"ScaleAspectFill",
+            [NSNumber numberWithInt:UIViewContentModeRedraw], @"Redraw",
+            [NSNumber numberWithInt:UIViewContentModeCenter], @"Center",
+            [NSNumber numberWithInt:UIViewContentModeTop], @"Top",
+            [NSNumber numberWithInt:UIViewContentModeBottom], @"Bottom",
+            [NSNumber numberWithInt:UIViewContentModeLeft], @"Left",
+            [NSNumber numberWithInt:UIViewContentModeRight], @"Right",
+            [NSNumber numberWithInt:UIViewContentModeTopLeft], @"TopLeft",
+            [NSNumber numberWithInt:UIViewContentModeTopRight], @"TopRight",
+            [NSNumber numberWithInt:UIViewContentModeBottomLeft], @"BottomLeft",
+            [NSNumber numberWithInt:UIViewContentModeBottomRight], @"BottomRight",
+            nil];
+    });
+    return contentModeConstants;
+}
+
 - (BOOL)loadNUISubviewsFromRValue:(NUIStatement *)array loader:(NUILoader *)loader
     error:(NUIError **)error
 {

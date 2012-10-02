@@ -6,14 +6,13 @@
 //  Copyright (c) 2012 eko team. All rights reserved.
 //
 
-#import "NUILayout.h"
+#import "NUISimpleLayout.h"
 
 @class NUILayoutItem;
 
-// Layouts subview in horizontal lines.
-// Lines are directed from the left to the right. First line is top one.
-@interface NUIFlowLayout : NUILayout
-
-- (NUILayoutItem *)addSubview:(id<NUIView>)view;
+/*! Layouts subviews in horizontal lines. Lines are directed from the left to the right.
+ *  The first line is the top one.
+ */
+@interface NUIFlowLayout : NUISimpleLayout
 
 @end

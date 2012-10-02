@@ -8,8 +8,9 @@
 
 #import "NUISimpleLayout.h"
 
-// Layout subview vertically one after another. The rest height is divided uniformly between
-// subviews that have HorizontalAlignment_Stretch alignment.
+/*! Layouts subviews vertically one after another. The rest height is divided uniformly between
+ *  subviews that have \b NUIHorizontalAlignment_Stretch alignment.
+ */
 @interface NUIHorizontalLayout : NUISimpleLayout
 
 @end

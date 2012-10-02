@@ -12,15 +12,13 @@
 
 @implementation NUIVerticalLayout
 
-- (void)setFrame:(CGRect)frame
+- (void)layoutInRect:(CGRect)rect
 {
-    [super setFrame:frame];
-
     CGSize *sizes = (CGSize *)malloc(sizeof(CGSize) * self.subviews.count);
     __block CGFloat y = 0;
-    __block CGFloat restSize = frame.size.height;
+    __block CGFloat restSize = rect.size.height;
     __block int cStretchable = 0;
-    __block CGSize constraintSize = frame.size;
+    __block CGSize constraintSize = rect.size;
     // Get preferred sizes and count of stretchable elements
     [self.subviews enumerateObjectsUsingBlock:^(id<NUIView> subview, NSUInteger idx, BOOL *stop) {
         NUILayoutItem *item = [self layoutItemForSubview:subview];
@@ -44,7 +42,7 @@
             restSize -= additionalSize;
             --cStretchable;
         }
-        [item placeInRect:CGRectMake(frame.origin.x, frame.origin.y + y, frame.size.width,
+        [item placeInRect:CGRectMake(rect.origin.x, rect.origin.y + y, rect.size.width,
             sizes[idx].height) preferredSize:sizes[idx]];
         y += sizes[idx].height;
     }];

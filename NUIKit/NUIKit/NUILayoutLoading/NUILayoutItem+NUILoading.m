@@ -2,21 +2,6 @@
 
 @implementation NUILayoutItem (NUILoading)
 
-+ (NSDictionary *)nuiConstantsForVerticalAlignment
-{
-    static NSDictionary *verticalAlignmentConstants = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        verticalAlignmentConstants = [[NSDictionary alloc] initWithObjectsAndKeys:
-            [NSNumber numberWithInt:NUIVerticalAlignment_Top], @"Top",
-            [NSNumber numberWithInt:NUIVerticalAlignment_Stretch], @"Stretch",
-            [NSNumber numberWithInt:NUIVerticalAlignment_Center], @"Center",
-            [NSNumber numberWithInt:NUIVerticalAlignment_Bottom], @"Bottom",
-            nil];
-    });
-    return verticalAlignmentConstants;
-}
-
 + (NSDictionary *)nuiConstantsForHorizontalAlignment
 {
     static NSDictionary *horizontalAlignmentConstants = nil;
@@ -30,6 +15,21 @@
             nil];
     });
     return horizontalAlignmentConstants;
+}
+
++ (NSDictionary *)nuiConstantsForVerticalAlignment
+{
+    static NSDictionary *verticalAlignmentConstants = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        verticalAlignmentConstants = [[NSDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithInt:NUIVerticalAlignment_Top], @"Top",
+            [NSNumber numberWithInt:NUIVerticalAlignment_Stretch], @"Stretch",
+            [NSNumber numberWithInt:NUIVerticalAlignment_Center], @"Center",
+            [NSNumber numberWithInt:NUIVerticalAlignment_Bottom], @"Bottom",
+            nil];
+    });
+    return verticalAlignmentConstants;
 }
 
 + (NSDictionary *)nuiConstantsForVisibility

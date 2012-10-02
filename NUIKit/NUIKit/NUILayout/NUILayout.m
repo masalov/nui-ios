@@ -69,6 +69,7 @@
     for (id<NUIView> subview in self.subviews) {
         subview.needsToUpdateSize = NO;
     }
+    [self layoutInRect:frame];
 }
 
 - (void)addToView:(NUILayoutView *)view
@@ -177,6 +178,10 @@
     return item;
 }
 
+
+- (void)layoutInRect:(CGRect)rect
+{
+}
 
 - (CGSize)preferredSizeThatFits:(CGSize)size
 {

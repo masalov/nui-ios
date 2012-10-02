@@ -16,6 +16,8 @@ static int NeedsToUpdateSizeKey;
 
 @implementation UIView (NUILayout)
 
+@dynamic hidden;
+
 - (void)setNeedsToUpdateSize:(BOOL)needsToUpdateSize
 {
     NSNumber *value = [NSNumber numberWithBool:needsToUpdateSize];

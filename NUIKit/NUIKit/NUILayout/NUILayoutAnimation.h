@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+/*! A class for specifing animation paraemters during layouting. */
 @interface NUILayoutAnimation : NSObject
 
-// default = 0.2
+/*! Default value is 0.2. */
 @property (nonatomic, assign) NSTimeInterval duration;
-// default = 0.0
+/*! Default value is 0.0. */
 @property (nonatomic, assign) NSTimeInterval delay;
-// default = UIViewAnimationCurveEaseInOut
+/*! Default value is \b UIViewAnimationCurveEaseInOut. */
 @property (nonatomic, assign) UIViewAnimationCurve curve;
 
 @end

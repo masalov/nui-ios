@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+/*! Overrides \b preferredSizeThatFits: method. */
 @interface UIButton (NUILayout)
 
 - (CGSize)preferredSizeThatFits:(CGSize)size;

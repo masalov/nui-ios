@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "NUILoader.h"
 
-// To parse a struct add a method to NUILoader with the signature:
-// - (BOOL)load<struct name>PropertyOfObject:(id)object setter:(SEL)setter value:(id)rvalue
-// error:(NUIError **)error
+/*! To parse a struct add a method to NUILoader with the signature:
+ *  - (BOOL)load<struct name>PropertyOfObject:(id)object setter:(SEL)setter value:(id)rvalue
+ *  error:(NUIError **)error
+ */
 @interface NUILoader (StructuresLoading)
 
 - (BOOL)loadCGSizePropertyOfObject:(id)object setter:(SEL)setter value:(NUIStatement *)value

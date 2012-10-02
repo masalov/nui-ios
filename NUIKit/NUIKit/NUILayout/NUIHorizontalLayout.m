@@ -12,15 +12,13 @@
 
 @implementation NUIHorizontalLayout
 
-- (void)setFrame:(CGRect)frame
+- (void)layoutInRect:(CGRect)rect
 {
-    [super setFrame:frame];
-
     CGSize *sizes = (CGSize *)malloc(sizeof(CGSize) * self.subviews.count);
     __block CGFloat x = 0;
-    __block CGFloat restSize = frame.size.width;
+    __block CGFloat restSize = rect.size.width;
     __block int cStretchable = 0;
-    __block CGSize constraintSize = frame.size;
+    __block CGSize constraintSize = rect.size;
     // Get preferred sizes and count of stretchable elements
     [self.subviews enumerateObjectsUsingBlock:^(id<NUIView> subview, NSUInteger idx, BOOL *stop) {
         NUILayoutItem *item = [self layoutItemForSubview:subview];
@@ -44,8 +42,8 @@
             restSize -= additionalSize;
             --cStretchable;
         }
-        [item placeInRect:CGRectMake(frame.origin.x + x, frame.origin.y, sizes[idx].width,
-            frame.size.height) preferredSize:sizes[idx]];
+        [item placeInRect:CGRectMake(rect.origin.x + x, rect.origin.y, sizes[idx].width,
+            rect.size.height) preferredSize:sizes[idx]];
         x += sizes[idx].width;
     }];
     free(sizes);

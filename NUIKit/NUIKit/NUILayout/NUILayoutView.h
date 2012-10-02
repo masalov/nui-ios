@@ -11,16 +11,15 @@
 @class NUILayout;
 @class NUILayoutAnimation;
 
-// View with layout. Sets autoresizesSubviews to NO
-// and monitors needsToUpdateSize property of subviews.
-// Do not add subviews via UIView methods, use layout methods.
+/*! A view with a layout. Sets \b autoresizesSubviews to \b NO and monitors \b needsToUpdateSize
+ *  property of subviews. Do not add subviews via UIView methods, use layout methods.
+ */
 @interface NUILayoutView : UIView
 
-// Changing this property causes removing subviews from old layout
-// and adding from new one
+/*! Changing this property causes removing subviews from old layout and adding from new one. */
 @property (nonatomic, retain) NUILayout *layout;
 
-// If not nil subviews layouting will be animated
+/*! If not \b nil subviews layouting will be animated. */
 @property (nonatomic, retain) NUILayoutAnimation *layoutAnimation;
 
 @end

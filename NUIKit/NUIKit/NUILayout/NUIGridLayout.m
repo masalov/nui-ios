@@ -33,8 +33,8 @@
 
 @implementation NUIGridLayout
 
-@synthesize rows = rows_;
 @synthesize columns = columns_;
+@synthesize rows = rows_;
 @synthesize insertionMethod = insertionMethod_;
 
 - (id)initWithColumns:(NSArray *)columns rows:(NSArray *)rows
@@ -181,20 +181,18 @@
                     context:NULL];
 }
 
-- (void)setFrame:(CGRect)frame
+- (void)layoutInRect:(CGRect)rect
 {
-    [super setFrame:frame];
-
     NSUInteger cColumn = 0, cRow = 0;
     CGFloat *widths = NULL, *heights = NULL;
     NSMutableDictionary *subviewSizes = [NSMutableDictionary dictionary];
     [self widths:&widths count:&cColumn heights:&heights count:&cRow subviewSizes:subviewSizes
-         forSize:frame.size];
+         forSize:rect.size];
     for (int i = 0; i < cColumn; ++i) {
-        frame.size.width -= widths[i];
+        rect.size.width -= widths[i];
     }
     for (int i = 0; i < cRow; ++i) {
-        frame.size.height -= heights[i];
+        rect.size.height -= heights[i];
     }
     CGFloat stretchFactor = 0;
     for (int i = 0; i < columns_.count; ++i) {
@@ -206,8 +204,8 @@
     for (int i = 0; i < columns_.count && stretchFactor > 0; ++i) {
         NUIGridLength *column = [columns_ objectAtIndex:i];
         if (column.type == NUIGridLengthType_Star) {
-            widths[i] = floorf(frame.size.width * column.value / stretchFactor);
-            frame.size.width -= widths[i];
+            widths[i] = floorf(rect.size.width * column.value / stretchFactor);
+            rect.size.width -= widths[i];
             stretchFactor -= column.value;
         }
     }
@@ -221,8 +219,8 @@
     for (int i = 0; i < rows_.count && stretchFactor > 0; ++i) {
         NUIGridLength *row = [rows_ objectAtIndex:i];
         if (row.type == NUIGridLengthType_Star) {
-            heights[i] = floorf(frame.size.height * row.value / stretchFactor);
-            frame.size.height -= heights[i];
+            heights[i] = floorf(rect.size.height * row.value / stretchFactor);
+            rect.size.height -= heights[i];
             stretchFactor -= row.value;
         }
     }
@@ -246,7 +244,7 @@
         NSString *key = [[NSString alloc] initWithFormat:@"%p", subview];
         CGSize sz = [[subviewSizes objectForKey:key] CGSizeValue];
         [key release];
-        [item placeInRect:CGRectMake(frame.origin.x + x, frame.origin.y + y, x2 - x, y2 - y)
+        [item placeInRect:CGRectMake(rect.origin.x + x, rect.origin.y + y, x2 - x, y2 - y)
             preferredSize:sz];
     }
     free(widths);
@@ -394,12 +392,14 @@
                     if (!value) {
                         CGSize maxSize = constraintSize;
                         if (maxSize.width != CGFLOAT_MAX) {
-                            for (int i = cRange.location; i < cRange.location + cRange.length; ++i) {
+                            for (int i = cRange.location; i < cRange.location + cRange.length;
+                                ++i) {
                                 maxSize.width += minWidth[i];
                             }
                         }
                         if (maxSize.height != CGFLOAT_MAX) {
-                            for (int i = rRange.location; i < rRange.location + rRange.length; ++i) {
+                            for (int i = rRange.location; i < rRange.location + rRange.length;
+                                ++i) {
                                 maxSize.height += minHeight[i];
                             }
                         }
@@ -410,8 +410,11 @@
                     }
                     [key release];
                     // Update min size
-                    if (nColumn >= columns_.count ||
-                        ((NUIGridLength *)[columns_ objectAtIndex:nColumn]).type == NUIGridLengthType_Auto) {
+                    NUIGridLengthType lengthType = NUIGridLengthType_Auto;
+                    if (nColumn < columns_.count) {
+                        lengthType = ((NUIGridLength *)[columns_ objectAtIndex:nColumn]).type;
+                    }
+                    if (lengthType == NUIGridLengthType_Auto) {
                         for (int i = cRange.location; i < cRange.location + cRange.length; ++i) {
                             if (i != nColumn) {
                                 subviewSize.width -= minWidth[i];
@@ -424,9 +427,11 @@
                             minWidth[nColumn] = subviewSize.width;
                         }
                     }
-
-                    if (nRow >= rows_.count ||
-                        ((NUIGridLength *)[rows_ objectAtIndex:nRow]).type == NUIGridLengthType_Auto) {
+                    lengthType = NUIGridLengthType_Auto;
+                    if (nRow < rows_.count) {
+                        lengthType = ((NUIGridLength *)[rows_ objectAtIndex:nRow]).type;
+                    }
+                    if (lengthType == NUIGridLengthType_Auto) {
                         for (int i = rRange.location; i < rRange.location + rRange.length; ++i) {
                             if (i != nRow) {
                                 subviewSize.height -= minHeight[i];

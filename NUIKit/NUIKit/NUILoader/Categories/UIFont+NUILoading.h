@@ -12,11 +12,15 @@
 @class NUIError;
 @class NUILoader;
 
+/*! A category to support loading of \b UIFont objects from NUI. */
 @interface UIFont (NUILoading)
 
-// Loads font from a NUI element. Size attribute is mandatory. If no other attributes normal system
-// font is used. Specify type attribute to use bold, italic or normal system font. To load font with
-// specific name set name attribute.
+/*! Allows to load \b UIFont from NUI. The following properties are can be used:
+ *  * \b size - a font size.
+ *  * \b name - a font name (optional, system font is used by default).
+ *  * \b type - a system font type: \b bold, \b italic or \b normal (optional, \b normal by
+ *    default).
+ */
 + (id)loadFromNUIObject:(NUIStatement *)nuiObject loader:(NUILoader *)loader
     error:(NUIError **)error;
 

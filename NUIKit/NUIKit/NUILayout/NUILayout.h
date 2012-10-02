@@ -12,32 +12,43 @@
 @class NUILayoutView;
 @class NUILayoutItem;
 
-// Base class for layouts. Each layout has subviews and corresponding layout items.
-// Adding/removing subview should cause adding/removing subview to current view.
-// Override setFrame to implement layouting.
+/*! Base class for layouts. Each layout has subviews and corresponding layout items.
+ *  Adding/removing subview should cause adding/removing subview to current view.
+ *  Override \b layoutInRect: to implement layouting.
+ */
 @interface NUILayout : NSObject <NUIView>
 
+/*! A view where \b subviews are placed. \b supreview.layout is not necessary equals to the current
+ *  object.
+ */
 @property (nonatomic, assign) NUILayoutView *superview;
-@property(nonatomic,getter=isHidden) BOOL hidden;
+@property (nonatomic, getter=isHidden) BOOL hidden;
 @property (nonatomic, assign) BOOL needsToUpdateSize;
 
+/*! Adds view, layout item pair to layout. */
 - (void)addSubview:(id<NUIView>)view layoutItem:(NUILayoutItem *)layoutItem;
+/*! Inserts view, layout item pair to layout below \b siblingSubview. */
 - (void)insertSubview:(id<NUIView>)view belowSubview:(UIView *)siblingSubview
     layoutItem:(NUILayoutItem *)layoutItem;
+/*! Inserts view, layout item pair to layout above \b siblingSubview. */
 - (void)insertSubview:(id<NUIView>)view aboveSubview:(UIView *)siblingSubview
     layoutItem:(NUILayoutItem *)layoutItem;
+/*! Removes view from layout. */
 - (void)removeSubview:(id<NUIView>)view;
 
-// Array of NUIView objects.
+/*! An array of NUIView objects. */
 - (NSArray *)subviews;
 
-// Override if custom layout item is needed. Don't forget to set layout property.
+/*! Creates layout item (\b NUILayoutItem by default). Override if custom layout items are needed.
+ */
 - (NUILayoutItem *)createLayoutItem;
+/*! Returns layout item that corresponds to \b subview. */
 - (NUILayoutItem *)layoutItemForSubview:(id<NUIView>)subview;
-// Searches in sublayouts.
+/*! Returns layout item that corresponds to \b subview. If \b recursively is set to \b YES than
+ * prefroms search in sublayouts too.
+ */
 - (NUILayoutItem *)layoutItemForSubview:(id<NUIView>)subview recursively:(BOOL)recursively;
-
-// Returns CGSizeZero by default.
-- (CGSize)preferredSizeThatFits:(CGSize)size;
+/*! Override to perform layouting. */
+- (void)layoutInRect:(CGRect)rect;
 
 @end

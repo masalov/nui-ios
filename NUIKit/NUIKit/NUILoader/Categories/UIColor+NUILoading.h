@@ -12,10 +12,15 @@
 @class NUILoader;
 @class NUIError;
 
+/*! A category to support loading of \b UIColor objects from NUI. */
 @interface UIColor (NUILoading)
 
-// Loads font from a NUI element. Should have color attribute, or red, blue, green and alpha or
-// patternImage.
+/*! Allows to load \b UIColor from NUI. There are several ways to set color:
+ *  * \b color - a string with HTML code of a color or a string of 8 symbols: HTML code + alpha.
+ *  * \b red, \b green, \b blue, \b alpha - numeric values, alpha is optional.
+ *  * \b patternImage - a string with a image name from resources that will be used to create a
+ *    color with \b colorWithPatternImage: method.
+ */
 + (id)loadFromNUIObject:(NUIStatement *)nuiObject loader:(NUILoader *)loader
     error:(NUIError **)error;
 
