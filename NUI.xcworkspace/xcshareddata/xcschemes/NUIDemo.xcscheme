@@ -17,7 +17,7 @@
                BlueprintIdentifier = "BDFBE90215B3E21F00A7822C"
                BuildableName = "NUIDemo.app"
                BlueprintName = "NUIDemo"
-               ReferencedContainer = "container:NUIDemo.xcodeproj">
+               ReferencedContainer = "container:NUIDemo/NUIDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "BDFBE90215B3E21F00A7822C"
             BuildableName = "NUIDemo.app"
             BlueprintName = "NUIDemo"
-            ReferencedContainer = "container:NUIDemo.xcodeproj">
+            ReferencedContainer = "container:NUIDemo/NUIDemo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -54,7 +54,7 @@
             BlueprintIdentifier = "BDFBE90215B3E21F00A7822C"
             BuildableName = "NUIDemo.app"
             BlueprintName = "NUIDemo"
-            ReferencedContainer = "container:NUIDemo.xcodeproj">
+            ReferencedContainer = "container:NUIDemo/NUIDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -72,7 +72,7 @@
             BlueprintIdentifier = "BDFBE90215B3E21F00A7822C"
             BuildableName = "NUIDemo.app"
             BlueprintName = "NUIDemo"
-            ReferencedContainer = "container:NUIDemo.xcodeproj">
+            ReferencedContainer = "container:NUIDemo/NUIDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
