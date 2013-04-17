@@ -3,7 +3,7 @@
 //  NUILayout
 //
 //  Created by Ivan Masalov on 4/4/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import "NUILayout.h"
@@ -28,7 +28,7 @@ typedef enum {
 /*! Setting this property allows to place subviews one after another without specifying columns and
  *  rows explicitly.
  */
-@property (nonatomic, assign) NUIGridLayoutInsertionMethod insertionMethod;
+@property (nonatomic, unsafe_unretained) NUIGridLayoutInsertionMethod insertionMethod;
 
 /*! Allows to simplify setting of columns and rows. \b columns and \b rows are arrays of strings
  *  that used to create \b NUIGridLength with \b initWithString: method. */

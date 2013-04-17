@@ -3,7 +3,7 @@
 //  NUILayout
 //
 //  Created by Ivan Masalov on 4/4/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import "NUILayoutView.h"
@@ -40,9 +40,6 @@
     for (UIView *subview in self.subviews) {
         [subview removeObserver:self forKeyPath:@"needsToUpdateSize"];
     }
-    [layout_ release];
-    [layoutAnimation_ release];
-    [super dealloc];
 }
 
 - (void)setLayout:(NUILayout *)layout
@@ -56,8 +53,6 @@
         [subview removeFromSuperview];
     }
 
-    [layout retain];
-    [layout_ release];
     layout_ = layout;
 
     layout_.superview = self;

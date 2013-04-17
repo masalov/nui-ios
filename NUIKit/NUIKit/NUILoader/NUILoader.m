@@ -3,7 +3,7 @@
 //  NUILoader
 //
 //  Created by Ivan Masalov on 7/3/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import "NUILoader.h"
@@ -53,7 +53,6 @@ static SEL propertyConstantsGetter(NSString *property)
 
 @interface NUILoader ()
 {
-    id rootObject_;
     NSMutableDictionary *globalObjects_;
     NSMutableSet *rootProperties_;
     NSMutableDictionary *constants_;
@@ -84,18 +83,6 @@ static SEL propertyConstantsGetter(NSString *property)
         states_ = [[NSMutableDictionary alloc] init];
     }
     return self;
-}
-
-- (void)dealloc
-{
-    [globalObjects_ release];
-    [rootProperties_ release];
-    [constants_ release];
-    [styles_ release];
-    [states_ release];
-    [lastError_ release];
-
-    [super dealloc];
 }
 
 - (void)reset
@@ -180,7 +167,7 @@ static SEL propertyConstantsGetter(NSString *property)
         self.lastError = error;
         return object;
     }
-    id object = [[[subclass alloc] init] autorelease];
+    id object = [[subclass alloc] init];
     if (![self loadObject:object fromNUIObject:nuiObject]) {
         return nil;
     }
@@ -211,7 +198,7 @@ static SEL propertyConstantsGetter(NSString *property)
                         object = [cl loadFromNUIObject:constant loader:self error:&error];
                         self.lastError = error;
                     } else {
-                        object = [[[cl alloc] init] autorelease];
+                        object = [[cl alloc] init];
                         [self loadObject:object fromNUIObject:constant];
                     }
                 }
@@ -305,7 +292,7 @@ static SEL propertyConstantsGetter(NSString *property)
 
 - (BOOL)loadFromFile:(NSString *)file mainFile:(BOOL)mainFile
 {
-    NUIData *data = [[[NUIData alloc] init] autorelease];
+    NUIData *data = [[NUIData alloc] init];
     data.fileName = file;
     NSString *fullPath = [[NSBundle mainBundle] pathForResource:file ofType:nil];
     if (!fullPath) {
@@ -313,13 +300,13 @@ static SEL propertyConstantsGetter(NSString *property)
         return NO;
     }
     NSError *error = nil;
-    data.data = [[[NSString alloc] initWithContentsOfFile:fullPath
-        encoding:NSUTF8StringEncoding error:&error] autorelease];
+    data.data = [[NSString alloc] initWithContentsOfFile:fullPath
+        encoding:NSUTF8StringEncoding error:&error];
     if (!data.data || error) {
         NSLog(@"Can not load file \"%@\": %@", file, [error description]);
         return NO;
     }
-    NUIAnalyzer *analyzer = [[[NUIAnalyzer alloc] initWithData:data] autorelease];
+    NUIAnalyzer *analyzer = [[NUIAnalyzer alloc] initWithData:data];
     if (![analyzer loadImports]) {
         [self logError:analyzer.lastError data:data];
         return NO;
@@ -466,8 +453,8 @@ static SEL propertyConstantsGetter(NSString *property)
         if (len > 1 && type[0] == '{') {
             for (int i = 0; i < len; ++i) {
                 if (type[i] == '=') {
-                    NSString *tmp = [[[NSString alloc] initWithBytes:type + 1 length:i - 1
-                        encoding:NSASCIIStringEncoding] autorelease];
+                    NSString *tmp = [[NSString alloc] initWithBytes:type + 1 length:i - 1
+                        encoding:NSASCIIStringEncoding];
                     SEL parser = structPropertyParser(tmp);
                     if ([self respondsToSelector:parser]) {
                         NUIError *error = nil;

@@ -3,7 +3,7 @@
 //  NUILayout
 //
 //  Created by Ivan Masalov on 4/4/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import "NUILayoutItem.h"
@@ -59,8 +59,6 @@ static int ObserverContext;
 - (void)dealloc
 {
     [self removeObserver:self forKeyPath:@"view.needsToUpdateSize"];
-    [view_ release];
-    [super dealloc];
 }
 
 - (void)setMargin:(UIEdgeInsets)margin

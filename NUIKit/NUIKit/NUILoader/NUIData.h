@@ -3,7 +3,7 @@
 //  NUIKit
 //
 //  Created by Ivan Masalov on 8/10/12.
-//  Copyright (c) 2012 Ivan Masalov. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -15,8 +15,8 @@ typedef struct NUIPositionInLine {
 
 @interface NUIData : NSObject
 
-@property (nonatomic, retain) NSString *fileName;
-@property (nonatomic, retain) NSString *data;
+@property (nonatomic, copy) NSString *fileName;
+@property (nonatomic, copy) NSString *data;
 
 - (NUIPositionInLine)positionInLineFromPosition:(int)position;
 

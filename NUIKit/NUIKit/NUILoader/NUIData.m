@@ -3,7 +3,7 @@
 //  NUIKit
 //
 //  Created by Ivan Masalov on 8/10/12.
-//  Copyright (c) 2012 Ivan Masalov. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import "NUIData.h"
@@ -12,14 +12,6 @@
 
 @synthesize fileName = fileName_;
 @synthesize data = data_;
-
-- (void)dealloc
-{
-    [fileName_ release];
-    [data_ release];
-
-    [super dealloc];
-}
 
 - (NUIPositionInLine)positionInLineFromPosition:(int)position
 {

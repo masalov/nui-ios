@@ -3,7 +3,7 @@
 //  NUIKit
 //
 //  Created by Ivan Masalov on 8/9/12.
-//  Copyright (c) 2012 Ivan Masalov. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import "NUIStatement+BinaryOperator.h"

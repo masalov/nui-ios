@@ -3,7 +3,7 @@
 //  NUILoader
 //
 //  Created by Ivan Masalov on 7/3/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import "NUIAnalyzer.h"
@@ -14,11 +14,6 @@
 #import "NUIData.h"
 
 static NSString *Punctuation = @";,";
-
-typedef struct {
-    NSString *value;
-    NUIStatementType type;
-} NUIBinaryOperatorValue;
 
 @interface NUIAnalyzer ()
 {
@@ -32,7 +27,7 @@ typedef struct {
     NSMutableDictionary *states_;
 }
 
-@property (nonatomic, retain) NUIError *lastError;
+@property (nonatomic, strong) NUIError *lastError;
 
 @end
 
@@ -49,9 +44,9 @@ typedef struct {
 {
     self = [super init];
     if (self) {
-        punctuation_ = [[NSCharacterSet characterSetWithCharactersInString:Punctuation] retain];
+        punctuation_ = [NSCharacterSet characterSetWithCharactersInString:Punctuation];
 
-        data_ = [data retain];
+        data_ = data;
         imports_ = [[NSMutableArray alloc] init];
         constants_ = [[NSMutableDictionary alloc] init];
         styles_ = [[NSMutableDictionary alloc] init];
@@ -60,26 +55,9 @@ typedef struct {
     return self;
 }
 
-- (void)dealloc
-{
-    [punctuation_ release];
-
-    [data_ release];
-    [imports_ release];
-    [constants_ release];
-    [styles_ release];
-    [states_ release];
-    [mainAssignment_ release];
-    [lastError_ release];
-
-    [super dealloc];
-}
-
 - (void)setLastError:(NUIError *)lastError
 {
     NSAssert(lastError == nil || lastError_ == nil, @"Last error already set.");
-    [lastError retain];
-    [lastError_ release];
     lastError_ = lastError;
 }
 
@@ -174,7 +152,7 @@ typedef struct {
                 continue;
             } else {
                 position_ = identifier.range.location;
-                mainAssignment_ = [[self loadAssignment:&position_] retain];
+                mainAssignment_ = [self loadAssignment:&position_];
                 return mainAssignment_ != nil;
             }
         }
@@ -223,8 +201,8 @@ typedef struct {
     if (!range.length) {
         return nil;
     }
-    NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
-        type:NUIStatementType_SimpleIdentifier] autorelease];
+    NUIStatement *statement = [[NUIStatement alloc] initWithData:data_
+        type:NUIStatementType_SimpleIdentifier];
     statement.range = NSMakeRange(*position, range.length);
     statement.value = [data_.data substringWithRange:statement.range];
     *position += range.length;
@@ -245,8 +223,8 @@ typedef struct {
     if (!range.length) {
         return nil;
     }
-    NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
-        type:NUIStatementType_Identifier] autorelease];
+    NUIStatement *statement = [[NUIStatement alloc] initWithData:data_
+        type:NUIStatementType_Identifier];
     statement.range = NSMakeRange(*position, range.length);
     statement.value = [data_.data substringWithRange:statement.range];
     *position += range.length;
@@ -267,8 +245,8 @@ typedef struct {
     if (!range.length) {
         return nil;
     }
-    NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
-        type:NUIStatementType_SystemIdentifier] autorelease];
+    NUIStatement *statement = [[NUIStatement alloc] initWithData:data_
+        type:NUIStatementType_SystemIdentifier];
     statement.range = NSMakeRange(*position, range.length);
     statement.value = [data_.data substringWithRange:statement.range];
     *position += range.length;
@@ -296,8 +274,8 @@ typedef struct {
         if (NSOrderedSame != [data_.data compare:op2 options:0 range:(NSRange){r.location -
             op2.length + r.length, r.length}]) {
             pos = r.location + r.length;
-            NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
-                type:NUIStatementType_String] autorelease];
+            NUIStatement *statement = [[NUIStatement alloc] initWithData:data_
+                type:NUIStatementType_String];
             statement.range = NSMakeRange(*position, pos - *position);
             statement.value = [data_.data substringWithRange:(NSRange){*position + op.length, pos -
                 *position - 2 * op.length}];
@@ -344,8 +322,8 @@ typedef struct {
         [properties setObject:rvalue forKey:identifier.value];
         continue;
     }
-    NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_ type:
-        NUIStatementType_ObjectSystemProperties] autorelease];
+    NUIStatement *statement = [[NUIStatement alloc] initWithData:data_ type:
+        NUIStatementType_ObjectSystemProperties];
     statement.range = NSMakeRange(*position, pos - *position);
     statement.value = properties;
     *position = pos;
@@ -369,8 +347,8 @@ typedef struct {
         }
         [properties addObject:assignment];
     }
-    NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
-        type:NUIStatementType_ObjectProperties] autorelease];
+    NUIStatement *statement = [[NUIStatement alloc] initWithData:data_
+        type:NUIStatementType_ObjectProperties];
     statement.range = NSMakeRange(*position, pos - *position);
     statement.value = properties;
     *position = pos;
@@ -401,8 +379,8 @@ typedef struct {
         return nil;
     }
     pos += op.length;
-    NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
-        type:NUIStatementType_Object] autorelease];
+    NUIStatement *statement = [[NUIStatement alloc] initWithData:data_
+        type:NUIStatementType_Object];
     statement.range = NSMakeRange(*position, pos - *position);
     statement.value = [NSArray arrayWithObjects:systemProperties, properties, nil];
     *position = pos;
@@ -418,7 +396,7 @@ typedef struct {
     }
     pos += op.length;
     op = @"]";
-    NSMutableArray *array = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
     while (YES) {
         if (![self skipSpacesAndPunctuation:&pos]) {
             self.lastError = [NUIError errorWithData:data_ position:pos
@@ -427,8 +405,8 @@ typedef struct {
         }
         if ([data_.data compare:op options:0 range:(NSRange){pos, op.length}] == NSOrderedSame) {
             pos += op.length;
-            NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
-                type:NUIStatementType_Array] autorelease];
+            NUIStatement *statement = [[NUIStatement alloc] initWithData:data_
+                type:NUIStatementType_Array];
             statement.range = NSMakeRange(*position, pos - *position);
             statement.value = array;
             *position = pos;
@@ -471,8 +449,8 @@ typedef struct {
         if (!rvalue) {
             return nil;
         }
-        NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_ type:
-            NUIStatementType_AssignmentOperator] autorelease];
+        NUIStatement *statement = [[NUIStatement alloc] initWithData:data_ type:
+            NUIStatementType_AssignmentOperator];
         statement.range = NSMakeRange(*position, pos - *position);
         statement.value = [NSArray arrayWithObjects:lvalue, rvalue, nil];
 
@@ -491,8 +469,8 @@ typedef struct {
             if (!rvalue) {
                 return nil;
             }
-            NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_ type:
-                NUIStatementType_ModificationOperator] autorelease];
+            NUIStatement *statement = [[NUIStatement alloc] initWithData:data_ type:
+                NUIStatementType_ModificationOperator];
             statement.range = NSMakeRange(*position, pos - *position);
             statement.value = [NSArray arrayWithObjects:lvalue, rvalue, nil];
 
@@ -536,7 +514,7 @@ typedef struct {
         return nil;
     }
 
-    NUIStatement *statement = [[[NUIStatement alloc] init] autorelease];
+    NUIStatement *statement = [[NUIStatement alloc] init];
     statement.range = NSMakeRange(*position, pos - *position);
     statement.value = [NSArray arrayWithObjects:lvalue, rvalue, nil];
 
@@ -546,16 +524,20 @@ typedef struct {
 
 - (NUIStatement *)loadNumericOperator:(int *)position lvalue:(id)lvalue
 {
-    static NUIBinaryOperatorValue numericOperators[] = {
-        @"|", NUIStatementType_BitwiseOrOperator
-    };
+    static NSDictionary *numericOperators = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        numericOperators = @{
+            @"|" : [NSNumber numberWithInt:NUIStatementType_BitwiseOrOperator]
+        };
+    });
+
 
     int pos  = *position;
-    int count = sizeof(numericOperators) / sizeof(numericOperators[0]);
-    for (int i = 0; i < count; ++i) {
-        if ([data_.data compare:numericOperators[i].value options:0 range:(NSRange){pos,
-            numericOperators[i].value.length}] == NSOrderedSame) {
-            pos += numericOperators[i].value.length;
+    for (NSString *value in numericOperators) {
+        if ([data_.data compare:value options:0 range:(NSRange){pos, value.length}]
+            == NSOrderedSame) {
+            pos += value.length;
             if (![self skipSpaces:&pos]) {
                 return nil;
             }
@@ -563,8 +545,8 @@ typedef struct {
             if (!rvalue) {
                 return nil;
             }
-            NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
-                type:numericOperators[i].type] autorelease];
+            NUIStatement *statement = [[NUIStatement alloc] initWithData:data_
+                type:[numericOperators[value] intValue]];
             statement.range = NSMakeRange(*position, pos - *position);
             statement.value = [NSArray arrayWithObjects:lvalue, rvalue, nil];
 
@@ -635,8 +617,8 @@ typedef struct {
     if (!range.length) {
         return nil;
     }
-    NUIStatement *statement = [[[NUIStatement alloc] initWithData:data_
-        type:NUIStatementType_Number] autorelease];
+    NUIStatement *statement = [[NUIStatement alloc] initWithData:data_
+        type:NUIStatementType_Number];
     statement.range = NSMakeRange(*position, range.length);
     NSString *str = [data_.data substringWithRange:(NSRange){*position, range.length}];
     statement.value = [NSNumber numberWithDouble:[str doubleValue]];

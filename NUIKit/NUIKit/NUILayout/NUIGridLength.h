@@ -3,7 +3,7 @@
 //  NUILayout
 //
 //  Created by Ivan Masalov on 4/4/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -21,8 +21,8 @@ typedef enum {
 /*! Used by \b NUIGridLayout to define columns and rows. */
 @interface NUIGridLength : NSObject
 
-@property (nonatomic, assign) CGFloat value;
-@property (nonatomic, assign) NUIGridLengthType type;
+@property (nonatomic, unsafe_unretained) CGFloat value;
+@property (nonatomic, unsafe_unretained) NUIGridLengthType type;
 
 /*! Initializes an object with NUIGridLengthType_Pixel type. */
 - (id)initWithPixelValue:(CGFloat)value;

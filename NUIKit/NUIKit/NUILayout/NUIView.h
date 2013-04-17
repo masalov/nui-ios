@@ -3,7 +3,7 @@
 //  NUILayout
 //
 //  Created by Ivan Masalov on 8/20/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -19,12 +19,12 @@
 /*! Layout objects monitor this option to update layout and set their \b needsToUpdateSize to \b YES
  *  so parent layout will update layout too.
  */
-@property (nonatomic, assign) BOOL needsToUpdateSize;
+@property (nonatomic, unsafe_unretained) BOOL needsToUpdateSize;
 
 /*! This property should be used directly. It set by \b NUILayoutItem objects to hide a view or to
  *  notify a layout object that its subviews should be hidden.
  */
-@property (nonatomic, getter=isHidden) BOOL hidden;
+@property (nonatomic, unsafe_unretained, getter=isHidden) BOOL hidden;
 
 /*! If \b superview is \b NUILayoutView and its layout is set than returns a layout item from the
  *  layout that corresponds to this view. Otherwise returns \b nil.

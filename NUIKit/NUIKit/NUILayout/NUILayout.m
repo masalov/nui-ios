@@ -3,7 +3,7 @@
 //  NUILayout
 //
 //  Created by Ivan Masalov on 4/4/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import "NUILayout.h"
@@ -35,13 +35,6 @@
         subviews_ = [[NSMutableArray alloc] init];
     }
     return self;
-}
-
-- (void)dealloc
-{
-    [subviews_ release];
-    [layoutItems_ release];
-    [super dealloc];
 }
 
 #pragma mark - Properties
@@ -151,20 +144,20 @@
 
 - (NUILayoutItem *)createLayoutItem
 {
-    NUILayoutItem *item = [[[NUILayoutItem alloc] init] autorelease];
+    NUILayoutItem *item = [[NUILayoutItem alloc] init];
     item.layout = self;
     return item;
 }
 
 - (NUILayoutItem *)layoutItemForSubview:(id<NUIView>)subview
 {
-    NSString *key = [[[NSString alloc] initWithFormat:@"%p", subview] autorelease];
+    NSString *key = [[NSString alloc] initWithFormat:@"%p", subview];
     return [layoutItems_ objectForKey:key];
 }
 
 - (NUILayoutItem *)layoutItemForSubview:(id<NUIView>)subview recursively:(BOOL)recursively
 {
-    NSString *key = [[[NSString alloc] initWithFormat:@"%p", subview] autorelease];
+    NSString *key = [[NSString alloc] initWithFormat:@"%p", subview];
     NUILayoutItem *item = [layoutItems_ objectForKey:key];
     if (!item) {
         for (NUILayout *sublayout in subviews_) {
@@ -193,13 +186,13 @@
 - (void)setLayoutItem:(NUILayoutItem *)layoutItem forSubview:(id<NUIView>)subview
 {
     layoutItem.view = subview;
-    NSString *key = [[[NSString alloc] initWithFormat:@"%p", subview] autorelease];
+    NSString *key = [[NSString alloc] initWithFormat:@"%p", subview];
     [layoutItems_ setObject:layoutItem forKey:key];
 }
 
 - (void)removeLayoutItemForSubview:(id<NUIView>)subview
 {
-    NSString *key = [[[NSString alloc] initWithFormat:@"%p", subview] autorelease];
+    NSString *key = [[NSString alloc] initWithFormat:@"%p", subview];
     return [layoutItems_ removeObjectForKey:key];
 }
 

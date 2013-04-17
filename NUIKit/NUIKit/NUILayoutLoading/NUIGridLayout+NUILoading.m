@@ -1,3 +1,11 @@
+//
+//  NUIGridLayout+NUILoading.m
+//  NUILayoutLoading
+//
+//  Created by Ivan Masalov on 7/12/12.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
+//
+
 #import "NUIGridLayout+NUILoading.h"
 #import "NUIGridLength.h"
 #import "NUIStatement.h"
@@ -16,8 +24,8 @@
     NSArray *components = [value.value componentsSeparatedByString:@","];
     NSMutableArray *columns = [NSMutableArray arrayWithCapacity:components.count];
     for (NSString *str in components) {
-        str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        NUIGridLength *l = [[[NUIGridLength alloc] initWithString:str] autorelease];
+        NUIGridLength *l = [[NUIGridLength alloc] initWithString:
+            [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
         [columns addObject:l];
     }
     self.columns = columns;
@@ -35,8 +43,8 @@
     NSArray *components = [value.value componentsSeparatedByString:@","];
     NSMutableArray *rows = [NSMutableArray arrayWithCapacity:components.count];
     for (NSString *str in components) {
-        str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        NUIGridLength *l = [[[NUIGridLength alloc] initWithString:str] autorelease];
+        NUIGridLength *l = [[NUIGridLength alloc] initWithString:
+            [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
         [rows addObject:l];
     }
     self.rows = rows;

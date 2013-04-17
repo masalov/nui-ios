@@ -1,3 +1,11 @@
+//
+//  NUIGridLayout+NUILoading.h
+//  NUILayoutLoading
+//
+//  Created by Ivan Masalov on 7/12/12.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
+//
+
 #import "NUIGridLayout.h"
 
 @class NUIStatement;

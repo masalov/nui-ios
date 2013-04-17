@@ -3,7 +3,7 @@
 //  NUILayout
 //
 //  Created by Ivan Masalov on 4/4/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -35,31 +35,31 @@ typedef enum {
 /*! A base class for layout item. Layout item defines layouting attributes of corresponding view. */
 @interface NUILayoutItem : NSObject
 
-@property (nonatomic, assign) NUILayout *layout;
-@property (nonatomic, retain) id<NUIView> view;
+@property (nonatomic, unsafe_unretained) NUILayout *layout;
+@property (nonatomic, strong) id<NUIView> view;
 
-@property (nonatomic, assign) UIEdgeInsets margin;
-@property (nonatomic, assign) NUIVerticalAlignment verticalAlignment;
-@property (nonatomic, assign) NUIHorizontalAlignment horizontalAlignment;
+@property (nonatomic, unsafe_unretained) UIEdgeInsets margin;
+@property (nonatomic, unsafe_unretained) NUIVerticalAlignment verticalAlignment;
+@property (nonatomic, unsafe_unretained) NUIHorizontalAlignment horizontalAlignment;
 
-@property (nonatomic, assign) CGSize minSize;
-@property (nonatomic, assign) CGSize maxSize;
-@property (nonatomic, assign) CGSize fixedSize;
+@property (nonatomic, unsafe_unretained) CGSize minSize;
+@property (nonatomic, unsafe_unretained) CGSize maxSize;
+@property (nonatomic, unsafe_unretained) CGSize fixedSize;
 
-@property (nonatomic, assign) CGFloat minWidth;
-@property (nonatomic, assign) CGFloat maxWidth;
+@property (nonatomic, unsafe_unretained) CGFloat minWidth;
+@property (nonatomic, unsafe_unretained) CGFloat maxWidth;
 
-@property (nonatomic, assign) CGFloat minHeight;
-@property (nonatomic, assign) CGFloat maxHeight;
+@property (nonatomic, unsafe_unretained) CGFloat minHeight;
+@property (nonatomic, unsafe_unretained) CGFloat maxHeight;
 
-@property (nonatomic, assign) CGFloat fixedWidth;
-@property (nonatomic, assign) BOOL isFixedWidthSet;
+@property (nonatomic, unsafe_unretained) CGFloat fixedWidth;
+@property (nonatomic, unsafe_unretained) BOOL isFixedWidthSet;
 
-@property (nonatomic, assign) CGFloat fixedHeight;
-@property (nonatomic, assign) BOOL isFixedHeightSet;
+@property (nonatomic, unsafe_unretained) CGFloat fixedHeight;
+@property (nonatomic, unsafe_unretained) BOOL isFixedHeightSet;
 
 /*! Use it instead of view \b hidden property. */
-@property (nonatomic, assign) NUIVisibility visibility;
+@property (nonatomic, unsafe_unretained) NUIVisibility visibility;
 
 /*! Constraining by min and max widths. */
 - (CGFloat)constraintWidth:(CGFloat)width;

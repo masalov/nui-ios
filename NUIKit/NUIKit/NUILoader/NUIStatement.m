@@ -3,7 +3,7 @@
 //  NUIKit
 //
 //  Created by Ivan Masalov on 8/9/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import "NUIStatement.h"
@@ -24,14 +24,6 @@
         statementType_ = type;
     }
     return self;
-}
-
-- (void)dealloc
-{
-    [value_ release];
-    [data_ release];
-
-    [super dealloc];
 }
 
 @end

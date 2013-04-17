@@ -3,7 +3,7 @@
 //  NUIKit
 //
 //  Created by Ivan Masalov on 8/9/12.
-//  Copyright (c) 2012 Ivan Masalov. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -33,22 +33,14 @@
     return [self initWithData:statement.data position:statement.range.location message:message];
 }
 
-- (void)dealloc
-{
-    [data_ release];
-    [message_ release];
-
-    [super dealloc];
-}
-
 + (id)errorWithData:(NUIData *)data position:(int)position message:(NSString *)message
 {
-    return [[[NUIError alloc] initWithData:data position:position message:message] autorelease];
+    return [[NUIError alloc] initWithData:data position:position message:message];
 }
 
 + (id)errorWithStatement:(NUIStatement *)statement message:(NSString *)message
 {
-    return [[[NUIError alloc] initWithStatement:statement message:message] autorelease];
+    return [[NUIError alloc] initWithStatement:statement message:message];
 }
 
 @end

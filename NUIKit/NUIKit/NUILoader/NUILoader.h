@@ -3,7 +3,7 @@
 //  NUILoader
 //
 //  Created by Ivan Masalov on 7/3/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -31,9 +31,9 @@
  */
 @interface NUILoader : NSObject
 
-@property (nonatomic, assign, readonly) id rootObject;
-@property (nonatomic, retain) NUIError *lastError;
-@property (nonatomic, retain, readonly) NSDictionary *styles;
+@property (nonatomic, unsafe_unretained, readonly) id rootObject;
+@property (nonatomic, strong) NUIError *lastError;
+@property (nonatomic, strong, readonly) NSDictionary *styles;
 
 - (id)initWithRootObject:(id)rootObject;
 

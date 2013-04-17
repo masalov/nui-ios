@@ -3,7 +3,7 @@
 //  NUIKit
 //
 //  Created by Ivan Masalov on 8/9/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -35,10 +35,10 @@ typedef enum NUIStatementType {
 
 @interface NUIStatement : NSObject
 
-@property (nonatomic, assign) NSRange range;
-@property (nonatomic, assign) NUIStatementType statementType;
-@property (nonatomic, retain) id value;
-@property (nonatomic, retain) NUIData *data;
+@property (nonatomic, unsafe_unretained) NSRange range;
+@property (nonatomic, unsafe_unretained) NUIStatementType statementType;
+@property (nonatomic, strong) id value;
+@property (nonatomic, strong) NUIData *data;
 
 - (id)initWithData:(NUIData *)data type:(NUIStatementType)type;
 

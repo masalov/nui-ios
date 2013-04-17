@@ -186,7 +186,6 @@
 		BD15054015CF954C0096EB13 = {
 			isa = PBXGroup;
 			children = (
-				BD15055C15CF957E0096EB13 /* UIKit.framework */,
 				BD15055015CF954C0096EB13 /* NUIKit */,
 				BD15054D15CF954C0096EB13 /* Frameworks */,
 				BD15054C15CF954C0096EB13 /* Products */,
@@ -204,6 +203,7 @@
 		BD15054D15CF954C0096EB13 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BD15055C15CF957E0096EB13 /* UIKit.framework */,
 				BD15054E15CF954C0096EB13 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -523,6 +523,7 @@
 		BD15055A15CF954C0096EB13 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				DSTROOT = /tmp/NUIKit.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
@@ -536,6 +537,7 @@
 		BD15055B15CF954C0096EB13 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				DSTROOT = /tmp/NUIKit.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";

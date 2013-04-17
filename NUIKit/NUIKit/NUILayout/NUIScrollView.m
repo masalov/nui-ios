@@ -3,7 +3,7 @@
 //  NUILayout
 //
 //  Created by Ivan Masalov on 4/4/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import "NUIScrollView.h"
@@ -31,9 +31,6 @@
 - (void)dealloc
 {
     [contentView_ removeObserver:self forKeyPath:@"needsToUpdateSize"];
-    [contentView_ release];
-    [contentLayoutItem_ release];
-    [super dealloc];
 }
 
 - (void)setHorizontalScrollerEnabled:(BOOL)horizontalScrollerEnabled
@@ -61,7 +58,6 @@
         [contentView_ removeFromSuperview];
         [contentView_ removeObserver:self forKeyPath:@"needsToUpdateSize"];
     }
-    [contentView retain];
     contentView_ = contentView;
     [contentView_ addObserver:self
                    forKeyPath:@"needsToUpdateSize"

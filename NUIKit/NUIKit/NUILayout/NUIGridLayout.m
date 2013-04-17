@@ -3,7 +3,7 @@
 //  NUILayout
 //
 //  Created by Ivan Masalov on 4/4/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import <CoreGraphics/CoreGraphics.h>
@@ -53,14 +53,11 @@
         [item removeObserver:self forKeyPath:@"columnRange"];
         [item removeObserver:self forKeyPath:@"rowRange"];
     }
-    [rows_ release];
-    [columns_ release];
-    [super dealloc];
 }
 
 - (NUILayoutItem *)createLayoutItem
 {
-    NUIGridLayoutItem *item = [[[NUIGridLayoutItem alloc] init] autorelease];
+    NUIGridLayoutItem *item = [[NUIGridLayoutItem alloc] init];
     item.layout = self;
     return item;
 }
@@ -83,13 +80,13 @@
 {
     NSMutableArray *c = [NSMutableArray arrayWithCapacity:columns.count];
     for (NSString *str in columns) {
-        NUIGridLength *column = [[[NUIGridLength alloc] initWithString:str] autorelease];
+        NUIGridLength *column = [[NUIGridLength alloc] initWithString:str];
         [c addObject:column];
     }
     self.columns = c;
     NSMutableArray *r = [NSMutableArray arrayWithCapacity:rows.count];
     for (NSString *str in rows) {
-        NUIGridLength *row = [[[NUIGridLength alloc] initWithString:str] autorelease];
+        NUIGridLength *row = [[NUIGridLength alloc] initWithString:str];
         [r addObject:row];
     }
     self.rows = r;
@@ -243,7 +240,6 @@
         CGFloat y2 = index > 0 ? heights[index - 1] : 0;
         NSString *key = [[NSString alloc] initWithFormat:@"%p", subview];
         CGSize sz = [[subviewSizes objectForKey:key] CGSizeValue];
-        [key release];
         [item placeInRect:CGRectMake(rect.origin.x + x, rect.origin.y + y, x2 - x, y2 - y)
             preferredSize:sz];
     }
@@ -408,7 +404,6 @@
                     } else {
                         subviewSize = [value CGSizeValue];
                     }
-                    [key release];
                     // Update min size
                     NUIGridLengthType lengthType = NUIGridLengthType_Auto;
                     if (nColumn < columns_.count) {
@@ -460,7 +455,7 @@
     if (heights) {
         *heights = minHeight;
     } else {
-        free(heights);
+        free(minHeight);
     }
     if (rowsCount) {
         *rowsCount = cRows;
@@ -469,7 +464,7 @@
 
 - (NUIGridLayoutItem *)addLayoutItemForSubview:(id<NUIView>)view
 {
-    NUIGridLayoutItem *layoutItem = [[[NUIGridLayoutItem alloc] init] autorelease];
+    NUIGridLayoutItem *layoutItem = [[NUIGridLayoutItem alloc] init];
     [self addSubview:view layoutItem:layoutItem];
     return layoutItem;
 }

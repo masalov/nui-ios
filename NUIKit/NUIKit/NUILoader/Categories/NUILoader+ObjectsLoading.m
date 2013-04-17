@@ -3,7 +3,7 @@
 //  NUILoader
 //
 //  Created by Ivan Masalov on 7/12/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import "NUILoader+ObjectsLoading.h"
@@ -22,7 +22,6 @@
             *error = [NUIError errorWithStatement:rvalue message:@"Expecting 6 or 8 symbols."];
             return NO;
         }
-        id pool = [[NSAutoreleasePool alloc] init];
         NSString *stringColor = [NSString stringWithFormat:@"%@%@", value,
             ((value.length == 6) ? @"FF" : [NSString string])];
         NSScanner *scanner = [NSScanner scannerWithString:stringColor];
@@ -31,7 +30,6 @@
         if (![scanner scanHexInt:&intColor]) {
             intColor = 0;
         }
-        [pool release];
         [object setValue:[UIColor colorWithRed:(CGFloat)((intColor & 0xFF000000) >> 24) / 255.f
             green:(CGFloat)((intColor & 0x00FF0000) >> 16) / 255.f
             blue:(CGFloat)((intColor & 0x0000FF00) >> 8) / 255.f

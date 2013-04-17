@@ -3,7 +3,7 @@
 //  NUILayout
 //
 //  Created by Ivan Masalov on 4/4/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -21,9 +21,9 @@
 /*! A view where \b subviews are placed. \b supreview.layout is not necessary equals to the current
  *  object.
  */
-@property (nonatomic, assign) NUILayoutView *superview;
-@property (nonatomic, getter=isHidden) BOOL hidden;
-@property (nonatomic, assign) BOOL needsToUpdateSize;
+@property (nonatomic, unsafe_unretained) NUILayoutView *superview;
+@property (nonatomic, unsafe_unretained, getter=isHidden) BOOL hidden;
+@property (nonatomic, unsafe_unretained) BOOL needsToUpdateSize;
 
 /*! Adds view, layout item pair to layout. */
 - (void)addSubview:(id<NUIView>)view layoutItem:(NUILayoutItem *)layoutItem;

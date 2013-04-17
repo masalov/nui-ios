@@ -1,3 +1,11 @@
+//
+//  NUILayout+NUILoading.m
+//  NUILayoutLoading
+//
+//  Created by Ivan Masalov on 7/12/12.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
+//
+
 #import <Foundation/Foundation.h>
 #import "NUILayout+NUILoading.h"
 #import "NUILayoutItem.h"

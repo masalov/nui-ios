@@ -3,7 +3,7 @@
 //  NUILoader
 //
 //  Created by Ivan Masalov on 7/4/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import "nui_utils.h"
@@ -24,10 +24,9 @@ NSString *propertyClassName(Class cl, NSString *propertyName)
     int len = strlen(attributes);
     for (int i = 3; i < len; ++i) {
         if (attributes[i] == '\"') {
-            return [[[NSString alloc] initWithBytes:attributes + 3
+            return [[NSString alloc] initWithBytes:attributes + 3
                                              length:i - 3
-                                           encoding:NSASCIIStringEncoding]
-                    autorelease];
+                                           encoding:NSASCIIStringEncoding];
         }
     }
     return nil;

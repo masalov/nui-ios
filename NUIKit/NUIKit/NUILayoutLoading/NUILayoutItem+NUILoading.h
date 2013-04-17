@@ -1,3 +1,11 @@
+//
+//  NUILayoutItem+NUILoading.h
+//  NUILayoutLoading
+//
+//  Created by Ivan Masalov on 7/12/12.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
+//
+
 #import "NUILayoutItem.h"
 
 /*! A category to support loading of properties of \b NUILayoutItem from NUI that can't be loaded

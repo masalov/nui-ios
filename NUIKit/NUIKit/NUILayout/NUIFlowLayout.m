@@ -3,7 +3,7 @@
 //  NUILayout
 //
 //  Created by Ivan Masalov on 4/4/12.
-//  Copyright (c) 2012 eko team. All rights reserved.
+//  Copyright (c) 2012 Noveo Group. All rights reserved.
 //
 
 #import "NUIFlowLayout.h"
@@ -15,9 +15,7 @@
 {
     CGFloat y = 0;
     for (int firstView = 0; firstView < self.subviews.count;) {
-        id pool = [[NSAutoreleasePool alloc] init];
-
-        NSMutableArray *sizes = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray *sizes = [[NSMutableArray alloc] init];
         int nextFirstView = firstView;
         CGFloat width = 0;
         for (; nextFirstView < self.subviews.count; ++nextFirstView) {
@@ -53,8 +51,6 @@
         }
         y += maxHeight;
         firstView = nextFirstView;
-
-        [pool release];
     }
 }
 
