@@ -11,7 +11,8 @@
 #import "NUICellLayoutItem.h"
 #import "NUILayoutView.h"
 #import "UIView+NUILayout.h"
-#import "NUILayoutConfig.h"
+
+#import "NUIMath.h"
 
 static int observerContext;
 
@@ -170,7 +171,7 @@ static int observerContext;
         NSRange range = item.cellRange;
 
         CGFloat y = range.location > 0 ? heights[range.location - 1] : 0;
-        int index = range.location + range.length;
+        NSUInteger index = range.location + range.length;
         CGFloat y2 = index > 0 ? heights[index - 1] : 0;
 
         NSString *key = [[NSString alloc] initWithFormat:@"%p", subview];
@@ -209,7 +210,7 @@ static int observerContext;
             value = cell.value;
         }
         if (type == NUIGridLengthType_Auto) {
-            int position = autoCellIndexes.count;
+            NSUInteger position = autoCellIndexes.count;
             for (; position > 0; --position) {
                 int index = [autoCellIndexes[position - 1] intValue];
                 CGFloat v = 0.f;
@@ -256,7 +257,7 @@ static int observerContext;
                 CGSize maxSize = (CGSize){size.width, constraint};
                 if (maxSize.height != CGFLOAT_MAX) {
                     // Add fixed-sized cell sizes to max size
-                    for (int i = cellRange.location; i < cellRange.location +
+                    for (NSUInteger i = cellRange.location; i < cellRange.location +
                         cellRange.length; ++i) {
                         maxSize.height += cellSizes[i];
                     }
@@ -264,7 +265,7 @@ static int observerContext;
                 CGSize subviewSize = [item sizeWithMarginThatFits:maxSize];
                 if (subviewSize.height != CGFLOAT_MAX) {
                     // Substract fixed-sized cell sizes to subview size
-                    for (int i = cellRange.location; i < cellRange.location +
+                    for (NSUInteger i = cellRange.location; i < cellRange.location +
                         cellRange.length; ++i) {
                         subviewSize.height -= cellSizes[i];
                     }
@@ -304,7 +305,7 @@ static int observerContext;
             for (int i = 0; i < self.cells.count && stretchFactor > 0; ++i) {
                 NUIGridLength *cell = self.cells[i];
                 if (cell.type == NUIGridLengthType_Star) {
-                    cellSizes[i] = scaled_floorf(constraint * cell.value /
+                    cellSizes[i] = nuiScaledFloorf(constraint * cell.value /
                         stretchFactor);
                     constraint -= cellSizes[i];
                     stretchFactor -= cell.value;
@@ -322,7 +323,7 @@ static int observerContext;
                 [self layoutItemForSubview:subview];
             NSRange cellRange = item.cellRange;
             CGSize maxSize = (CGSize){size.width, 0};
-            for (int i = cellRange.location; i < cellRange.location +
+            for (NSUInteger i = cellRange.location; i < cellRange.location +
                 cellRange.length; ++i) {
                 maxSize.height += cellSizes[i];
             }

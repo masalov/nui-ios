@@ -36,22 +36,22 @@
     self.view.needsToUpdateSize = YES;
 }
 
-- (void)setColumn:(int)column
+- (void)setColumn:(NSUInteger)column
 {
     self.columnRange = (NSRange){column, self.columnRange.length};
 }
 
-- (int)column
+- (NSUInteger)column
 {
     return columnRange_.location;
 }
 
-- (void)setRow:(int)row
+- (void)setRow:(NSUInteger)row
 {
     self.rowRange = (NSRange){row, self.rowRange.length};
 }
 
-- (int)row
+- (NSUInteger)row
 {
     return rowRange_.location;
 }

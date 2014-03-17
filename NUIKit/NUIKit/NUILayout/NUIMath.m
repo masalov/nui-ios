@@ -6,13 +6,23 @@
 //  Copyright (c) 2013 Noveo Group. All rights reserved.
 //
 
-#import "NUILayoutConfig.h"
+#import "NUIMath.h"
 
 #import <math.h>
 
 float nuiRoudningScale = 1.f;
 
-float scaled_floorf(float value)
+float nuiScaledFloorf(float value)
 {
     return floorf(value * nuiRoudningScale) / nuiRoudningScale;
+}
+
+float nuiScaledCeilf(float value)
+{
+    return ceilf(value * nuiRoudningScale) / nuiRoudningScale;
+}
+
+float nuiScaledTruncf(float value)
+{
+    return truncf(value * nuiRoudningScale) / nuiRoudningScale;
 }

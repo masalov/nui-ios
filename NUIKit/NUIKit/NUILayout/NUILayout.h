@@ -25,6 +25,10 @@
 @property (nonatomic, unsafe_unretained, getter=isHidden) BOOL hidden;
 @property (nonatomic, unsafe_unretained) BOOL needsToUpdateSize;
 
+/*! An object that should help to distinct one layout from another when
+ *  debugging. */
+@property (nonatomic, strong) id tag;
+
 /*! Adds view, layout item pair to layout. */
 - (void)addSubview:(id<NUIView>)view layoutItem:(NUILayoutItem *)layoutItem;
 /*! Inserts view, layout item pair to layout below \b siblingSubview. */

@@ -29,7 +29,7 @@
 /*! Used as a position for inserted view if position is not specified explicitly.
  *  Updated after inserting a view to the cell after the view.
  */
-@property (nonatomic, unsafe_unretained) int insertPosition;
+@property (nonatomic, unsafe_unretained) NSUInteger insertPosition;
 
 /*! Allows to simplify configuring of cells. \b cells are arrays of strings that
  *  used to create \b NUIGridLength with \b initWithString: method. */

@@ -8,4 +8,6 @@
 
 extern float nuiRoudningScale;
 
-float scaled_floorf(float value);
+float nuiScaledFloorf(float value);
+float nuiScaledCeilf(float value);
+float nuiScaledTruncf(float value);

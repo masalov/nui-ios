@@ -16,8 +16,11 @@ typedef enum {
     NUIGridLayoutInsertionMethod_TopDownLeftRight
 } NUIGridLayoutInsertionMethod;
 
-/*! Layouts subviews in a grid. A subview can take several columns and rows. If there are not enough
- *  columns or rows they are added automatically with \b NUIGridLengthType_Auto type.
+/*! NUIGridLayout behaviour is not quite correct better to use
+ *  NUIHorizontalCellLayout and NUIVerticalCellLayout.
+ *  Layouts subviews in a grid. A subview can take several columns and rows. If
+ *  there are not enough columns or rows they are added automatically with
+ *  \b NUIGridLengthType_Auto type.
  */
 @interface NUIGridLayout : NUILayout
 

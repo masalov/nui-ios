@@ -24,3 +24,5 @@
 #import "UIView+NUILayout.h"
 #import "NUILabel.h"
 #import "NUIScrollView.h"
+
+#import "NUIMath.h"

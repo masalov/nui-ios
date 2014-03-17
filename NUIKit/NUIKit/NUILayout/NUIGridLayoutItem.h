@@ -16,8 +16,8 @@
 /*! A range of rows. Default value is [0, 1]. */
 @property (nonatomic, unsafe_unretained) NSRange rowRange;
 /*! A column number. Default value is 0. */
-@property (nonatomic, unsafe_unretained) int column;
+@property (nonatomic, unsafe_unretained) NSUInteger column;
 /*! A row number. Default value is 0. */
-@property (nonatomic, unsafe_unretained) int row;
+@property (nonatomic, unsafe_unretained) NSUInteger row;
 
 @end
