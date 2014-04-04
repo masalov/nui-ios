@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Noveo Group. All rights reserved.
 //
 
-extern float nuiRoudningScale;
+extern float nuiRoundingScale;
 
 float nuiScaledFloorf(float value);
 float nuiScaledCeilf(float value);

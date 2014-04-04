@@ -7,6 +7,7 @@
 //
 
 #import "NUIGridLayoutItem.h"
+
 #import "UIView+NUILayout.h"
 
 @implementation NUIGridLayoutItem

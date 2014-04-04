@@ -12,10 +12,10 @@
 
 /*!
  *  Layouts subviews in a row. A subview can take several columns. Columns sizes
- *  calculated in following order:
+ *  calculated in the following order:
  *  * Fixed-sized columns size is fixed.
  *  * Auto-sized columns size is calculated using remaining space as constraint.
- *    Columns with bigger priority processed first, so they are constrainted
+ *    Columns with bigger priority processed first, so they are constrained
  *    with bigger area.
  *  * Remaining space is divided between stretchable columns according to the
  *    factors.

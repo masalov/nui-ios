@@ -10,19 +10,19 @@
 
 #import <math.h>
 
-float nuiRoudningScale = 1.f;
+float nuiRoundingScale = 1.f;
 
 float nuiScaledFloorf(float value)
 {
-    return floorf(value * nuiRoudningScale) / nuiRoudningScale;
+    return floorf(value * nuiRoundingScale) / nuiRoundingScale;
 }
 
 float nuiScaledCeilf(float value)
 {
-    return ceilf(value * nuiRoudningScale) / nuiRoudningScale;
+    return ceilf(value * nuiRoundingScale) / nuiRoundingScale;
 }
 
 float nuiScaledTruncf(float value)
 {
-    return truncf(value * nuiRoudningScale) / nuiRoudningScale;
+    return truncf(value * nuiRoundingScale) / nuiRoundingScale;
 }

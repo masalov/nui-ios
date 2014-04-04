@@ -8,9 +8,10 @@
 
 #import "NUILayoutItem.h"
 
+/*! Layout item used by NUIHorizontalCellLayout and NUIVerticalCellLayout. */
 @interface NUICellLayoutItem : NUILayoutItem
 
-/*! A range of cells. Default value is [0, 1]. */
+/*! A range of cells taken by view. Default value is [0, 1]. */
 @property (nonatomic, unsafe_unretained) NSRange cellRange;
 
 @end
